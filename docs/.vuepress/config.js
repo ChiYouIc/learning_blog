@@ -14,7 +14,7 @@ module.exports = {
     description: 'learning something',
     port: 8085,
     dest: 'public',
-    base: 'cy_blog',
+    base: 'learning_blog',
     themeConfig: {
         logo: '/logo.png',
         sidebarDepth: 2,
