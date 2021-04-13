@@ -13,6 +13,8 @@ module.exports = {
     title: '一兜小白菜',
     description: 'learning something',
     port: 8085,
+    dest: 'public',
+    base: 'cy_blog',
     themeConfig: {
         logo: '/logo.png',
         sidebarDepth: 2,
