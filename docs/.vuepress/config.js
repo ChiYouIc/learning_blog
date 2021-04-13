@@ -1,7 +1,15 @@
 const go = require("../go/index");
 const java = require("../java/index");
+const architect = require('../architect/index')
+
+function handleSidebar() {
+    return Object.assign(java.config.sidebar, go.config.sidebar, architect.config.sidebar);
+}
 
 module.exports = {
+    head: [
+        ['link', {rel: 'icon', href: '/logo.png'}]
+    ],
     title: '一兜小白菜',
     description: 'learning something',
     port: 8085,
@@ -13,11 +21,8 @@ module.exports = {
             {text: 'Home', link: '/'},
             java.config.nav,
             go.config.nav,
+            architect.config.nav
         ],
-        sidebar: {
-            '/': [],
-            ['' + java.config.link]: java.config.sidebar,
-            ['' + go.config.link]: go.config.sidebar
-        }
+        sidebar: handleSidebar()
     }
 }
