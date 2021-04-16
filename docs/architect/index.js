@@ -6,8 +6,8 @@ exports.config = {
     sidebar: {
         '/architect/': [
             '',
-            'multithreading',
-            'database_system'
+            '多线程',
+            '数据库管理系统'
         ]
     }
 }
