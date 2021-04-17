@@ -9,7 +9,7 @@
     "vuepress": "^1.8.2"
   },
   "scripts": {
-    "docs:dev": "vuepress dev docs --temp .temp",
+    "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs"
   },
   "dependencies": {

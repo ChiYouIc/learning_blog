@@ -4,12 +4,14 @@ const go = require("../go/index");
 const java = require("../java/index");
 const architect = require('../architect/index')
 const spring = require('../spring/index')
+const microservice = require('../microservice/index')
 
 const nav = [
     {text: 'Home', link: '/'},
     java.config.nav,
     go.config.nav,
     spring.config.nav,
+    microservice.config.nav,
     architect.config.nav
 ]
 
@@ -30,7 +32,8 @@ function handleSidebar() {
         java.config.sidebar,
         go.config.sidebar,
         architect.config.sidebar,
-        spring.config.sidebar
+        spring.config.sidebar,
+        microservice.config.sidebar
     );
 }
 
