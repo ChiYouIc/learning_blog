@@ -5,8 +5,9 @@ exports.config = {
     nav: {
         text: 'Java Learning', items: [
             {text: 'JVM 虚拟机', link: '/java/jvm/'},
-            {text: 'JVM IO', link: '/java/io/'},
-            {text: 'JVM NIO', link: '/java/nio/'}
+            {text: 'Java 多线程', link: '/java/thread/'},
+            {text: 'Java IO', link: '/java/io/'},
+            {text: 'Java NIO', link: '/java/nio/'},
         ]
     },
     sidebar: {
@@ -21,6 +22,12 @@ exports.config = {
             'GC 垃圾收集器',
             'Java IO&NIO',
             'JVM 类加载机制',
+        ],
+        '/java/thread/': [
+            '',
+            '线程池',
+            '线程生命周期',
+            '线程终止'
         ],
         '/java/io/': [],
         '/java/nio/': []
