@@ -49,7 +49,6 @@ module.exports = {
     port: 8085,
     dest: 'public',
     base: '/learning_blog/',
-    theme: 'antdocs',
     themeConfig: {
         logo: '/logo.png',
         sidebarDepth: 1,
