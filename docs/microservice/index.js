@@ -5,6 +5,7 @@ exports.config = {
     nav: {
         text: '微服务', items: [
             {text: 'Eureka 服务注册与发现', link: '/microservice/eureka/'},
+            {text: 'Ribbon 负载均衡', link: '/microservice/ribbon/'},
         ]
     },
     sidebar: {
@@ -12,6 +13,9 @@ exports.config = {
             '',
             'Eureka 服务搭建',
             'Eureka 集群搭建'
+        ],
+        '/microservice/ribbon/': [
+            ''
         ],
     }
 }
