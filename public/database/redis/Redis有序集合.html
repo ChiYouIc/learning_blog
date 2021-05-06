@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Redis 有序集合 | 一兜小白菜</title>
+    <meta name="description" content="">
+    <meta name="generator" content="VuePress 1.8.2">
+    <link rel="icon" href="/learning_blog/logo.png">
+    <meta name="description" content="learning something">
+    <link rel="preload" href="/learning_blog/assets/css/0.styles.292e88f6.css" as="style"><link rel="preload" href="/learning_blog/assets/js/app.c78e1d1a.js" as="script"><link rel="preload" href="/learning_blog/assets/js/2.e84640c2.js" as="script"><link rel="preload" href="/learning_blog/assets/js/16.f27d7fa7.js" as="script"><link rel="prefetch" href="/learning_blog/assets/js/10.d63d4d87.js"><link rel="prefetch" href="/learning_blog/assets/js/11.5479ddf7.js"><link rel="prefetch" href="/learning_blog/assets/js/12.fa3d3d5c.js"><link rel="prefetch" href="/learning_blog/assets/js/13.61654c16.js"><link rel="prefetch" href="/learning_blog/assets/js/14.e0156e94.js"><link rel="prefetch" href="/learning_blog/assets/js/15.d83093a9.js"><link rel="prefetch" href="/learning_blog/assets/js/17.ef09f0ef.js"><link rel="prefetch" href="/learning_blog/assets/js/18.e894c7fa.js"><link rel="prefetch" href="/learning_blog/assets/js/19.b17271eb.js"><link rel="prefetch" href="/learning_blog/assets/js/20.edc8d11f.js"><link rel="prefetch" href="/learning_blog/assets/js/21.85ef3cfd.js"><link rel="prefetch" href="/learning_blog/assets/js/22.708ea0e9.js"><link rel="prefetch" href="/learning_blog/assets/js/23.2ead5170.js"><link rel="prefetch" href="/learning_blog/assets/js/24.3bd17a9b.js"><link rel="prefetch" href="/learning_blog/assets/js/25.2711f039.js"><link rel="prefetch" href="/learning_blog/assets/js/26.a6018dc6.js"><link rel="prefetch" href="/learning_blog/assets/js/27.daf08288.js"><link rel="prefetch" href="/learning_blog/assets/js/28.1fcc0e79.js"><link rel="prefetch" href="/learning_blog/assets/js/29.c01bb180.js"><link rel="prefetch" href="/learning_blog/assets/js/3.0f8771c6.js"><link rel="prefetch" href="/learning_blog/assets/js/30.db7c52a9.js"><link rel="prefetch" href="/learning_blog/assets/js/31.2cbf653d.js"><link rel="prefetch" href="/learning_blog/assets/js/32.393d6fcf.js"><link rel="prefetch" href="/learning_blog/assets/js/33.58b8fba8.js"><link rel="prefetch" href="/learning_blog/assets/js/34.696dd32a.js"><link rel="prefetch" href="/learning_blog/assets/js/35.87903ded.js"><link rel="prefetch" href="/learning_blog/assets/js/36.c680c886.js"><link rel="prefetch" href="/learning_blog/assets/js/37.1030d0af.js"><link rel="prefetch" href="/learning_blog/assets/js/38.17601a3e.js"><link rel="prefetch" href="/learning_blog/assets/js/39.77698b0a.js"><link rel="prefetch" href="/learning_blog/assets/js/4.80c04417.js"><link rel="prefetch" href="/learning_blog/assets/js/40.040c9920.js"><link rel="prefetch" href="/learning_blog/assets/js/41.24f548e6.js"><link rel="prefetch" href="/learning_blog/assets/js/42.c1f0e74b.js"><link rel="prefetch" href="/learning_blog/assets/js/43.5d4dfff4.js"><link rel="prefetch" href="/learning_blog/assets/js/44.5d071de1.js"><link rel="prefetch" href="/learning_blog/assets/js/45.d76a748e.js"><link rel="prefetch" href="/learning_blog/assets/js/5.7c1c0852.js"><link rel="prefetch" href="/learning_blog/assets/js/6.cd21d9f4.js"><link rel="prefetch" href="/learning_blog/assets/js/7.4892beee.js"><link rel="prefetch" href="/learning_blog/assets/js/8.24b242f8.js"><link rel="prefetch" href="/learning_blog/assets/js/9.0fe883fb.js">
+    <link rel="stylesheet" href="/learning_blog/assets/css/0.styles.292e88f6.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="ant-row"><div class="sidebar-button"><i aria-label="icon: bars" class="anticon anticon-bars"><svg viewBox="0 0 1024 1024" focusable="false" data-icon="bars" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M912 192H328c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h584c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 284H328c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h584c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 284H328c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h584c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM104 228a56 56 0 1 0 112 0 56 56 0 1 0-112 0zm0 284a56 56 0 1 0 112 0 56 56 0 1 0-112 0zm0 284a56 56 0 1 0 112 0 56 56 0 1 0-112 0z"></path></svg></i> <span></span></div> <div class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-6 ant-col-lg-5 ant-col-xl-5 ant-col-xxl-4"><a href="/learning_blog/" class="router-link-active home-link"><img src="/learning_blog/logo.png" alt="一兜小白菜" class="logo"> <span class="site-name">一兜小白菜</span></a> <div class="search-box mobile-search"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div></div> <div class="ant-col ant-col-xs-0 ant-col-sm-0 ant-col-md-18 ant-col-lg-19 ant-col-xl-19 ant-col-xxl-20"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><ul role="menu" id="nav" class="ant-menu ant-menu-horizontal ant-menu-root ant-menu-light"><li role="menuitem" class="ant-menu-submenu ant-menu-submenu-horizontal ant-menu-overflowed-submenu" style="display:none;"><div aria-haspopup="true" class="ant-menu-submenu-title"><span>···</span><i class="ant-menu-submenu-arrow"></i></div></li><li role="menuitem" class="ant-menu-item"><a href="/learning_blog/" class="router-link-active">
+          Home
+        </a></li><li role="menuitem" class="ant-menu-submenu ant-menu-submenu-horizontal ant-menu-overflowed-submenu" style="display:none;"><div aria-haspopup="true" class="ant-menu-submenu-title"><span>···</span><i class="ant-menu-submenu-arrow"></i></div></li><li role="menuitem" class="ant-menu-submenu ant-menu-submenu-horizontal"><div aria-haspopup="true" class="ant-menu-submenu-title"><span>
+          Java Learning
+        </span><i class="ant-menu-submenu-arrow"></i></div></li><li role="menuitem" class="ant-menu-submenu ant-menu-submenu-horizontal ant-menu-overflowed-submenu" style="display:none;"><div aria-haspopup="true" class="ant-menu-submenu-title"><span>···</span><i class="ant-menu-submenu-arrow"></i></div></li><li role="menuitem" class="ant-menu-item"><a href="/learning_blog/go/">
+          Go Learning
+        </a></li><li role="menuitem" class="ant-menu-submenu ant-menu-submenu-horizontal ant-menu-overflowed-submenu" style="display:none;"><div aria-haspopup="true" class="ant-menu-submenu-title"><span>···</span><i class="ant-menu-submenu-arrow"></i></div></li><li role="menuitem" class="ant-menu-submenu ant-menu-submenu-horizontal"><div aria-haspopup="true" class="ant-menu-submenu-title"><span>
+          Spring Learning
+        </span><i class="ant-menu-submenu-arrow"></i></div></li><li role="menuitem" class="ant-menu-submenu ant-menu-submenu-horizontal ant-menu-overflowed-submenu" style="display:none;"><div aria-haspopup="true" class="ant-menu-submenu-title"><span>···</span><i class="ant-menu-submenu-arrow"></i></div></li><li role="menuitem" class="ant-menu-submenu ant-menu-submenu-horizontal"><div aria-haspopup="true" class="ant-menu-submenu-title"><span>
+          微服务
+        </span><i class="ant-menu-submenu-arrow"></i></div></li><li role="menuitem" class="ant-menu-submenu ant-menu-submenu-horizontal ant-menu-overflowed-submenu" style="display:none;"><div aria-haspopup="true" class="ant-menu-submenu-title"><span>···</span><i class="ant-menu-submenu-arrow"></i></div></li><li role="menuitem" class="ant-menu-submenu ant-menu-submenu-horizontal ant-menu-submenu-selected"><div aria-haspopup="true" class="ant-menu-submenu-title"><span>
+          数据库
+        </span><i class="ant-menu-submenu-arrow"></i></div></li><li role="menuitem" class="ant-menu-submenu ant-menu-submenu-horizontal ant-menu-overflowed-submenu" style="display:none;"><div aria-haspopup="true" class="ant-menu-submenu-title"><span>···</span><i class="ant-menu-submenu-arrow"></i></div></li><li role="menuitem" class="ant-menu-item"><a href="/learning_blog/architect/">
+          软件架构师
+        </a></li><li role="menuitem" class="ant-menu-submenu ant-menu-submenu-horizontal ant-menu-overflowed-submenu" style="visibility:hidden;position:absolute;"><div aria-haspopup="true" class="ant-menu-submenu-title"><span>···</span><i class="ant-menu-submenu-arrow"></i></div></li></ul> <!----></nav></div></div> <!----></header> <aside class="sidebar"><!----> <ul class="sidebar-links"><li><a href="/learning_blog/database/redis/" aria-current="page" title="Redis 介绍" class="sidebar-link">Redis 介绍</a></li><li><a href="/learning_blog/database/redis/Redis键(Key).html" title="Redis 键(Key)" class="sidebar-link">Redis 键(Key)</a></li><li><a href="/learning_blog/database/redis/Redis字符串(String).html" title="Redis 字符串(String)" class="sidebar-link">Redis 字符串(String)</a></li><li><a href="/learning_blog/database/redis/Redis哈希(Hash).html" title="Redis 哈希(Hash)" class="sidebar-link">Redis 哈希(Hash)</a></li><li><a href="/learning_blog/database/redis/Redis列表(List).html" title="Redis 列表(List)" class="sidebar-link">Redis 列表(List)</a></li><li><a href="/learning_blog/database/redis/Redis集合(Set).html" title="Redis 集合(Set)" class="sidebar-link">Redis 集合(Set)</a></li><li><a href="/learning_blog/database/redis/Redis有序集合.html" title="Redis 有序集合" class="active sidebar-link">Redis 有序集合</a></li></ul></aside> <main class="page"> <div class="theme-antdocs-content content__default"><h1 id="redis-有序集合"><a href="#redis-有序集合" class="header-anchor">#</a> Redis 有序集合</h1> <p>Redis 有序集合（sorted set）与集合（set）一样也是 string 类型元素的集合，且不允许重复的成员。不同的是每个元素都会关联一个 double 类型的分数。redis 正是通过分数来为集合中的成员从小到大排序的。
+有序集合的成员是唯一的，单分数（score）却可以重复。
+集合是通过哈希表实现的，所以添加、删除、查找的复杂度是O(1)。集合中的最大成员数为 2^32 - 1 (4294967295, 每个集合可存储40多亿个成员)。</p> <h1 id="redis-有序集合命令"><a href="#redis-有序集合命令" class="header-anchor">#</a> Redis 有序集合命令</h1> <p>1、Redis Zadd 命令用于将一个或多个成员元素及其分数值加入到有序集当中。如果某个成员已经是有序集的成员，那么更新这个成员的分数值，并通过重新插入这个成员元素，来保证该成员在正确的位置上。分数值可以是整数值或双精度浮点数。如果有序集合 key 不存在，则创建一个空的有序集并执行 ZADD 操作。当 key 存在但不是有序集类型时，返回一个错误。</p> <p><strong>格式：zadd key [NX|XX] [CH] [INCR] score member [score member ...]</strong></p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> zadd namesSortedSet <span class="token number">1</span> tom <span class="token number">2.1</span> jsck <span class="token number">3.3</span> chi <span class="token number">4.5</span> fang <span class="token number">1.2</span> xin
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> <span class="token number">5</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> zscan namesSortedSet <span class="token number">10</span>
+<span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;0&quot;</span>
+<span class="token number">2</span><span class="token punctuation">)</span>  <span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;tom&quot;</span>
+    <span class="token number">2</span><span class="token punctuation">)</span> <span class="token string">&quot;1&quot;</span>
+    <span class="token number">3</span><span class="token punctuation">)</span> <span class="token string">&quot;xin&quot;</span>
+    <span class="token number">4</span><span class="token punctuation">)</span> <span class="token string">&quot;1.2&quot;</span>
+    <span class="token number">5</span><span class="token punctuation">)</span> <span class="token string">&quot;jsck&quot;</span>
+    <span class="token number">6</span><span class="token punctuation">)</span> <span class="token string">&quot;2.1000000000000001&quot;</span>
+    <span class="token number">7</span><span class="token punctuation">)</span> <span class="token string">&quot;chi&quot;</span>
+    <span class="token number">8</span><span class="token punctuation">)</span> <span class="token string">&quot;3.2999999999999998&quot;</span>
+    <span class="token number">9</span><span class="token punctuation">)</span> <span class="token string">&quot;fang&quot;</span>
+   <span class="token number">10</span><span class="token punctuation">)</span> <span class="token string">&quot;4.5&quot;</span>
+</code></pre></div><p>2、获取集合中元素的数量。</p> <p><strong>格式：zcard key</strong></p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> zcard namesSortedSet
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> <span class="token number">5</span>
+</code></pre></div><p>3、获取有序集合在指定分数区间(min - max)的成员个数。</p> <p><strong>格式：zcount key min max</strong></p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> zcount namesSortedSet <span class="token number">0</span> <span class="token number">10</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> <span class="token number">5</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> zcount namesSortedSet <span class="token number">2</span> <span class="token number">10</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> <span class="token number">3</span>
+</code></pre></div><p>4、对有序集合中元素 member 的分数加上增量 increment</p> <p><strong>格式：zincrby key increment member</strong></p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> zscan namesSortedSet <span class="token number">10</span>
+<span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;0&quot;</span>
+<span class="token number">2</span><span class="token punctuation">)</span>  <span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;tom&quot;</span>
+    <span class="token number">2</span><span class="token punctuation">)</span> <span class="token string">&quot;1&quot;</span>
+    <span class="token number">3</span><span class="token punctuation">)</span> <span class="token string">&quot;xin&quot;</span>
+    <span class="token number">4</span><span class="token punctuation">)</span> <span class="token string">&quot;1.2&quot;</span>
+    <span class="token number">5</span><span class="token punctuation">)</span> <span class="token string">&quot;jsck&quot;</span>
+    <span class="token number">6</span><span class="token punctuation">)</span> <span class="token string">&quot;2.1000000000000001&quot;</span>
+    <span class="token number">7</span><span class="token punctuation">)</span> <span class="token string">&quot;chi&quot;</span>
+    <span class="token number">8</span><span class="token punctuation">)</span> <span class="token string">&quot;3.2999999999999998&quot;</span>
+    <span class="token number">9</span><span class="token punctuation">)</span> <span class="token string">&quot;fang&quot;</span>
+   <span class="token number">10</span><span class="token punctuation">)</span> <span class="token string">&quot;4.5&quot;</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> zincrby namesSortedSet <span class="token number">1</span> tom
+<span class="token string">&quot;2&quot;</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> zscan namesSortedSet <span class="token number">10</span>
+<span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;0&quot;</span>
+<span class="token number">2</span><span class="token punctuation">)</span>  <span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;xin&quot;</span>
+    <span class="token number">2</span><span class="token punctuation">)</span> <span class="token string">&quot;1.2&quot;</span>
+    <span class="token number">3</span><span class="token punctuation">)</span> <span class="token string">&quot;tom&quot;</span>
+    <span class="token number">4</span><span class="token punctuation">)</span> <span class="token string">&quot;2&quot;</span>
+    <span class="token number">5</span><span class="token punctuation">)</span> <span class="token string">&quot;jsck&quot;</span>
+    <span class="token number">6</span><span class="token punctuation">)</span> <span class="token string">&quot;2.1000000000000001&quot;</span>
+    <span class="token number">7</span><span class="token punctuation">)</span> <span class="token string">&quot;chi&quot;</span>
+    <span class="token number">8</span><span class="token punctuation">)</span> <span class="token string">&quot;3.2999999999999998&quot;</span>
+    <span class="token number">9</span><span class="token punctuation">)</span> <span class="token string">&quot;fang&quot;</span>
+   <span class="token number">10</span><span class="token punctuation">)</span> <span class="token string">&quot;4.5&quot;</span>
+</code></pre></div><p>5、Redis Zinterstore 命令计算给定的一个或多个有序集的交集，其中给定 key 的数量必须以 numkeys 参数指定，并将该交集(结果集)储存到 destination 。默认情况下，结果集中某个成员的分数值是所有给定集下该成员分数值之和。</p> <p><strong>格式：zinterstore destination numkeys key [key ...] [WEIGHTS weight] [AGGREGATE SUM|MIN|MAX]</strong></p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> zadd names1 <span class="token number">1</span> tom <span class="token number">2</span> susan <span class="token number">3</span> jack <span class="token number">4</span> roles <span class="token number">5</span> mack
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> <span class="token number">5</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> zscan names1 <span class="token number">10</span>
+<span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;0&quot;</span>
+<span class="token number">2</span><span class="token punctuation">)</span>  <span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;tom&quot;</span>
+    <span class="token number">2</span><span class="token punctuation">)</span> <span class="token string">&quot;1&quot;</span>
+    <span class="token number">3</span><span class="token punctuation">)</span> <span class="token string">&quot;susan&quot;</span>
+    <span class="token number">4</span><span class="token punctuation">)</span> <span class="token string">&quot;2&quot;</span>
+    <span class="token number">5</span><span class="token punctuation">)</span> <span class="token string">&quot;jack&quot;</span>
+    <span class="token number">6</span><span class="token punctuation">)</span> <span class="token string">&quot;3&quot;</span>
+    <span class="token number">7</span><span class="token punctuation">)</span> <span class="token string">&quot;roles&quot;</span>
+    <span class="token number">8</span><span class="token punctuation">)</span> <span class="token string">&quot;4&quot;</span>
+    <span class="token number">9</span><span class="token punctuation">)</span> <span class="token string">&quot;mack&quot;</span>
+   <span class="token number">10</span><span class="token punctuation">)</span> <span class="token string">&quot;5&quot;</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> zinterstore names1_ <span class="token number">2</span> namesSortedSet names1
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> <span class="token number">1</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> zscan names1_ <span class="token number">10</span>
+<span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;0&quot;</span>
+<span class="token number">2</span><span class="token punctuation">)</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;tom&quot;</span>
+   <span class="token number">2</span><span class="token punctuation">)</span> <span class="token string">&quot;3&quot;</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> zscan namesSortedSet <span class="token number">10</span>
+<span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;0&quot;</span>
+<span class="token number">2</span><span class="token punctuation">)</span>  <span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;xin&quot;</span>
+    <span class="token number">2</span><span class="token punctuation">)</span> <span class="token string">&quot;1.2&quot;</span>
+    <span class="token number">3</span><span class="token punctuation">)</span> <span class="token string">&quot;tom&quot;</span>
+    <span class="token number">4</span><span class="token punctuation">)</span> <span class="token string">&quot;2&quot;</span>
+    <span class="token number">5</span><span class="token punctuation">)</span> <span class="token string">&quot;jsck&quot;</span>
+    <span class="token number">6</span><span class="token punctuation">)</span> <span class="token string">&quot;2.1000000000000001&quot;</span>
+    <span class="token number">7</span><span class="token punctuation">)</span> <span class="token string">&quot;chi&quot;</span>
+    <span class="token number">8</span><span class="token punctuation">)</span> <span class="token string">&quot;3.2999999999999998&quot;</span>
+    <span class="token number">9</span><span class="token punctuation">)</span> <span class="token string">&quot;fang&quot;</span>
+   <span class="token number">10</span><span class="token punctuation">)</span> <span class="token string">&quot;4.5&quot;</span>
+</code></pre></div><p>6、计算有序集合中指定字典区间内成员数量</p> <p><strong>格式：zlexcount key min max</strong></p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> zlexcount names1 - +
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> <span class="token number">5</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> zlexcount names1 <span class="token punctuation">[</span>tom <span class="token punctuation">[</span>jock
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> <span class="token number">0</span>
+</code></pre></div><p>7、Redis Zrange 返回有序集中，指定区间内的成员。其中成员的位置按分数值递增(从小到大)来排序。具有相同分数值的成员按字典序(lexicographical order )来排列。如果你需要成员按值递减(从大到小)来排列，请使用 <code>ZREVRANGE</code> 命令。下标参数 start 和 stop 都以 0 为底，也就是说，以 0 表示有序集第一个成员，以 1 表示有序集第二个成员，以此类推。你也可以使用负数下标，以 -1 表示最后一个成员， -2 表示倒数第二个成员，以此类推。</p> <p><strong>格式：zrange key start stop [WITHSCORES]</strong></p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> zrange names1 <span class="token number">0</span> <span class="token number">10</span>
+<span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;tom&quot;</span>
+<span class="token number">2</span><span class="token punctuation">)</span> <span class="token string">&quot;susan&quot;</span>
+<span class="token number">3</span><span class="token punctuation">)</span> <span class="token string">&quot;jack&quot;</span>
+<span class="token number">4</span><span class="token punctuation">)</span> <span class="token string">&quot;roles&quot;</span>
+<span class="token number">5</span><span class="token punctuation">)</span> <span class="token string">&quot;mack&quot;</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> zrange names1 -1 <span class="token number">12</span>
+<span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;mack&quot;</span>
+</code></pre></div><p>8、通过给定的字典区间返回有序集合的成员</p> <p><strong>格式：zrangebylex key min max [LIMIT offset count]</strong></p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> zrangebylex names1 <span class="token punctuation">[</span>tom <span class="token punctuation">[</span>susan
+<span class="token punctuation">(</span>empty array<span class="token punctuation">)</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> zrangebylex names1 - +
+<span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;tom&quot;</span>
+<span class="token number">2</span><span class="token punctuation">)</span> <span class="token string">&quot;susan&quot;</span>
+<span class="token number">3</span><span class="token punctuation">)</span> <span class="token string">&quot;jack&quot;</span>
+<span class="token number">4</span><span class="token punctuation">)</span> <span class="token string">&quot;roles&quot;</span>
+<span class="token number">5</span><span class="token punctuation">)</span> <span class="token string">&quot;mack&quot;</span>
+</code></pre></div><p>9、Redis Zrangebyscore 返回有序集合中指定分数区间的成员列表。有序集成员按分数值递增(从小到大)次序排列。具有相同分数值的成员按字典序来排列(该属性是有序集提供的，不需要额外的计算)。默认情况下，区间的取值使用闭区间 (小于等于或大于等于)，你也可以通过给参数前增加 ( 符号来使用可选的开区间 (小于或大于)。</p> <p><strong>格式：zrangebyscore names1 0 2.1 [WITHSCORES] [LIMIT offset count]</strong></p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> zrangebyscore names1 <span class="token number">0</span> <span class="token number">10</span>
+<span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;tom&quot;</span>
+<span class="token number">2</span><span class="token punctuation">)</span> <span class="token string">&quot;susan&quot;</span>
+<span class="token number">3</span><span class="token punctuation">)</span> <span class="token string">&quot;jack&quot;</span>
+<span class="token number">4</span><span class="token punctuation">)</span> <span class="token string">&quot;roles&quot;</span>
+<span class="token number">5</span><span class="token punctuation">)</span> <span class="token string">&quot;mack&quot;</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> zrangebyscore names1 <span class="token number">0</span> <span class="token number">2.1</span>
+<span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;tom&quot;</span>
+<span class="token number">2</span><span class="token punctuation">)</span> <span class="token string">&quot;susan&quot;</span>
+</code></pre></div><p>10、Redis Zrank 返回有序集中指定成员的排名。其中有序集成员按分数值递增(从小到大)顺序排列。</p> <p><strong>格式：zrank key member</strong></p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> zrank names1 tom
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> <span class="token number">0</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> zrank names1 jack
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> <span class="token number">2</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> zscan names1 <span class="token number">10</span>
+<span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;0&quot;</span>
+<span class="token number">2</span><span class="token punctuation">)</span>  <span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;tom&quot;</span>
+    <span class="token number">2</span><span class="token punctuation">)</span> <span class="token string">&quot;1&quot;</span>
+    <span class="token number">3</span><span class="token punctuation">)</span> <span class="token string">&quot;susan&quot;</span>
+    <span class="token number">4</span><span class="token punctuation">)</span> <span class="token string">&quot;2&quot;</span>
+    <span class="token number">5</span><span class="token punctuation">)</span> <span class="token string">&quot;jack&quot;</span>
+    <span class="token number">6</span><span class="token punctuation">)</span> <span class="token string">&quot;3&quot;</span>
+    <span class="token number">7</span><span class="token punctuation">)</span> <span class="token string">&quot;roles&quot;</span>
+    <span class="token number">8</span><span class="token punctuation">)</span> <span class="token string">&quot;4&quot;</span>
+    <span class="token number">9</span><span class="token punctuation">)</span> <span class="token string">&quot;mack&quot;</span>
+   <span class="token number">10</span><span class="token punctuation">)</span> <span class="token string">&quot;5&quot;</span>
+</code></pre></div><p>11、Redis Zrem 命令用于移除有序集中的一个或多个成员，不存在的成员将被忽略。当 key 存在但不是有序集类型时，返回一个错误。（在 Redis 2.4 版本以前， ZREM 每次只能删除一个元素。）</p> <p><strong>格式：zrem key member [member ...]</strong></p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> zscan names1 <span class="token number">10</span>
+<span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;0&quot;</span>
+<span class="token number">2</span><span class="token punctuation">)</span>  <span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;tom&quot;</span>
+    <span class="token number">2</span><span class="token punctuation">)</span> <span class="token string">&quot;1&quot;</span>
+    <span class="token number">3</span><span class="token punctuation">)</span> <span class="token string">&quot;susan&quot;</span>
+    <span class="token number">4</span><span class="token punctuation">)</span> <span class="token string">&quot;2&quot;</span>
+    <span class="token number">5</span><span class="token punctuation">)</span> <span class="token string">&quot;jack&quot;</span>
+    <span class="token number">6</span><span class="token punctuation">)</span> <span class="token string">&quot;3&quot;</span>
+    <span class="token number">7</span><span class="token punctuation">)</span> <span class="token string">&quot;roles&quot;</span>
+    <span class="token number">8</span><span class="token punctuation">)</span> <span class="token string">&quot;4&quot;</span>
+    <span class="token number">9</span><span class="token punctuation">)</span> <span class="token string">&quot;mack&quot;</span>
+   <span class="token number">10</span><span class="token punctuation">)</span> <span class="token string">&quot;5&quot;</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> zrem names1 tom jack <span class="token number">111</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> <span class="token number">2</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> zscan names1 <span class="token number">10</span>
+<span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;0&quot;</span>
+<span class="token number">2</span><span class="token punctuation">)</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;susan&quot;</span>
+   <span class="token number">2</span><span class="token punctuation">)</span> <span class="token string">&quot;2&quot;</span>
+   <span class="token number">3</span><span class="token punctuation">)</span> <span class="token string">&quot;roles&quot;</span>
+   <span class="token number">4</span><span class="token punctuation">)</span> <span class="token string">&quot;4&quot;</span>
+   <span class="token number">5</span><span class="token punctuation">)</span> <span class="token string">&quot;mack&quot;</span>
+   <span class="token number">6</span><span class="token punctuation">)</span> <span class="token string">&quot;5&quot;</span>
+</code></pre></div><p>12、移除有序集合中给定的字典区间的所有成员</p> <p><strong>格式：zremrangebylex key min max</strong></p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> zremrangebylex names1 <span class="token punctuation">[</span>tom <span class="token punctuation">[</span>jakc
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> <span class="token number">0</span>
+</code></pre></div><p>13、移除有序集中，指定排名(rank)区间内的所有成员。</p> <p><strong>格式：zremrangebyrank key start stop</strong></p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> zscan namesSortedSet <span class="token number">10</span>
+<span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;0&quot;</span>
+<span class="token number">2</span><span class="token punctuation">)</span>  <span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;xin&quot;</span>
+    <span class="token number">2</span><span class="token punctuation">)</span> <span class="token string">&quot;1.2&quot;</span>
+    <span class="token number">3</span><span class="token punctuation">)</span> <span class="token string">&quot;tom&quot;</span>
+    <span class="token number">4</span><span class="token punctuation">)</span> <span class="token string">&quot;2&quot;</span>
+    <span class="token number">5</span><span class="token punctuation">)</span> <span class="token string">&quot;jsck&quot;</span>
+    <span class="token number">6</span><span class="token punctuation">)</span> <span class="token string">&quot;2.1000000000000001&quot;</span>
+    <span class="token number">7</span><span class="token punctuation">)</span> <span class="token string">&quot;chi&quot;</span>
+    <span class="token number">8</span><span class="token punctuation">)</span> <span class="token string">&quot;3.2999999999999998&quot;</span>
+    <span class="token number">9</span><span class="token punctuation">)</span> <span class="token string">&quot;fang&quot;</span>
+   <span class="token number">10</span><span class="token punctuation">)</span> <span class="token string">&quot;4.5&quot;</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> zremrangebyrank namesSortedSet <span class="token number">1</span> <span class="token number">10</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> <span class="token number">4</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> zscan namesSortedSet <span class="token number">10</span>
+<span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;0&quot;</span>
+<span class="token number">2</span><span class="token punctuation">)</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;xin&quot;</span>
+   <span class="token number">2</span><span class="token punctuation">)</span> <span class="token string">&quot;1.2&quot;</span>
+</code></pre></div><p>14、移除有序集中，指定分数（score）区间内的所有成员。</p> <p><strong>格式：zremrangebyscore key min max</strong></p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> zscan names1_ <span class="token number">10</span>
+<span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;0&quot;</span>
+<span class="token number">2</span><span class="token punctuation">)</span>  <span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;jj&quot;</span>
+    <span class="token number">2</span><span class="token punctuation">)</span> <span class="token string">&quot;0&quot;</span>
+    <span class="token number">3</span><span class="token punctuation">)</span> <span class="token string">&quot;ss&quot;</span>
+    <span class="token number">4</span><span class="token punctuation">)</span> <span class="token string">&quot;2&quot;</span>
+    <span class="token number">5</span><span class="token punctuation">)</span> <span class="token string">&quot;ssdd&quot;</span>
+    <span class="token number">6</span><span class="token punctuation">)</span> <span class="token string">&quot;3&quot;</span>
+    <span class="token number">7</span><span class="token punctuation">)</span> <span class="token string">&quot;tom&quot;</span>
+    <span class="token number">8</span><span class="token punctuation">)</span> <span class="token string">&quot;3&quot;</span>
+    <span class="token number">9</span><span class="token punctuation">)</span> <span class="token string">&quot;sss&quot;</span>
+   <span class="token number">10</span><span class="token punctuation">)</span> <span class="token string">&quot;9&quot;</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> <span class="token function">clear</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> zremrangebyscore names1_ <span class="token number">2</span> <span class="token number">3</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> <span class="token number">3</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> zscan names1_ <span class="token number">10</span>
+<span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;0&quot;</span>
+<span class="token number">2</span><span class="token punctuation">)</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;jj&quot;</span>
+   <span class="token number">2</span><span class="token punctuation">)</span> <span class="token string">&quot;0&quot;</span>
+   <span class="token number">3</span><span class="token punctuation">)</span> <span class="token string">&quot;sss&quot;</span>
+   <span class="token number">4</span><span class="token punctuation">)</span> <span class="token string">&quot;9&quot;</span>
+</code></pre></div><p>15、Redis Zrevrange 命令返回有序集中，指定区间内的成员。其中成员的位置按分数值递减(从大到小)来排列。具有相同分数值的成员按字典序的逆序(reverse lexicographical order)排列。除了成员按分数值递减的次序排列这一点外， <code>ZREVRANGE</code> 命令的其他方面和 <code>ZRANGE</code> 命令一样。</p> <p><strong>格式：zrevrange key start stop [WITHSCORES]</strong></p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> zrevrange names1 <span class="token number">0</span> <span class="token number">10</span>
+<span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;mack&quot;</span>
+<span class="token number">2</span><span class="token punctuation">)</span> <span class="token string">&quot;roles&quot;</span>
+<span class="token number">3</span><span class="token punctuation">)</span> <span class="token string">&quot;susan&quot;</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> zrange names1 <span class="token number">0</span> <span class="token number">10</span>
+<span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;susan&quot;</span>
+<span class="token number">2</span><span class="token punctuation">)</span> <span class="token string">&quot;roles&quot;</span>
+<span class="token number">3</span><span class="token punctuation">)</span> <span class="token string">&quot;mack&quot;</span>
+</code></pre></div><p>16、Redis Zrevrangebyscore 返回有序集中指定分数区间内的所有的成员。有序集成员按分数值递减(从大到小)的次序排列。具有相同分数值的成员按字典序的逆序(reverse lexicographical order )排列。除了成员按分数值递减的次序排列这一点外，<code>ZREVRANGEBYSCORE</code> 命令的其他方面和 <code>ZRANGEBYSCORE</code> 命令一样。</p> <p><strong>格式：zrevrangebyscore key max min [WITHSCORES] [LIMIT offset count]</strong></p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> zrevrangebyscore names1 <span class="token number">0</span> <span class="token number">10</span>
+<span class="token punctuation">(</span>empty array<span class="token punctuation">)</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> zrangebyscore names1 <span class="token number">0</span> <span class="token number">10</span>
+<span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;susan&quot;</span>
+<span class="token number">2</span><span class="token punctuation">)</span> <span class="token string">&quot;roles&quot;</span>
+<span class="token number">3</span><span class="token punctuation">)</span> <span class="token string">&quot;mack&quot;</span>
+</code></pre></div><p>17、Redis Zrevrank 命令返回有序集中成员的排名。其中有序集成员按分数值递减(从大到小)排序。排名以 0 为底，也就是说，分数值最大的成员排名为 0 。使用 <code>ZRANK</code> 命令可以获得成员按分数值递增(从小到大)排列的排名。</p> <p><strong>格式：zrevrank key member</strong></p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> zrangebyscore names1 <span class="token number">0</span> <span class="token number">10</span>
+<span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;susan&quot;</span>
+<span class="token number">2</span><span class="token punctuation">)</span> <span class="token string">&quot;roles&quot;</span>
+<span class="token number">3</span><span class="token punctuation">)</span> <span class="token string">&quot;mack&quot;</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> zrevrank names1 mack
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> <span class="token number">0</span>
+</code></pre></div><p>18、获取有序集中，成员的分数值。如果成员元素不是有序集 key 的成员，或 key 不存在，返回 nil 。</p> <p><strong>格式：zscore key member</strong></p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> zscore names1 susan
+<span class="token string">&quot;2&quot;</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> zscan names1 <span class="token number">10</span>
+<span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;0&quot;</span>
+<span class="token number">2</span><span class="token punctuation">)</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;susan&quot;</span>
+   <span class="token number">2</span><span class="token punctuation">)</span> <span class="token string">&quot;2&quot;</span>
+   <span class="token number">3</span><span class="token punctuation">)</span> <span class="token string">&quot;roles&quot;</span>
+   <span class="token number">4</span><span class="token punctuation">)</span> <span class="token string">&quot;4&quot;</span>
+   <span class="token number">5</span><span class="token punctuation">)</span> <span class="token string">&quot;mack&quot;</span>
+   <span class="token number">6</span><span class="token punctuation">)</span> <span class="token string">&quot;5&quot;</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> zscore names1 mack
+<span class="token string">&quot;5&quot;</span>
+</code></pre></div><p>19、Redis Zunionstore 命令计算给定的一个或多个有序集的并集，其中给定 key 的数量必须以 numkeys 参数指定，并将该并集(结果集)储存到 destination 。默认情况下，结果集中某个成员的分数值是所有给定集下该成员分数值之和 。</p> <p><strong>格式：zunionstore destination numkeys key [key ...] [WEIGHTS weight] [AGGREGATE SUM|MIN|MAX]</strong></p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> zunionstore names1__ <span class="token number">2</span> names1 names1_
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> <span class="token number">5</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> zscan names1__ <span class="token number">10</span>
+<span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;0&quot;</span>
+<span class="token number">2</span><span class="token punctuation">)</span>  <span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;jj&quot;</span>
+    <span class="token number">2</span><span class="token punctuation">)</span> <span class="token string">&quot;0&quot;</span>
+    <span class="token number">3</span><span class="token punctuation">)</span> <span class="token string">&quot;susan&quot;</span>
+    <span class="token number">4</span><span class="token punctuation">)</span> <span class="token string">&quot;2&quot;</span>
+    <span class="token number">5</span><span class="token punctuation">)</span> <span class="token string">&quot;roles&quot;</span>
+    <span class="token number">6</span><span class="token punctuation">)</span> <span class="token string">&quot;4&quot;</span>
+    <span class="token number">7</span><span class="token punctuation">)</span> <span class="token string">&quot;mack&quot;</span>
+    <span class="token number">8</span><span class="token punctuation">)</span> <span class="token string">&quot;5&quot;</span>
+    <span class="token number">9</span><span class="token punctuation">)</span> <span class="token string">&quot;sss&quot;</span>
+   <span class="token number">10</span><span class="token punctuation">)</span> <span class="token string">&quot;9&quot;</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> zscan names1 <span class="token number">10</span>
+<span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;0&quot;</span>
+<span class="token number">2</span><span class="token punctuation">)</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;susan&quot;</span>
+   <span class="token number">2</span><span class="token punctuation">)</span> <span class="token string">&quot;2&quot;</span>
+   <span class="token number">3</span><span class="token punctuation">)</span> <span class="token string">&quot;roles&quot;</span>
+   <span class="token number">4</span><span class="token punctuation">)</span> <span class="token string">&quot;4&quot;</span>
+   <span class="token number">5</span><span class="token punctuation">)</span> <span class="token string">&quot;mack&quot;</span>
+   <span class="token number">6</span><span class="token punctuation">)</span> <span class="token string">&quot;5&quot;</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> zscan names1_ <span class="token number">10</span>
+<span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;0&quot;</span>
+<span class="token number">2</span><span class="token punctuation">)</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;jj&quot;</span>
+   <span class="token number">2</span><span class="token punctuation">)</span> <span class="token string">&quot;0&quot;</span>
+   <span class="token number">3</span><span class="token punctuation">)</span> <span class="token string">&quot;sss&quot;</span>
+   <span class="token number">4</span><span class="token punctuation">)</span> <span class="token string">&quot;9&quot;</span>
+</code></pre></div><p>20、迭代有序集合中的元素（包括元素成员和元素分值）</p> <p><strong>格式：zscan key cursor [MATCH pattern] [COUNT count]</strong></p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> zscan names1 <span class="token number">10</span> match * count <span class="token number">2</span>
+<span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;0&quot;</span>
+<span class="token number">2</span><span class="token punctuation">)</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;susan&quot;</span>
+   <span class="token number">2</span><span class="token punctuation">)</span> <span class="token string">&quot;2&quot;</span>
+   <span class="token number">3</span><span class="token punctuation">)</span> <span class="token string">&quot;roles&quot;</span>
+   <span class="token number">4</span><span class="token punctuation">)</span> <span class="token string">&quot;4&quot;</span>
+   <span class="token number">5</span><span class="token punctuation">)</span> <span class="token string">&quot;mack&quot;</span>
+   <span class="token number">6</span><span class="token punctuation">)</span> <span class="token string">&quot;5&quot;</span>
+</code></pre></div></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev"><a href="/learning_blog/database/redis/Redis集合(Set).html" class="prev"><i aria-label="icon: left" class="anticon anticon-left"><svg viewBox="64 64 896 896" focusable="false" data-icon="left" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M724 218.3V141c0-6.7-7.7-10.4-12.9-6.3L260.3 486.8a31.86 31.86 0 0 0 0 50.3l450.8 352.1c5.3 4.1 12.9.4 12.9-6.3v-77.3c0-4.9-2.3-9.6-6.1-12.6l-360-281 360-281.1c3.8-3 6.1-7.7 6.1-12.6z"></path></svg></i>
+        Redis 集合(Set)
+      </a></span> <!----></p></div> </main> <!----></div><div class="global-ui"></div></div>
+    <script src="/learning_blog/assets/js/app.c78e1d1a.js" defer></script><script src="/learning_blog/assets/js/2.e84640c2.js" defer></script><script src="/learning_blog/assets/js/16.f27d7fa7.js" defer></script>
+  </body>
+</html>

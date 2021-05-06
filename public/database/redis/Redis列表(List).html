@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Redis 列表(List) | 一兜小白菜</title>
+    <meta name="description" content="">
+    <meta name="generator" content="VuePress 1.8.2">
+    <link rel="icon" href="/learning_blog/logo.png">
+    <meta name="description" content="learning something">
+    <link rel="preload" href="/learning_blog/assets/css/0.styles.292e88f6.css" as="style"><link rel="preload" href="/learning_blog/assets/js/app.c78e1d1a.js" as="script"><link rel="preload" href="/learning_blog/assets/js/2.e84640c2.js" as="script"><link rel="preload" href="/learning_blog/assets/js/13.61654c16.js" as="script"><link rel="prefetch" href="/learning_blog/assets/js/10.d63d4d87.js"><link rel="prefetch" href="/learning_blog/assets/js/11.5479ddf7.js"><link rel="prefetch" href="/learning_blog/assets/js/12.fa3d3d5c.js"><link rel="prefetch" href="/learning_blog/assets/js/14.e0156e94.js"><link rel="prefetch" href="/learning_blog/assets/js/15.d83093a9.js"><link rel="prefetch" href="/learning_blog/assets/js/16.f27d7fa7.js"><link rel="prefetch" href="/learning_blog/assets/js/17.ef09f0ef.js"><link rel="prefetch" href="/learning_blog/assets/js/18.e894c7fa.js"><link rel="prefetch" href="/learning_blog/assets/js/19.b17271eb.js"><link rel="prefetch" href="/learning_blog/assets/js/20.edc8d11f.js"><link rel="prefetch" href="/learning_blog/assets/js/21.85ef3cfd.js"><link rel="prefetch" href="/learning_blog/assets/js/22.708ea0e9.js"><link rel="prefetch" href="/learning_blog/assets/js/23.2ead5170.js"><link rel="prefetch" href="/learning_blog/assets/js/24.3bd17a9b.js"><link rel="prefetch" href="/learning_blog/assets/js/25.2711f039.js"><link rel="prefetch" href="/learning_blog/assets/js/26.a6018dc6.js"><link rel="prefetch" href="/learning_blog/assets/js/27.daf08288.js"><link rel="prefetch" href="/learning_blog/assets/js/28.1fcc0e79.js"><link rel="prefetch" href="/learning_blog/assets/js/29.c01bb180.js"><link rel="prefetch" href="/learning_blog/assets/js/3.0f8771c6.js"><link rel="prefetch" href="/learning_blog/assets/js/30.db7c52a9.js"><link rel="prefetch" href="/learning_blog/assets/js/31.2cbf653d.js"><link rel="prefetch" href="/learning_blog/assets/js/32.393d6fcf.js"><link rel="prefetch" href="/learning_blog/assets/js/33.58b8fba8.js"><link rel="prefetch" href="/learning_blog/assets/js/34.696dd32a.js"><link rel="prefetch" href="/learning_blog/assets/js/35.87903ded.js"><link rel="prefetch" href="/learning_blog/assets/js/36.c680c886.js"><link rel="prefetch" href="/learning_blog/assets/js/37.1030d0af.js"><link rel="prefetch" href="/learning_blog/assets/js/38.17601a3e.js"><link rel="prefetch" href="/learning_blog/assets/js/39.77698b0a.js"><link rel="prefetch" href="/learning_blog/assets/js/4.80c04417.js"><link rel="prefetch" href="/learning_blog/assets/js/40.040c9920.js"><link rel="prefetch" href="/learning_blog/assets/js/41.24f548e6.js"><link rel="prefetch" href="/learning_blog/assets/js/42.c1f0e74b.js"><link rel="prefetch" href="/learning_blog/assets/js/43.5d4dfff4.js"><link rel="prefetch" href="/learning_blog/assets/js/44.5d071de1.js"><link rel="prefetch" href="/learning_blog/assets/js/45.d76a748e.js"><link rel="prefetch" href="/learning_blog/assets/js/5.7c1c0852.js"><link rel="prefetch" href="/learning_blog/assets/js/6.cd21d9f4.js"><link rel="prefetch" href="/learning_blog/assets/js/7.4892beee.js"><link rel="prefetch" href="/learning_blog/assets/js/8.24b242f8.js"><link rel="prefetch" href="/learning_blog/assets/js/9.0fe883fb.js">
+    <link rel="stylesheet" href="/learning_blog/assets/css/0.styles.292e88f6.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="ant-row"><div class="sidebar-button"><i aria-label="icon: bars" class="anticon anticon-bars"><svg viewBox="0 0 1024 1024" focusable="false" data-icon="bars" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M912 192H328c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h584c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 284H328c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h584c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 284H328c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h584c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM104 228a56 56 0 1 0 112 0 56 56 0 1 0-112 0zm0 284a56 56 0 1 0 112 0 56 56 0 1 0-112 0zm0 284a56 56 0 1 0 112 0 56 56 0 1 0-112 0z"></path></svg></i> <span></span></div> <div class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-6 ant-col-lg-5 ant-col-xl-5 ant-col-xxl-4"><a href="/learning_blog/" class="router-link-active home-link"><img src="/learning_blog/logo.png" alt="一兜小白菜" class="logo"> <span class="site-name">一兜小白菜</span></a> <div class="search-box mobile-search"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div></div> <div class="ant-col ant-col-xs-0 ant-col-sm-0 ant-col-md-18 ant-col-lg-19 ant-col-xl-19 ant-col-xxl-20"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><ul role="menu" id="nav" class="ant-menu ant-menu-horizontal ant-menu-root ant-menu-light"><li role="menuitem" class="ant-menu-submenu ant-menu-submenu-horizontal ant-menu-overflowed-submenu" style="display:none;"><div aria-haspopup="true" class="ant-menu-submenu-title"><span>···</span><i class="ant-menu-submenu-arrow"></i></div></li><li role="menuitem" class="ant-menu-item"><a href="/learning_blog/" class="router-link-active">
+          Home
+        </a></li><li role="menuitem" class="ant-menu-submenu ant-menu-submenu-horizontal ant-menu-overflowed-submenu" style="display:none;"><div aria-haspopup="true" class="ant-menu-submenu-title"><span>···</span><i class="ant-menu-submenu-arrow"></i></div></li><li role="menuitem" class="ant-menu-submenu ant-menu-submenu-horizontal"><div aria-haspopup="true" class="ant-menu-submenu-title"><span>
+          Java Learning
+        </span><i class="ant-menu-submenu-arrow"></i></div></li><li role="menuitem" class="ant-menu-submenu ant-menu-submenu-horizontal ant-menu-overflowed-submenu" style="display:none;"><div aria-haspopup="true" class="ant-menu-submenu-title"><span>···</span><i class="ant-menu-submenu-arrow"></i></div></li><li role="menuitem" class="ant-menu-item"><a href="/learning_blog/go/">
+          Go Learning
+        </a></li><li role="menuitem" class="ant-menu-submenu ant-menu-submenu-horizontal ant-menu-overflowed-submenu" style="display:none;"><div aria-haspopup="true" class="ant-menu-submenu-title"><span>···</span><i class="ant-menu-submenu-arrow"></i></div></li><li role="menuitem" class="ant-menu-submenu ant-menu-submenu-horizontal"><div aria-haspopup="true" class="ant-menu-submenu-title"><span>
+          Spring Learning
+        </span><i class="ant-menu-submenu-arrow"></i></div></li><li role="menuitem" class="ant-menu-submenu ant-menu-submenu-horizontal ant-menu-overflowed-submenu" style="display:none;"><div aria-haspopup="true" class="ant-menu-submenu-title"><span>···</span><i class="ant-menu-submenu-arrow"></i></div></li><li role="menuitem" class="ant-menu-submenu ant-menu-submenu-horizontal"><div aria-haspopup="true" class="ant-menu-submenu-title"><span>
+          微服务
+        </span><i class="ant-menu-submenu-arrow"></i></div></li><li role="menuitem" class="ant-menu-submenu ant-menu-submenu-horizontal ant-menu-overflowed-submenu" style="display:none;"><div aria-haspopup="true" class="ant-menu-submenu-title"><span>···</span><i class="ant-menu-submenu-arrow"></i></div></li><li role="menuitem" class="ant-menu-submenu ant-menu-submenu-horizontal ant-menu-submenu-selected"><div aria-haspopup="true" class="ant-menu-submenu-title"><span>
+          数据库
+        </span><i class="ant-menu-submenu-arrow"></i></div></li><li role="menuitem" class="ant-menu-submenu ant-menu-submenu-horizontal ant-menu-overflowed-submenu" style="display:none;"><div aria-haspopup="true" class="ant-menu-submenu-title"><span>···</span><i class="ant-menu-submenu-arrow"></i></div></li><li role="menuitem" class="ant-menu-item"><a href="/learning_blog/architect/">
+          软件架构师
+        </a></li><li role="menuitem" class="ant-menu-submenu ant-menu-submenu-horizontal ant-menu-overflowed-submenu" style="visibility:hidden;position:absolute;"><div aria-haspopup="true" class="ant-menu-submenu-title"><span>···</span><i class="ant-menu-submenu-arrow"></i></div></li></ul> <!----></nav></div></div> <!----></header> <aside class="sidebar"><!----> <ul class="sidebar-links"><li><a href="/learning_blog/database/redis/" aria-current="page" title="Redis 介绍" class="sidebar-link">Redis 介绍</a></li><li><a href="/learning_blog/database/redis/Redis键(Key).html" title="Redis 键(Key)" class="sidebar-link">Redis 键(Key)</a></li><li><a href="/learning_blog/database/redis/Redis字符串(String).html" title="Redis 字符串(String)" class="sidebar-link">Redis 字符串(String)</a></li><li><a href="/learning_blog/database/redis/Redis哈希(Hash).html" title="Redis 哈希(Hash)" class="sidebar-link">Redis 哈希(Hash)</a></li><li><a href="/learning_blog/database/redis/Redis列表(List).html" title="Redis 列表(List)" class="active sidebar-link">Redis 列表(List)</a></li><li><a href="/learning_blog/database/redis/Redis集合(Set).html" title="Redis 集合(Set)" class="sidebar-link">Redis 集合(Set)</a></li><li><a href="/learning_blog/database/redis/Redis有序集合.html" title="Redis 有序集合" class="sidebar-link">Redis 有序集合</a></li></ul></aside> <main class="page"> <div class="content__default"><h1 id="redis-列表-list"><a href="#redis-列表-list" class="header-anchor">#</a> Redis 列表(List)</h1> <p>Redis 列表是简单的字符串列表，按照插入顺序排序。可以在列表头部和尾部随意添加元素。
+一个列表最多可以包含<code>2^32 - 1</code>个元素。</p> <h1 id="redis-列表命令"><a href="#redis-列表命令" class="header-anchor">#</a> Redis 列表命令</h1> <p>1、将一个或多个值插入到列表头部。</p> <p><strong>格式：lpush key element [element ...]</strong></p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> lpush names tom tony downey
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> <span class="token number">3</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> lrange names <span class="token number">0</span> <span class="token number">10</span>
+<span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;downey&quot;</span>
+<span class="token number">2</span><span class="token punctuation">)</span> <span class="token string">&quot;tony&quot;</span>
+<span class="token number">3</span><span class="token punctuation">)</span> <span class="token string">&quot;tom&quot;</span>
+</code></pre></div><p>2、与<code>plush</code>命令一样，不一样的是，如果 key 不存在，则不会添加</p> <p><strong>格式：lpushx key element [element ...]</strong></p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> lpushx names you
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> <span class="token number">4</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> lrange names <span class="token number">0</span> <span class="token number">10</span>
+<span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;you&quot;</span>
+<span class="token number">2</span><span class="token punctuation">)</span> <span class="token string">&quot;downey&quot;</span>
+<span class="token number">3</span><span class="token punctuation">)</span> <span class="token string">&quot;tony&quot;</span>
+<span class="token number">4</span><span class="token punctuation">)</span> <span class="token string">&quot;tom&quot;</span>
+</code></pre></div><p>3、获取列表指定范围内的元素</p> <p><strong>格式：lrange key start stop</strong></p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> lrange names <span class="token number">0</span> <span class="token number">10</span>
+<span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;you&quot;</span>
+<span class="token number">2</span><span class="token punctuation">)</span> <span class="token string">&quot;downey&quot;</span>
+<span class="token number">3</span><span class="token punctuation">)</span> <span class="token string">&quot;tony&quot;</span>
+<span class="token number">4</span><span class="token punctuation">)</span> <span class="token string">&quot;tom&quot;</span>
+</code></pre></div><p>4、根据 count 的值，移除列表中与参数 element 相等的元素</p> <p><strong>格式：lrem key count element</strong></p> <ul><li>count &gt; 0：从列表头部向尾部搜索，移除与 element 相等的元素，数量为 count</li> <li>count &lt; 0：从列表尾部向头部搜索，移除与 element 相等的元素，数量为 count</li> <li>count = 0：移除表中所有与 element 相等的元素</li></ul> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> lrem names <span class="token number">0</span> tom
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> <span class="token number">1</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> lrange names <span class="token number">0</span> <span class="token number">19</span>
+<span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;you&quot;</span>
+<span class="token number">2</span><span class="token punctuation">)</span> <span class="token string">&quot;downey&quot;</span>
+<span class="token number">3</span><span class="token punctuation">)</span> <span class="token string">&quot;tony&quot;</span>
+</code></pre></div><p>5、通过 index 索引，将该位置的元素替换为 element</p> <p><strong>格式：lset key index element</strong></p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> lset names <span class="token number">3</span> mam    <span class="token comment"># 报错，超出了列表长度</span>
+<span class="token punctuation">(</span>error<span class="token punctuation">)</span> ERR index out of range
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> lrange names <span class="token number">0</span> <span class="token number">10</span>
+<span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;you&quot;</span>
+<span class="token number">2</span><span class="token punctuation">)</span> <span class="token string">&quot;downey&quot;</span>
+<span class="token number">3</span><span class="token punctuation">)</span> <span class="token string">&quot;tony&quot;</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> lset names <span class="token number">1</span> mam
+OK
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> lrange names <span class="token number">0</span> <span class="token number">10</span>
+<span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;you&quot;</span>
+<span class="token number">2</span><span class="token punctuation">)</span> <span class="token string">&quot;mam&quot;</span>
+<span class="token number">3</span><span class="token punctuation">)</span> <span class="token string">&quot;tony&quot;</span>
+</code></pre></div><p>6、对一个列表进行修剪，也就是说，让列表只保留指定区域内的元素（start - stop），不在指定区域之内的元素都将被删除</p> <p><strong>格式：ltrim key start stop</strong></p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> lrange names <span class="token number">0</span> <span class="token number">10</span>
+<span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;you&quot;</span>
+<span class="token number">2</span><span class="token punctuation">)</span> <span class="token string">&quot;mam&quot;</span>
+<span class="token number">3</span><span class="token punctuation">)</span> <span class="token string">&quot;tony&quot;</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> ltrim names <span class="token number">0</span> <span class="token number">1</span>    <span class="token comment"># 修剪</span>
+OK
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> lrange names <span class="token number">0</span> <span class="token number">10</span>
+<span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;you&quot;</span>
+<span class="token number">2</span><span class="token punctuation">)</span> <span class="token string">&quot;mam&quot;</span>
+</code></pre></div><p>7、移除列表最后一个元素，并且将其返回</p> <p><strong>格式：rpop key</strong></p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> rpop names
+<span class="token string">&quot;mam&quot;</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> lrange names <span class="token number">0</span> <span class="token number">10</span>
+<span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;you&quot;</span>
+</code></pre></div><p>8、移除列表头部元素，并将其返回</p> <p><strong>格式：lpop key</strong></p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> lrange names <span class="token number">0</span> <span class="token number">10</span>
+<span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;roles&quot;</span>
+<span class="token number">2</span><span class="token punctuation">)</span> <span class="token string">&quot;jock&quot;</span>
+<span class="token number">3</span><span class="token punctuation">)</span> <span class="token string">&quot;tony&quot;</span>
+<span class="token number">4</span><span class="token punctuation">)</span> <span class="token string">&quot;you&quot;</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> lpop names
+<span class="token string">&quot;roles&quot;</span>
+</code></pre></div><p>9、将 source 最后一个元素 rpop，然后 lpush 到 destination 列表中（出栈然后又跑到了另一个栈里面去了）</p> <p><strong>格式：rpoplpush source destination</strong></p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> rpoplpush names nicknames
+<span class="token string">&quot;you&quot;</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> lrange nicknames <span class="token number">0</span> <span class="token number">10</span>
+<span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;you&quot;</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> lrange names <span class="token number">0</span> <span class="token number">10</span>
+<span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;jock&quot;</span>
+<span class="token number">2</span><span class="token punctuation">)</span> <span class="token string">&quot;tony&quot;</span>
+</code></pre></div><p>10、在列表末尾添加一个或多个元素</p> <p><strong>格式：rpush key element [element ...]</strong></p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> rpush names aa ss cc bb
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> <span class="token number">6</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> lrange names <span class="token number">0</span> <span class="token number">10</span>
+<span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;jock&quot;</span>
+<span class="token number">2</span><span class="token punctuation">)</span> <span class="token string">&quot;tony&quot;</span>
+<span class="token number">3</span><span class="token punctuation">)</span> <span class="token string">&quot;aa&quot;</span>
+<span class="token number">4</span><span class="token punctuation">)</span> <span class="token string">&quot;ss&quot;</span>
+<span class="token number">5</span><span class="token punctuation">)</span> <span class="token string">&quot;cc&quot;</span>
+<span class="token number">6</span><span class="token punctuation">)</span> <span class="token string">&quot;bb&quot;</span>
+</code></pre></div><p>11、与<code>rpush</code>一样，不一样的是，如果 key 不存在，则不会添加</p> <p><strong>格式：rpushx key element [element ...]</strong></p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> rpushx names ii oo pp
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> <span class="token number">9</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> lrange names <span class="token number">0</span> <span class="token number">10</span>
+<span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;jock&quot;</span>
+<span class="token number">2</span><span class="token punctuation">)</span> <span class="token string">&quot;tony&quot;</span>
+<span class="token number">3</span><span class="token punctuation">)</span> <span class="token string">&quot;aa&quot;</span>
+<span class="token number">4</span><span class="token punctuation">)</span> <span class="token string">&quot;ss&quot;</span>
+<span class="token number">5</span><span class="token punctuation">)</span> <span class="token string">&quot;cc&quot;</span>
+<span class="token number">6</span><span class="token punctuation">)</span> <span class="token string">&quot;bb&quot;</span>
+<span class="token number">7</span><span class="token punctuation">)</span> <span class="token string">&quot;ii&quot;</span>
+<span class="token number">8</span><span class="token punctuation">)</span> <span class="token string">&quot;oo&quot;</span>
+<span class="token number">9</span><span class="token punctuation">)</span> <span class="token string">&quot;pp&quot;</span>
+</code></pre></div><p>12、获取列表长度</p> <p><strong>格式：llen key</strong></p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> llen names
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> <span class="token number">9</span>
+</code></pre></div><p>13、通过索引获取列表中的元素</p> <p><strong>格式：lindex key index</strong></p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> lindex names <span class="token number">3</span>
+<span class="token string">&quot;ss&quot;</span>
+</code></pre></div><p>14、往列表指定元素(<code>pivot</code>)前(<code>before</code>)或后(<code>after</code>)插入元素，当指定元素不存在时，不执行操作。如果 key 不是一个列表类型，返回一个错误</p> <p><strong>格式：linsert key BEFORE|AFTER pivot element</strong></p> <blockquote><p>当没有找到指定元素(<code>pivot</code>)时，返回-1，如果 key 不存在或是一个空列表，返回 0</p></blockquote> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> lrange names <span class="token number">0</span> <span class="token number">10</span>
+<span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;jock&quot;</span>
+<span class="token number">2</span><span class="token punctuation">)</span> <span class="token string">&quot;tony&quot;</span>
+<span class="token number">3</span><span class="token punctuation">)</span> <span class="token string">&quot;aa&quot;</span>
+<span class="token number">4</span><span class="token punctuation">)</span> <span class="token string">&quot;ss&quot;</span>
+<span class="token number">5</span><span class="token punctuation">)</span> <span class="token string">&quot;cc&quot;</span>
+<span class="token number">6</span><span class="token punctuation">)</span> <span class="token string">&quot;bb&quot;</span>
+<span class="token number">7</span><span class="token punctuation">)</span> <span class="token string">&quot;ii&quot;</span>
+<span class="token number">8</span><span class="token punctuation">)</span> <span class="token string">&quot;oo&quot;</span>
+<span class="token number">9</span><span class="token punctuation">)</span> <span class="token string">&quot;pp&quot;</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> linsert names after aa bb
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> <span class="token number">10</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> lrange names <span class="token number">0</span> <span class="token number">10</span>
+ <span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;jock&quot;</span>
+ <span class="token number">2</span><span class="token punctuation">)</span> <span class="token string">&quot;tony&quot;</span>
+ <span class="token number">3</span><span class="token punctuation">)</span> <span class="token string">&quot;aa&quot;</span>
+ <span class="token number">4</span><span class="token punctuation">)</span> <span class="token string">&quot;bb&quot;</span>
+ <span class="token number">5</span><span class="token punctuation">)</span> <span class="token string">&quot;ss&quot;</span>
+ <span class="token number">6</span><span class="token punctuation">)</span> <span class="token string">&quot;cc&quot;</span>
+ <span class="token number">7</span><span class="token punctuation">)</span> <span class="token string">&quot;bb&quot;</span>
+ <span class="token number">8</span><span class="token punctuation">)</span> <span class="token string">&quot;ii&quot;</span>
+ <span class="token number">9</span><span class="token punctuation">)</span> <span class="token string">&quot;oo&quot;</span>
+<span class="token number">10</span><span class="token punctuation">)</span> <span class="token string">&quot;pp&quot;</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> linsert names before aa 00
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> <span class="token number">11</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> lrange names <span class="token number">0</span> <span class="token number">10</span>
+ <span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;jock&quot;</span>
+ <span class="token number">2</span><span class="token punctuation">)</span> <span class="token string">&quot;tony&quot;</span>
+ <span class="token number">3</span><span class="token punctuation">)</span> <span class="token string">&quot;00&quot;</span>
+ <span class="token number">4</span><span class="token punctuation">)</span> <span class="token string">&quot;aa&quot;</span>
+ <span class="token number">5</span><span class="token punctuation">)</span> <span class="token string">&quot;bb&quot;</span>
+ <span class="token number">6</span><span class="token punctuation">)</span> <span class="token string">&quot;ss&quot;</span>
+ <span class="token number">7</span><span class="token punctuation">)</span> <span class="token string">&quot;cc&quot;</span>
+ <span class="token number">8</span><span class="token punctuation">)</span> <span class="token string">&quot;bb&quot;</span>
+ <span class="token number">9</span><span class="token punctuation">)</span> <span class="token string">&quot;ii&quot;</span>
+<span class="token number">10</span><span class="token punctuation">)</span> <span class="token string">&quot;oo&quot;</span>
+<span class="token number">11</span><span class="token punctuation">)</span> <span class="token string">&quot;pp&quot;</span>
+</code></pre></div><p>15、移除并获取列表得第一个元素，如果列表中没有元素会阻塞列表直到等待超时或发现可弹出元素为止</p> <p><strong>格式：blpop key [key ...] timeout</strong></p> <ul><li>timeout：等待超时（单位：秒）</li></ul> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> lpush names tom tony
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> <span class="token number">2</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> blpop names <span class="token number">1</span>
+<span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;names&quot;</span>
+<span class="token number">2</span><span class="token punctuation">)</span> <span class="token string">&quot;tony&quot;</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> blpop names <span class="token number">1</span>
+<span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;names&quot;</span>
+<span class="token number">2</span><span class="token punctuation">)</span> <span class="token string">&quot;tom&quot;</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> blpop names <span class="token number">1</span>    <span class="token comment"># 列表已经为空</span>
+<span class="token punctuation">(</span>nil<span class="token punctuation">)</span>
+<span class="token punctuation">(</span><span class="token number">1</span>.06s<span class="token punctuation">)</span>
+</code></pre></div><p>16、将一个值插入到已存在的列表头部</p> <p><strong>格式： LPUSHX key value</strong></p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> lpush names tom tony downey
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> <span class="token number">3</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> brpop names <span class="token number">1</span>
+<span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;names&quot;</span>
+<span class="token number">2</span><span class="token punctuation">)</span> <span class="token string">&quot;tom&quot;</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> brpop names <span class="token number">1</span>
+<span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;names&quot;</span>
+<span class="token number">2</span><span class="token punctuation">)</span> <span class="token string">&quot;tony&quot;</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> brpop names <span class="token number">1</span>
+<span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;names&quot;</span>
+<span class="token number">2</span><span class="token punctuation">)</span> <span class="token string">&quot;downey&quot;</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> brpop names <span class="token number">1</span>
+<span class="token punctuation">(</span>nil<span class="token punctuation">)</span>
+<span class="token punctuation">(</span><span class="token number">1</span>.03s<span class="token punctuation">)</span>
+</code></pre></div><p>17、从列表中弹出一个值，将弹出的元素插入到另外一个列表中并返回它； 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止。</p> <p><strong>格式：brpoplpush source destination timeout</strong></p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> lpush names tom tony
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> <span class="token number">2</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> brpoplpush names names1 <span class="token number">1</span>
+<span class="token string">&quot;tom&quot;</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> brpoplpush names names1 <span class="token number">1</span>
+<span class="token string">&quot;tony&quot;</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> brpoplpush names names1 <span class="token number">1</span>
+<span class="token punctuation">(</span>nil<span class="token punctuation">)</span>
+<span class="token punctuation">(</span><span class="token number">1</span>.05s<span class="token punctuation">)</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> lrange names1 <span class="token number">0</span> <span class="token number">10</span>
+<span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">&quot;tony&quot;</span>
+<span class="token number">2</span><span class="token punctuation">)</span> <span class="token string">&quot;tom&quot;</span>
+<span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>&gt;</span> lrange names <span class="token number">0</span> <span class="token number">10</span>
+<span class="token punctuation">(</span>empty array<span class="token punctuation">)</span>
+</code></pre></div></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev"><a href="/learning_blog/database/redis/Redis哈希(Hash).html" class="prev"><i aria-label="icon: left" class="anticon anticon-left"><svg viewBox="64 64 896 896" focusable="false" data-icon="left" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M724 218.3V141c0-6.7-7.7-10.4-12.9-6.3L260.3 486.8a31.86 31.86 0 0 0 0 50.3l450.8 352.1c5.3 4.1 12.9.4 12.9-6.3v-77.3c0-4.9-2.3-9.6-6.1-12.6l-360-281 360-281.1c3.8-3 6.1-7.7 6.1-12.6z"></path></svg></i>
+        Redis 哈希(Hash)
+      </a></span> <span class="next"><a href="/learning_blog/database/redis/Redis集合(Set).html">
+        Redis 集合(Set)
+        <i aria-label="icon: right" class="anticon anticon-right"><svg viewBox="64 64 896 896" focusable="false" data-icon="right" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M765.7 486.8L314.9 134.7A7.97 7.97 0 0 0 302 141v77.3c0 4.9 2.3 9.6 6.1 12.6l360 281.1-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6.7 7.7 10.4 12.9 6.3l450.8-352.1a31.96 31.96 0 0 0 0-50.4z"></path></svg></i></a></span></p></div> </main> <!----></div><div class="global-ui"></div></div>
+    <script src="/learning_blog/assets/js/app.c78e1d1a.js" defer></script><script src="/learning_blog/assets/js/2.e84640c2.js" defer></script><script src="/learning_blog/assets/js/13.61654c16.js" defer></script>
+  </body>
+</html>
