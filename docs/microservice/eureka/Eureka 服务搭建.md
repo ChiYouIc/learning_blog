@@ -56,7 +56,7 @@
 </dependencies>
 ```
 
-## 配置 Eureka Server
+## Eureka Server 配置
 
 ### 启动类
 ``` java
@@ -97,7 +97,7 @@ eureka:
     renewal-percent-threshold: 0.85
 ```
 
-## 配置 Eureka Client
+## Eureka Client 配置
 
 ### 启动类
 
