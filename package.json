@@ -6,6 +6,7 @@
   "author": "开水白菜",
   "license": "MIT",
   "devDependencies": {
+    "@vuepress/plugin-pwa": "^1.8.2",
     "vuepress": "^1.8.2"
   },
   "scripts": {

@@ -25,9 +25,11 @@ exports.config = {
         ],
         '/java/thread/': [
             '',
+            '线程创建方式',
             '线程池',
             '线程生命周期',
-            '线程终止'
+            '线程终止',
+            'sleep()与wait()'
         ],
         '/java/io/': [],
         '/java/nio/': []
