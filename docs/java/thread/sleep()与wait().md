@@ -55,6 +55,79 @@ public final native void notifyAll();
 优先级高的线程竞争到对象锁的概率大，假若某个线程（指从等待池进入到锁池的线程）没有获取到对象锁，它还会继续留在锁池中，直到有线程再次调用对象的 wait() 方法后，它又会重新回到等待池中。而竞争到对象锁的线程则会继续往下执行，直到执行完 synchronized block，它才会释放掉该对象锁，此时锁池中的线程又会继续竞争该对象锁。
 :::
 
+## 代码演示
+
+``` java
+public class ThreadWaitDemo01 {
+
+	public static void main(String[] args) {
+		Block block = new Block();
+		ExecutorService executorService = Executors.newFixedThreadPool(10);
+		executorService.submit(() -> {
+			try {
+				block.provider();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		});
+
+		executorService.submit(() -> {
+			try {
+				block.customer();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		});
+	}
+
+}
+
+
+class Block {
+	
+	// 商品
+	private int i = 0;
+
+	// 商品的载体
+	LinkedList<Integer> queue = new LinkedList<>();
+
+	/**
+	 * 生产者
+	 */
+	public synchronized void provider() throws InterruptedException {
+		System.out.println(Thread.currentThread().getName() + " start...");
+		while (true) {
+			if (queue.size() == 10) {
+				notify();
+				System.out.println(Thread.currentThread().getName() + " wait...");
+				wait();
+			}
+			Thread.sleep(500);
+			System.out.println(Thread.currentThread().getName() + " push number " + ++i);
+			queue.push(i);
+		}
+	}
+
+	/**
+	 * 消费者
+	 */
+	public synchronized void customer() throws InterruptedException {
+		System.out.println(Thread.currentThread().getName() + " start...");
+		while (true) {
+			if (queue.size() == 0 ) {
+				notify();
+				System.out.println(Thread.currentThread().getName() + " wait...");
+				wait();
+			}
+			Thread.sleep(500);
+			System.out.println(Thread.currentThread().getName() + " poll number " + queue.poll());
+		}
+	}
+}
+```
+
+上述代码就是使用 wait() 与 notify() 方法的相互配合模拟的一个生产者与消费者的关系（provider：生产者，customer：消费者，queue：商品载体）。在开始执行时，消费者检测到并没有商品，则进入等待状态（调用 wait()），并告知生产者（调用 notify()）前去生产；而生产者发现商品载体没有商品，开始生产装载，直到装满（queue 长度为 10），生产者进入等待状态（调用 wait()），并告知消费者（调用 notify()）前去消费；一致循环下去。
+
 ::: tip
 
 **锁池**：假设线程 A 已经拥有了某个对象的锁，而其它的线程想要调用这个对象的某个 synchronized 方法（或者 synchronized block），由于这些线程在进入对象的 synchronized 方法之前必须先获得该对象的锁的拥有权，但此时的对象锁被线程 A 拥有，所以这些线程就会进入了该对象的锁池中。
