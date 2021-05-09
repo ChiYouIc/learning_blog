@@ -1,0 +1,18 @@
+# yaml 配置
+version: '2.2'
+services:
+  # 服务名称
+  vue:
+    # 加载 Dockerfile
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      labels:
+        - "com.ic.learning.blog"
+    # 自定义容器名称
+    container_name: learning_blog
+    # 镜像
+    #    image: nginx
+    ports:
+      - "8085:80"
+

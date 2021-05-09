@@ -45,6 +45,11 @@ module.exports = {
         ['link', {rel: 'icon', href: '/logo.png'}],
         ['link', {rel: 'manifest', href: '/manifest.json'}],
     ],
+    plugins: ['@vuepress/pwa', {
+        serviceWorker: true,
+        popupComponent: 'MySWUpdatePopup',
+        updatePopup: true
+    }],
     title: '一兜小白菜',
     description: 'learning something',
     port: 8085,
@@ -58,9 +63,5 @@ module.exports = {
         nav,
         sidebar: handleSidebar()
     },
-    configureWebpack,
-    plugins: ['@vuepress/pwa', {
-        serviceWorker: true,
-        updatePopup: true
-    }],
+    configureWebpack
 }
