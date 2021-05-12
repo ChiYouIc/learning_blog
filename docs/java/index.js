@@ -29,7 +29,9 @@ exports.config = {
             '线程池',
             '线程生命周期',
             '线程终止',
-            'sleep()与wait()'
+            'sleep()与wait()',
+            'start()与Run()',
+            '乐观锁与悲观锁'
         ],
         '/java/io/': [],
         '/java/nio/': []
