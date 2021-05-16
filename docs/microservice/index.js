@@ -15,7 +15,9 @@ exports.config = {
             'Eureka 集群搭建'
         ],
         '/microservice/ribbon/': [
-            ''
+            '',
+            '负载均衡服务调用',
+            '负载均衡策略'
         ],
     }
 }
