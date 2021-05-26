@@ -33,7 +33,8 @@ exports.config = {
             'start()与Run()',
             '乐观锁与悲观锁',
             '自旋锁',
-            'Synchronized同步锁'
+            'Synchronized同步锁',
+            'ReentrantLock'
         ],
         '/java/io/': [],
         '/java/nio/': []
