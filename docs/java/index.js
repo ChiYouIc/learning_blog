@@ -31,7 +31,9 @@ exports.config = {
             '线程终止',
             'sleep()与wait()',
             'start()与Run()',
-            '乐观锁与悲观锁'
+            '乐观锁与悲观锁',
+            '自旋锁',
+            'Synchronized同步锁'
         ],
         '/java/io/': [],
         '/java/nio/': []
