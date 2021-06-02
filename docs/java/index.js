@@ -34,7 +34,8 @@ exports.config = {
             '乐观锁与悲观锁',
             '自旋锁',
             'Synchronized同步锁',
-            'ReentrantLock'
+            'ReentrantLock',
+            'Semaphore'
         ],
         '/java/io/': [],
         '/java/nio/': []
