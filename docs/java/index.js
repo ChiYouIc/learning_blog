@@ -8,6 +8,7 @@ exports.config = {
             {text: 'Java 多线程', link: '/java/thread/'},
             {text: 'Java IO', link: '/java/io/'},
             {text: 'Java NIO', link: '/java/nio/'},
+            {text: '设计模式', link: '/java/design/'},
         ]
     },
     sidebar: {
@@ -41,7 +42,11 @@ exports.config = {
             '线程上下文切换',
         ],
         '/java/io/': [],
-        '/java/nio/': []
+        '/java/nio/': [],
+        '/java/design/': [
+            '',
+            '单例模式'
+        ]
     }
 }
 
