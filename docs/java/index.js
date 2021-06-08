@@ -35,7 +35,10 @@ exports.config = {
             '自旋锁',
             'Synchronized同步锁',
             'ReentrantLock',
-            'Semaphore'
+            'Semaphore',
+            '线程锁',
+            '线程基本方法',
+            '线程上下文切换',
         ],
         '/java/io/': [],
         '/java/nio/': []
