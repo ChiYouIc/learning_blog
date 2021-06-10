@@ -15,11 +15,11 @@ exports.config = {
         ],
         '/database/redis/': [
             '',
-            'Redis键(Key)',
-            'Redis字符串(String)',
-            'Redis哈希(Hash)',
-            'Redis列表(List)',
-            'Redis集合(Set)',
+            'Redis键',
+            'Redis字符串',
+            'Redis哈希',
+            'Redis列表',
+            'Redis集合',
             'Redis有序集合',
         ],
         '/database/mongodb/': [
