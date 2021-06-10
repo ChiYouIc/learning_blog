@@ -21,10 +21,13 @@ exports.config = {
             'Redis列表',
             'Redis集合',
             'Redis有序集合',
+            'RedisHyperLogLog',
+            'Redis发布订阅',
         ],
         '/database/mongodb/': [
             ''
         ]
     }
 }
+
 

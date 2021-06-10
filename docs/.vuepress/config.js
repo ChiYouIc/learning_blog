@@ -6,6 +6,7 @@ const architect = require('../architect/index')
 const spring = require('../spring/index')
 const microservice = require('../microservice/index')
 const database = require('../database/index')
+const server = require('../server/index')
 
 const nav = [
     {text: 'Home', link: '/'},
@@ -14,6 +15,7 @@ const nav = [
     spring.config.nav,
     microservice.config.nav,
     database.config.nav,
+    server.config.nav,
     architect.config.nav
 ]
 
@@ -36,7 +38,8 @@ function handleSidebar() {
         architect.config.sidebar,
         spring.config.sidebar,
         microservice.config.sidebar,
-        database.config.sidebar
+        database.config.sidebar,
+        server.config.sidebar
     );
 }
 
