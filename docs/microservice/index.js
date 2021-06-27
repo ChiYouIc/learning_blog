@@ -4,6 +4,7 @@ exports.config = {
     link: link,
     nav: {
         text: '微服务', items: [
+            {text: '领域驱动设计', link: '/microservice/ddd/'},
             {text: 'Eureka 服务注册与发现', link: '/microservice/eureka/'},
             {text: 'Ribbon 负载均衡', link: '/microservice/ribbon/'},
             {text: 'Feign 声明式服务调用', link: '/microservice/feign/'},
@@ -12,6 +13,9 @@ exports.config = {
         ]
     },
     sidebar: {
+        '/microservice/ddd/': [
+            ''
+        ],
         '/microservice/eureka/': [
             '',
             'Eureka 服务搭建',
