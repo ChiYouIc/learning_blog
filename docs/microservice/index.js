@@ -10,6 +10,7 @@ exports.config = {
             {text: 'Feign 声明式服务调用', link: '/microservice/feign/'},
             {text: 'Hystrix 服务容错保护', link: '/microservice/hystrix/'},
             {text: 'Zuul 路由网关', link: '/microservice/zuul/'},
+            {text: '理论与面试', link: '/microservice/theory/'},
         ]
     },
     sidebar: {
@@ -43,6 +44,9 @@ exports.config = {
             '路由配置',
             '路由映射',
             '过滤器',
+        ],
+        '/microservice/theory/': [
+            ''
         ]
 
     }
