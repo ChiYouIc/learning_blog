@@ -12,6 +12,7 @@ exports.config = {
     sidebar: {
         '/database/mysql/': [
             '',
+
         ],
         '/database/redis/': [
             '',
