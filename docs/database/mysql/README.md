@@ -290,3 +290,4 @@ InnoDB 存储引擎提供了对 XA 事务的支持，并通过 XA 事务来支�
 :::
 
 > 摘自 JavaGuide [点击此处查看原文](https://snailclimb.gitee.io/javaguide/#/docs/database/MySQL)
+

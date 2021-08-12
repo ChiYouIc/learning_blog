@@ -12,6 +12,7 @@ exports.config = {
     sidebar: {
         '/database/mysql/': [
             '',
+            '数据库索引'
 
         ],
         '/database/redis/': [
