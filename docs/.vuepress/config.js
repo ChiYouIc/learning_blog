@@ -7,15 +7,32 @@ const database = require('../database/index')
 const server = require('../server/index')
 
 const plugins = {
-    '@vuepress/medium-zoom':
-        {
-            selector: 'img.zoom-custom-imgs',
-            // medium-zoom options here
-            // See: https://github.com/francoischalifour/medium-zoom#options
-            options: {
-                margin: 16
-            }
+    'cursor-effects': {
+        size: 2, // size of the particle, default: 2
+        shape: ['star'], // shape of the particle, default: 'star'
+        zIndex: 999999999, // z-index property of the canvas, default: 999999999
+    },
+    'vuepress-plugin-cat': {
+        theme: ['blackCat'],
+        clean: false,
+        messages: {
+            welcome: '欢迎来到您的站点名称【顿顿白菜】的博客',
+            home: '心里的花，我想要带你回家。',
+            theme: '好吧，希望你能喜欢我的其他小伙伴。',
+            close: '你知道我喜欢吃什么吗？痴痴地望着你。'
         },
+        messageStyle: {right: '68px', bottom: '190px'},
+        modelStyle: {right: '90px', bottom: '-20px', opacity: '0.9'},
+        btnStyle: {right: '90px', bottom: '40px'},
+        width: 200,
+        height: 300
+    },
+    '@vuepress/medium-zoom': {
+        selector: 'img.zoom-custom-imgs',
+        options: {
+            margin: 16
+        }
+    },
     '@vuepress/pwa': {
         serviceWorker: true,
         popupComponent: 'MySWUpdatePopup',
@@ -71,6 +88,7 @@ module.exports = {
         logo: '/logo.png',
         type: 'blog',
         authorAvatar: '/avatar.jpg',
+        subSidebar: 'auto', //在所有页面中启用自动生成子侧边栏，原 sidebar 仍然兼容
         sidebarDepth: 1,
         displayAllHeaders: false, // 显示所有页面的标题链接 默认值：false
         nav,
@@ -103,4 +121,15 @@ module.exports = {
             },
         ],
     },
+    // markdown 扩展
+    markdown: {
+        // markdown-it-anchor 的选项
+        anchor: {permalink: false},
+        // markdown-it-toc 的选项
+        toc: {includeLevel: [1, 2]},
+        extendMarkdown: md => {
+            // 使用更多的 markdown-it 插件!
+            md.use(require('markdown-it-plantuml'))
+        }
+    }
 }

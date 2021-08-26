@@ -1,4 +1,12 @@
-# Zuul 路由网关
+---
+title: Zuul 路由网关
+sidebar: auto
+date: 2021-07-20
+categories:
+ - 微服务
+tags:
+ - SpringCloud
+---
 
 Spring Cloud Zuul 是 Spring Cloud Netflix 子项目的核心组件之一，可以作微服务架构中的 API 网关使用， 支持`动态路由`与`过滤`功能。
 

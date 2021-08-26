@@ -1,4 +1,12 @@
-# Eureka 服务搭建
+---
+title: Eureka 服务搭建
+sidebar: auto
+date: 2021-08-06
+categories:
+ - 微服务
+tags:
+ - SpringCloud
+---
 
 ## 搭建项目
 

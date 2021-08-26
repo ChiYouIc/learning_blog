@@ -1,4 +1,12 @@
-# 负载均衡策略
+---
+title: 负载均衡策略
+sidebar: auto
+date: 2021-07-05
+categories:
+ - 微服务
+tags:
+ - SpringCloud
+---
 
 > 所谓的负载均衡策略，就是当 A 服务调用 B 服务时，此时 B 服务存在多个实例，这时 A 服务以何种方式选择调用 B 服务的实例，Ribbon 可以选择一下几种负载均衡策略。
 

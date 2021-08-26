@@ -1,4 +1,14 @@
-# 面试
+---
+title: MySQL 面试
+sidebar: auto
+date: 2021-08-12
+categories:
+ - 数据库
+tags:
+ - MySQL
+ - 面试
+---
+# 
 
 ## MySQL 批量插入，如何不插入重复数据
 

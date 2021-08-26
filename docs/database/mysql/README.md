@@ -1,4 +1,12 @@
-# MySQL基础
+---
+title: MySQL基础
+sidebar: auto
+date: 2021-08-12
+categories:
+ - 数据库
+tags:
+ - MySQL
+---
 
 ## 关系型数据库介绍
 

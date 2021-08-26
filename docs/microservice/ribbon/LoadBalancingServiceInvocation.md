@@ -1,4 +1,12 @@
-# 负载均衡服务调用
+---
+title: 负载均衡服务调用
+sidebar: auto
+date: 2021-07-06
+categories:
+ - 微服务
+tags:
+ - SpringCloud
+---
 
 ## 搭建项目
 

@@ -1,4 +1,12 @@
-# Ribbon 负载均衡
+---
+title: Ribbon 负载均衡
+sidebar: auto
+date: 2021-07-04
+categories:
+ - 微服务
+tags:
+ - SpringCloud
+---
 
 Spring Cloud Ribbon 是基于 Netflix Ribbon 实现的一套`客户端的负载均衡`工具。简单的说，Ribbon 是 Netflix 发布的开源项目，主要功能是提供客户端的软件负载均衡算法，将 Netflix 的中间层服务连接在一起。Ribbon 客户端组件提供一系列完善的配置项，如连接超时、重试等等。简单的说，就是在配置文件中列出 Load Balancer（简称 LB）后面所有的机器，Ribbon 会自动帮助你基于某种规则（如简单轮询、随机连接等）去连接这些机器。我们也很容易使用 Ribbon 实现自定义的负载均衡算法。
 

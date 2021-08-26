@@ -1,4 +1,12 @@
-# Redis HyperLogLog
+---
+title: Redis HyperLogLog
+sidebar: auto
+date: 2021-03-03
+categories:
+ - 数据库
+tags:
+ - Redis
+---
 
 Redis 在 2.8.9 版本添加了 HyperLogLog 结构。
 
@@ -9,7 +17,7 @@ Redis HyperLogLog 是用来做基数统计的算法，HyperLogLog 的优点是�
 但是，因为 HyperLogLog 只会根据输入元素来计算基数，而不会储存输入元素本身，所以 HyperLogLog 不能像集合那样，返回输入的各个元素。
 
 ::: tip
-### 什么是基数？
+## 什么是基数？
 
 比如数据集 {1, 3, 5, 7, 5, 7, 8}， 那么这个数据集的基数集为 {1, 3, 5 ,7, 8}, 基数(不重复元素)为5。 基数估计就是在误差可接受的范围内，快速计算基数。
 :::

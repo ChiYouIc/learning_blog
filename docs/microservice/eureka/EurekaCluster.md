@@ -1,4 +1,12 @@
-# Eureka 集群搭建
+---
+title: Eureka 集群搭建
+sidebar: auto
+date: 2021-08-05
+categories:
+ - 微服务
+tags:
+ - SpringCloud
+---
 
 Eureka 是支持服务集群的，它与 Zookeeper 集群不一样，Eureka 集群是去中心化的，是没有主节点和从节点之分的，每一个 Eureka Server 都是独立开的，每一个 Eureka Server 是通过配置去发现其他 Eureka Server 的，包括 Eureka Client 也是需要通过配置才能知道往哪里注册。
 

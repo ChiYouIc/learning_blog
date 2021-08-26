@@ -7,7 +7,7 @@ exports.config = {
             {text: 'Spring', link: '/spring/spring/'},
             {text: 'SpringBoot', link: '/spring/springBoot/'},
             {text: 'SpringSecurity', link: '/spring/springSecurity/'}
-        ]
+        ], icon: 'fas fa-seedling'
     },
     sidebar: {
         '/spring/spring/': [

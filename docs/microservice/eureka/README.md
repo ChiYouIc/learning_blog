@@ -1,7 +1,14 @@
-# Eureka 服务注册与发现
+---
+title: Eureka 服务注册与发现
+sidebar: auto
+date: 2021-08-01
+categories:
+ - 微服务
+tags:
+ - SpringCloud
+---
 
 Eureka 是基于 REST（代表性状态转移）的服务，主要在 AWS 云中用于定位服务，以实现负载均衡和中间层服务器的故障转移。我们称此服务为 Eureka 服务器。Eureka 还带有一个基于 Java 的客户端组件 Eureka Client，它使得客户端与 Eureka 服务器交互变得更加容易。客户端还具有一个内置的负载均衡器，还可以执行基本的循环负载均衡。在 Netflix，使用了更复杂的负载均衡器将 Eureka 进行包装，以实现基于流量、资源使用、错误条件等多种因素提供加权负载均衡，提供更为出色的弹性。
-
 
 
 Eureka 作为一款服务发现框架，他是如何去发现服务的呢？

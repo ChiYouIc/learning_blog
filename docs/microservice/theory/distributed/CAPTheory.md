@@ -1,8 +1,13 @@
 ---
+title: CPA 理论
 sidebar: auto
+date: 2021-06-13
+categories:
+ - 微服务
+tags:
+ - SpringCloud
+ - 面试
 ---
-
-# CPA 理论
 
 [CAP 理论/定理](https://zh.wikipedia.org/wiki/CAP定理)起源于 2000年，由加州大学伯克利分校的Eric Brewer教授在分布式计算原理研讨会（PODC）上提出，因此 CAP定理又被称作 **布鲁尔定理（Brewer’s theorem）**。2年后，麻省理工学院的Seth Gilbert和Nancy Lynch 发表了布鲁尔猜想的证明，CAP理论正式成为分布式领域的定理。
 

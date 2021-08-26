@@ -1,4 +1,12 @@
-# Redis 介绍
+---
+title: Redis 介绍
+sidebar: auto
+date: 2021-03-01
+categories:
+ - 数据库
+tags:
+ - Redis
+---
 
 Redis 是完全开源的，遵守 BSD 协议，是一个高性能的 key-value 数据库。
 

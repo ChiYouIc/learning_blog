@@ -12,7 +12,7 @@ exports.config = {
             {text: 'Zuul 路由网关', link: '/microservice/zuul/'},
             {text: 'Gateway 服务网关', link: '/microservice/gateway/'},
             {text: '理论与面试', link: '/microservice/theory/'},
-        ]
+        ], icon: 'fas fa-cloud'
     },
     sidebar: {
         '/microservice/ddd/': [
@@ -20,31 +20,31 @@ exports.config = {
         ],
         '/microservice/eureka/': [
             '',
-            'Eureka 服务搭建',
-            'Eureka 集群搭建'
+            'EurekaCreate',
+            'EurekaCluster'
         ],
         '/microservice/ribbon/': [
             '',
-            '负载均衡服务调用',
-            '负载均衡策略'
+            'LoadBalancingServiceInvocation',
+            'LoadBalancingPolicy'
         ],
         '/microservice/feign/': [
             ''
         ],
         '/microservice/hystrix/': [
             '',
-            '服务熔断',
-            '服务降级',
-            '服务监控',
-            '请求缓存',
-            '请求合并',
-            '常用配置',
+            'ServiceFusing',
+            'ServiceDegradation',
+            'ServiceMonitoring',
+            'RequestCache',
+            'RequestMerge',
+            'CommonlyUsedConfiguration',
         ],
         '/microservice/zuul/': [
             '',
-            '路由配置',
-            '路由映射',
-            '过滤器',
+            'RouteConfiguration',
+            'RouteMap',
+            'Filter',
         ],
         '/microservice/gateway/': [
             ''

@@ -7,24 +7,25 @@ exports.config = {
             {text: 'MySQL', link: '/database/mysql/'},
             {text: 'Redis', link: '/database/redis/'},
             {text: 'MongoDB', link: '/database/mongodb/'},
-        ]
+        ], icon: 'fas fa-database'
     },
     sidebar: {
         '/database/mysql/': [
             '',
-            '数据库索引'
+            'Engine',
+            'Interview'
 
         ],
         '/database/redis/': [
             '',
-            'Redis键',
-            'Redis字符串',
-            'Redis哈希',
-            'Redis列表',
-            'Redis集合',
-            'Redis有序集合',
+            'RedisKey',
+            'RedisString',
+            'RedisHash',
+            'RedisList',
+            'RedisSet',
+            'RedisSortedSet',
             'RedisHyperLogLog',
-            'Redis发布订阅',
+            'RedisPubSub',
         ],
         '/database/mongodb/': [
             ''

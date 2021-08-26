@@ -1,4 +1,12 @@
-# Hystrix 服务容错保护
+---
+title: Hystrix 服务容错保护
+sidebar: auto
+date: 2021-07-15
+categories:
+ - 微服务
+tags:
+ - SpringCloud
+---
 
 Spring Cloud Hystrix 是 Spring Cloud Netflix 子项目的核心组件之一，具有服务容错及线程隔离等一系列服务保护功能。
 

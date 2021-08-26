@@ -9,7 +9,7 @@ exports.config = {
             {text: 'Java IO', link: '/java/io/'},
             {text: 'Java NIO', link: '/java/nio/'},
             {text: '设计模式', link: '/java/design/'},
-        ], icon: 'java'
+        ], icon: 'fab fa-java'
     },
     sidebar: {
         '/java/jvm/': [

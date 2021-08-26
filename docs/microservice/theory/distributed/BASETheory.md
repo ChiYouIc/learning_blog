@@ -1,5 +1,12 @@
 ---
+title: CPA 理论
 sidebar: auto
+date: 2021-06-14
+categories:
+ - 微服务
+tags:
+ - SpringCloud
+ - 面试
 ---
 
 # BASE 理论

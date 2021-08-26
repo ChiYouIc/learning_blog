@@ -9,7 +9,7 @@ exports.config = {
             {text: '算法', link: '/server/algorithm/'},
             {text: 'Nginx', link: '/server/nginx/'},
             {text: 'Docker', link: '/server/docker/'}
-        ]
+        ], icon: 'fas fa-server'
     },
     sidebar: {
         '/server/operating/': [
