@@ -1,4 +1,13 @@
-# Semaphore
+---
+title: Semaphore 信号量
+sidebar: auto
+date: 2021-06-03
+categories:
+ - 多线程
+ - Java
+tags:
+ - Thread
+---
 
 Semaphore
 是一种基于计数的信号量。它可以设定一个阈值，基于此，多个线程竞争获取许可信号，结束后将其归还，超过阈值后，线程申请许可信号将会被阻塞。Semaphore

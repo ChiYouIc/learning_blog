@@ -1,4 +1,12 @@
-# 设计模式
+---
+title: 设计模式
+sidebar: auto
+date: 2021-04-02
+categories:
+ - 设计模式
+tags:
+ - DesignPattern
+---
 
 ## UML 类图
 

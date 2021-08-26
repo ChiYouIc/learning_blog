@@ -10,7 +10,7 @@ exports.config = {
     sidebar: {
         '/go/base/': [
             '',
-            'GO接口'
+            'Interface'
         ]
     }
 }

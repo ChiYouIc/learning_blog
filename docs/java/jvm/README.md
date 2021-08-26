@@ -1,4 +1,12 @@
-# JVM learning
+---
+title: JVM learning
+sidebar: auto
+date: 2021-07-18
+categories:
+ - Java
+tags:
+ - JVM
+---
 
 ## 基本概念
 

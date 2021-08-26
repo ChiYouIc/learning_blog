@@ -1,4 +1,13 @@
-# CountDownLatch 倒计时器
+---
+title: CountDownLatch 倒计时器
+sidebar: auto
+date: 2021-06-11
+categories:
+ - 多线程
+ - Java
+tags:
+ - Thread
+---
 
 在多线程协作完成业务功能时，有时候需要等待其它多个线程完成任务之后，主线程才能继续往下执行业务功能，在这种业务场景下，通常可以使用 `Thread 类的 join 方法`，
 让主线程等待被 join 的线程执行完成之后，主线程才能继续往下执行。当然，使用线程间消息通信机制也可以完成。其实，Java 并发工具类中已经提供了类似 "倒计时" 这样的工具，

@@ -1,4 +1,13 @@
-# CyclicBarrier
+---
+title: CyclicBarrier 栅栏
+sidebar: auto
+date: 2021-06-15
+categories:
+ - 多线程
+ - Java
+tags:
+ - Thread
+---
 
 CyclicBarrier 可以使一定数量的线程反复地在栅栏位置处汇集。当线程到达栅栏
 位置时将调用 await 方法，这个方法将阻塞直到所有线程都到达栅栏位置。如果所有线程都到达栅栏位置，

@@ -1,4 +1,13 @@
-# ReentrantLock
+---
+title: ReentrantLock
+sidebar: auto
+date: 2021-06-05
+categories:
+ - 多线程
+ - Java
+tags:
+ - Thread
+---
 
 ReentantLock 继承接口 Lock 并实现了接口中定义的方法，它是一种可重入锁，除了能完成 synchronized 所能完成的所有工作外，还`提供了诸如可响应式中断锁、可轮询锁请求、定时锁等避免多线程死锁的方法`。
 
