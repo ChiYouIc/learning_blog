@@ -67,6 +67,7 @@ module.exports = {
     },
     theme: 'reco',
     themeConfig: {
+        author: '顿顿白菜',
         logo: '/logo.png',
         type: 'blog',
         authorAvatar: '/avatar.jpg',
