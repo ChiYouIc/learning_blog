@@ -12,20 +12,23 @@ exports.config = {
         ], icon: 'fas fa-server'
     },
     sidebar: {
-        '/server/operating/': [
-            ''
-        ],
-        '/server/algorithm/': [
-            ''
-        ],
-        '/server/network/': [
-            ''
-        ],
-        '/server/nginx/': [
-            ''
-        ],
+        // '/server/operating/': [
+        //     ''
+        // ],
+        // '/server/algorithm/': [
+        //     ''
+        // ],
+        // '/server/network/': [
+        //     '',
+        //     'http/HttpProtocol',
+        //     'CookieAndSession'
+        // ],
+        // '/server/nginx/': [
+        //     ''
+        // ],
         '/server/docker/': [
-            ''
+            '',
+            'Use'
         ]
     }
 }

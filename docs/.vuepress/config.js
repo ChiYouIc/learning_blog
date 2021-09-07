@@ -7,6 +7,9 @@ const database = require('../database/index')
 const server = require('../server/index')
 
 const plugins = {
+    'vuepress-plugin-flowchart':{},
+    // 支持 mermaid 绘图的插件
+    'vuepress-plugin-mermaidjs': {},
     'cursor-effects': {
         size: 2, // size of the particle, default: 2
         shape: ['star'], // shape of the particle, default: 'star'
@@ -28,7 +31,7 @@ const plugins = {
         height: 300
     },
     '@vuepress/medium-zoom': {
-        selector: 'img.zoom-custom-imgs',
+        selector: '.content__default img',
         options: {
             margin: 16
         }

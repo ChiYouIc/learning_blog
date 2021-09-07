@@ -15,3 +15,18 @@ cond(yes)->process->e
 cond(no)->e
 @flowend
 
+``` mermaid
+flow
+A->> B: Query
+B->> C: Forward query
+Note right of C: Thinking...
+C->> B: Response
+B->> A: Forward response
+``` 
+``` mermaid
+graphTD
+Alice->John: Hello John, how are you?
+loop every minute
+John-->Alice: Great!
+end
+```

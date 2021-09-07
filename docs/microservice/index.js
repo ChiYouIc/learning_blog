@@ -49,9 +49,9 @@ exports.config = {
         '/microservice/gateway/': [
             ''
         ],
-        '/microservice/theory/': [
-            ''
-        ]
+        // '/microservice/theory/': [
+        //     ''
+        // ]
 
     }
 }

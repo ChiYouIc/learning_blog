@@ -10,15 +10,15 @@ exports.config = {
         ], icon: 'fas fa-seedling'
     },
     sidebar: {
-        '/spring/spring/': [
-            ''
-        ],
-        '/spring/springBoot/': [
-            ''
-        ],
-        '/spring/springSecurity/': [
-            ''
-        ]
+        // '/spring/spring/': [
+        //     ''
+        // ],
+        // '/spring/springBoot/': [
+        //     ''
+        // ],
+        // '/spring/springSecurity/': [
+        //     ''
+        // ]
     }
 }
 
