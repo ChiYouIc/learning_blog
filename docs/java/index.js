@@ -47,7 +47,11 @@ exports.config = {
             'BlockingQueue',
         ],
         '/java/io/': [],
-        '/java/nio/': [],
+        '/java/nio/': [
+            '',
+            'Channel',
+            'FileChannel'
+        ],
         '/java/design/': [
             '',
             'SingletonPattern',
