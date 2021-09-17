@@ -6,5 +6,10 @@ categories:
 ---
 
 ## 电子书
-* [Json Web Token（JWT）](../architect/books/JsonWebToken.md)
+* [Json Web Token（JWT）](books/JsonWebToken.md)
 
+
+## Apache Maven 项目管理
+
+- [Maven 介绍](maven/README.md)
+- [Maven POM](maven/MavenPOM.md)

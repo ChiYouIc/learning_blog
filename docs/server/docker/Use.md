@@ -2,9 +2,9 @@
 title: Docker 容器使用
 date: 2021-09-07
 categories:
-- Docker
+ - Server
 tags:
-- Docker
+ - Docker
 ---
 
 ## 1、获取镜像

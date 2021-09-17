@@ -3,7 +3,7 @@ title: JSON Web Token
 sidebar: auto
 date: 2021-08-31
 categories:
- - 其他
+ - 架构师
 tags:
  - JSON Web Token
  - Auth0
