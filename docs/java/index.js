@@ -50,7 +50,8 @@ exports.config = {
         '/java/nio/': [
             '',
             'Channel',
-            'FileChannel'
+            'FileChannel',
+            'Socket'
         ],
         '/java/design/': [
             '',
