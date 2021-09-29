@@ -51,7 +51,8 @@ exports.config = {
             '',
             'Channel',
             'FileChannel',
-            'Socket'
+            'Socket',
+            'Scatter_Gather'
         ],
         '/java/design/': [
             '',
