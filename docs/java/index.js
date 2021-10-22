@@ -52,7 +52,9 @@ exports.config = {
             'Channel',
             'FileChannel',
             'Socket',
-            'Scatter_Gather'
+            'Scatter_Gather',
+            'Buffer',
+            'Selector'
         ],
         '/java/design/': [
             '',
