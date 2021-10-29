@@ -11,7 +11,6 @@ exports.config = {
             {text: 'Hystrix 服务容错保护', link: '/microservice/hystrix/'},
             {text: 'Zuul 路由网关', link: '/microservice/zuul/'},
             {text: 'Gateway 服务网关', link: '/microservice/gateway/'},
-            {text: '理论与面试', link: '/microservice/theory/'},
         ], icon: 'fas fa-cloud'
     },
     sidebar: {
@@ -49,10 +48,6 @@ exports.config = {
         '/microservice/gateway/': [
             ''
         ],
-        // '/microservice/theory/': [
-        //     ''
-        // ]
-
     }
 }
 
