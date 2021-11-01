@@ -1,5 +1,5 @@
 ---
-title: CPA 理论
+title: BASE 理论
 sidebar: auto
 date: 2021-06-14
 categories:

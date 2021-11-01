@@ -7,7 +7,7 @@ const database = require('../database/index')
 const server = require('../server/index')
 
 const plugins = {
-    'vuepress-plugin-flowchart':{},
+    'vuepress-plugin-flowchart': {},
     // 支持 mermaid 绘图的插件
     'vuepress-plugin-mermaidjs': {},
     'cursor-effects': {
@@ -121,7 +121,12 @@ module.exports = {
                 desc: 'A simple and beautiful vuepress Blog & Doc theme.',
                 logo: "https://vuepress-theme-reco.recoluan.com/icon_vuepress_reco.png",
                 link: 'https://vuepress-theme-reco.recoluan.com'
-            },
+            }, {
+                title: '我的博客',
+                desc: '我的个人博客主页',
+                logo: '/logo.png',
+                link: 'http://iron-man.top/'
+            }
         ],
     },
     // markdown 扩展

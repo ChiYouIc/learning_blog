@@ -12,6 +12,8 @@ exports.config = {
     sidebar: {
         '/database/mysql/': [
             '',
+            'DatabaseAndTable',
+            'DataType',
             'Engine',
             'Interview'
 
