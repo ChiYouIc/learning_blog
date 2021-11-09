@@ -1,5 +1,5 @@
 ---
-title: Scatter & Gather
+title: Scatter 和 Gather
 sidebar: auto
 date: 2021-09-27
 categories:

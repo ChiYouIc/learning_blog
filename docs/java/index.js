@@ -54,7 +54,9 @@ exports.config = {
             'Socket',
             'Scatter_Gather',
             'Buffer',
-            'Selector'
+            'Selector',
+            'Pipe_FileLock',
+            'Other'
         ],
         '/java/design/': [
             '',
