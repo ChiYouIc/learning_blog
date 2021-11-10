@@ -13,6 +13,7 @@ exports.config = {
         '/database/mysql/': [
             '',
             'DatabaseAndTable',
+            'CRUD',
             'DataType',
             'Engine',
             'Interview'
