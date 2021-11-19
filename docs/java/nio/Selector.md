@@ -12,7 +12,7 @@ tags:
 
 ### Selector 和 Channel 关系
 
-Selector 一般称为选择器，也可以翻译为 `多路复用器`。它是 Java NIO 核心组件中的一个，用于检查一个或多个 NIO Channel（通道）的状态是否处理可读、可写。如此可以实现单线程管理多个 channels，也就是可以管理多个网络连接。
+Selector 一般称为选择器，也可以翻译为 `多路复用器`。它是 Java NIO 核心组件中的一个，用于检查一个或多个 NIO Channel（通道）的状态是否处理可读、可写。如此可以实现单线程管理多个 channel，也就是可以管理多个网络连接。
 
 <img :src="$withBase('/img/java/nio/Selector.png')" alt="Selector">
 
@@ -22,7 +22,7 @@ Selector 一般称为选择器，也可以翻译为 `多路复用器`。它是 J
 
 ### 可选择通道（SelectableChannel）
 
-- 不是所有的 Channel 都可以被 Selector 复用的。比方说，FileChannel 就不能被选择器复用。判断一个 Channel 能被 Selector 复用，有一个前提：判断它是否继承了一个抽象类 SelectableChannel。如果继承了 SelectableChannel，则可以被复用，否则不能。
+- 不是所有的 Channel 都可以被 Selector 复用的。比方说，FileChannel 就不能被选择器复用。判断一个 Channel 能否被 Selector 复用，有一个前提：判断它是否继承了一个抽象类 SelectableChannel。如果继承了 SelectableChannel，则可以被复用，否则不能。
 - SelectableChannel 类提供了实现通道的可选择性所需要的公共方法。它是所有支持就绪检查的通道类的父类。所有 Socket 通道，都继承了 SelectableChannel 类，所以都是可以选择的，包括从管道（Pipe）对象中获得的通道。而 FileChannel 类，没有继承 SelectableChannel，因此是不可以被选择的。
 - 一个通道可以被注册到多个选择器上，但对每个选择器而言只能被注册一次。通道和选择器之间的关系，使用注册的方式完成。SelectableChannel 可以被注册到 Selector 对象上，在注册的时候，需要指定通道的哪些操作是 Selector 感兴趣的。
 
@@ -51,7 +51,7 @@ Selector 一般称为选择器，也可以翻译为 `多路复用器`。它是 J
 
 - Channel 注册到后，并且一旦通道处于某种就绪状态，就可以被选择器查询到，这个工作是通过选择器 Selector 的 select() 方法完成的。select() 方法的作用就是对感兴趣的通道操作进行就绪状态的查询。
 - Selector 可以不断的查询 Channel 中发生的操作的就绪状态。并且挑选感兴趣的操作的就绪状态。一旦通道有操作的就绪状态完成，并且是 Selector 感兴趣的操作，那么就会被 Selector 选中，放入到选择键集合中。
-- 一个选择键，首先是包含了注册在 Selector 的通道操作的类型，比方说 SelectionKey.OP_READ。也包含了特定的通道与特定的选择器之间的注册关系。在应用程序开发中，选择键的关键。NIO 的编程，就是根据对应的选择键，进行不同的业务逻辑处理。
+- 一个选择键，首先是包含了注册在 Selector 的通道操作的类型，比方说 SelectionKey.OP_READ。也包含了特定的通道与特定的选择器之间的注册关系。在应用程序开发中，选择键是关键。在 NIO 的编程，就是根据对应的选择键，进行不同的业务逻辑处理。
 - 选择键的概念，和事件的概念比较相似。一个选择键类似监听器模式里边的一个事件。由于 Selector 不是事件触发的模式，而是主动去查询的模式，所以不叫事件 Event，而是叫 SelectionKey 选择键。
 
 
@@ -141,7 +141,7 @@ socketChannel.register(selector, SelectionKey.OP_ACCEPT);
 
 ### 停止选择的方法
 
-选择器 Selector 在执行选择的过程中，系统底层会依次询问每个通道是否已经就绪，这个过程可能会造成调用线程进入阻塞状态，那么有以下三种方式可以唤醒在 select() 方法中阻塞的线程。
+选择器 Selector 在执行选择的过程中，系统底层会依次询问每个通道是否已经就绪，这个过程可能会造成调用线程进入阻塞状态，那么有以下两种方式可以唤醒在 select() 方法中阻塞的线程。
 
 - **wakeup() 方法**：通过调用 Selector 对象的 wakeup() 方法让处在阻塞状态的 select() 方法立刻返回。该方法使得选择器上的第一个还没有返回的选择操作立即返回。如果当前没有进行中的选择操作，那么下一次对 select() 方法的一次调用将立即返回。
 

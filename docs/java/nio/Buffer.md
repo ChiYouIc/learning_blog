@@ -119,7 +119,7 @@ position 和 limit 的含义取决于 Buffer 处在读模式还是写模式。�
 
 2. **position**
 
-   **写数据到 Buffer 中时**，`position` 表示写入数据的当前位置，position 的初始值为 0.当一个 byte、long 等数据写到 Buffer 后，position 会向下移动到下一个可插入数据的 Buffer 单元。position 的最大值是 capacity - 1（position 的初始值是 0）。
+   **写数据到 Buffer 中时**，`position` 表示写入数据的当前位置，position 的初始值为 0。当一个 byte、long 等数据写到 Buffer 后，position 会向下移动到下一个可插入数据的 Buffer 单元。position 的最大值是 capacity - 1（position 的初始值是 0）。
 
    **读数据到 Buffer 中时**，position 表示读入数据的当前位置，如 position = 2 时表示已开始读入了 3 个 byte，或从第 3 个 byte 开始读取。通过 ByteBuffer.flip() 切换到读模式时 position 会被重置为 0，当 Buffer 从 position 读入数据后，position 会下移到下一个可读入的数据 Buffer 单元。
 
@@ -244,7 +244,7 @@ get() 方法有很多重载方法，允许你以不同的方式从 Buffer 中读
 
 - **mark() 与 reset() 方法**
 
-  通过调用 Buffer.mark() 方法，可以标记 Buffer 中的一个特定 position。之后可以通过调用 Buffer。reset() 方法恢复到这个 position。例如：
+  通过调用 Buffer.mark() 方法，可以标记 Buffer 中的一个特定 position。之后可以通过调用 Buffer.reset() 方法恢复到这个 position。例如：
 
   ``` java
   // 标记
@@ -377,7 +377,7 @@ public class DirectBuffer {
 
 ### 内存映射文件 I/O
 
-内存映射文件 I/O 是一种读和写文件数据的方法，它可以比常规的基于流或者基于流或者基于通道的 I/O 快的多。内存映射文件 I/O 是通过使文件中的数据出现为内存数组的内容来完成的，这听起来像是将文件数写入的内存中，但是事实上并不是这样的。一般来说，只有文件中实际需要读取或写入的部分才会映射到内存中。
+内存映射文件 I/O 是一种读和写文件数据的方法，它可以比常规的基于流或者基于通道的 I/O 快的多。内存映射文件 I/O 是通过使文件中的数据出现为内存数组的内容来完成的，这听起来像是将文件数写入的内存中，但是事实上并不是这样的。一般来说，只有文件中实际需要读取或写入的部分才会映射到内存中。
 
 ``` java
 public class MemoryMap {

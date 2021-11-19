@@ -44,7 +44,7 @@ public final SelectableChannel configureBlocking(boolean block) throws IOExcepti
 
 非阻塞 socket 通道被认为是服务端使用的，因为它们的存在使得同时管理很多 socket 通道变得更容易。但是，在客户端使用一个或几个非阻塞模式的 socket 通道也是有益处的，例如，借助非阻塞 socket 通道，GUI 程序可以专注于用户请求并且同时维护与一个或多个服务器的会话。在很多程序上，非阻塞模式都是很有用的。
 
-偶尔的，我们也会需要防止 socket 通道的阻塞模式被更改。API 中有一个 blockingLock() 方法，改方法会返回一个非透明的对象引用。返回的对象是通道实现修改阻塞模式时内部使用的。只有拥有此对象的锁的线程才能更改通道的阻塞模式。
+偶尔的，我们也会需要防止 socket 通道的阻塞模式被更改。API 中有一个 blockingLock() 方法，该方法会返回一个非透明的对象引用。返回的对象是通道实现修改阻塞模式时内部使用的。只有拥有此对象的锁的线程才能更改通道的阻塞模式。
 
 ## ServerSocketChannel
 
@@ -128,7 +128,7 @@ Java NIO 中的 SocketChannel 是一个连接到 TCP 网络套接字的通道。
 
 - SocketChannel 支持两种 I/O 模式：阻塞式和非阻塞式；
 
-- SocketChannel 支持异步关闭。如果 SocketChannel 在一个线程上 read 阻塞，另一个线程对该 SocketChannel 调用 shutdownInput()，则读阻塞的线程将返回 -1 表示没有读取任何数据；如果 SocketChannel 在一个线程上 write 阻塞，另一个线程对该 SocketChannel 调用 shutdownWrite，则写阻塞的线程将抛出 AsynchronousCloseException；
+- SocketChannel 支持异步关闭。如果 SocketChannel 在一个线程上 read 阻塞，另一个线程对该 SocketChannel 调用 shutdownInput()，则读阻塞的线程将返回 -1 表示没有读取任何数据；如果 SocketChannel 在一个线程上 write 阻塞，另一个线程对该 SocketChannel 调用 shutdownWrite()，则写阻塞的线程将抛出 AsynchronousCloseException；
 
 - SocketChannel 支持设定参数
 

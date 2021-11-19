@@ -12,11 +12,11 @@ tags:
 
 Java NIO 开始支持 Scatter、Gather，Scatter、Gather 用于描述从 Channel 中读取或者写入到 Channel 的操作。
 
-**分散（Scatter）** 从 Channel 中读取是指在读操作时将读取得数据写入多个 buffer 中。因此，Channel 将从 Channel 中读取得数据“分散（Scatter）”到多个 Buffer 中。
+**分散（Scatter）** 从 Channel 中读取是指在读操作时将读取的数据写入多个 Buffer 中。因此，Channel 将从 Channel 中读取得数据“分散（Scatter）”到多个 Buffer 中。
 
-**聚集（Gather）** 写入 Channel 是指在写操作时将多个 buffer 的数据写入同一个 Channel，因此，Channel 将多个 Buffer 中的数据“聚集（Gather）”后发送到 Channel。
+**聚集（Gather）** 写入 Channel 是指在写操作时将多个 Buffer 的数据写入同一个 Channel，因此，Channel 将多个 Buffer 中的数据“聚集（Gather）”后发送到 Channel。
 
-Scatter-Gather 经常用于需要将传输的数据分开处理的场合，例如传输一个由消息头和消息体组成的消息，你可能会将消息体和消息头分散到不同的 buffer 中，这样你可以方便的处理消息头和消息体。
+Scatter-Gather 经常用于需要将传输的数据分开处理的场合，例如传输一个由消息头和消息体组成的消息，你可能会将消息体和消息头分散到不同的 Buffer 中，这样你可以方便的处理消息头和消息体。
 
 
 
