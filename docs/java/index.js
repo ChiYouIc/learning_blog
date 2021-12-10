@@ -4,11 +4,12 @@ exports.config = {
     link: link,
     nav: {
         text: 'Java Learning', items: [
-            {text: 'JVM 虚拟机', link: '/java/jvm/'},
-            {text: 'Java 多线程', link: '/java/thread/'},
-            {text: 'Java IO', link: '/java/io/'},
-            {text: 'Java NIO', link: '/java/nio/'},
-            {text: '设计模式', link: '/java/design/'},
+            { text: 'JVM 虚拟机', link: '/java/jvm/' },
+            { text: 'Java 多线程', link: '/java/thread/' },
+            { text: 'Java 集合框架', link: '/java/container/' },
+            { text: 'Java IO', link: '/java/io/' },
+            { text: 'Java NIO', link: '/java/nio/' },
+            { text: '设计模式', link: '/java/design/' },
         ], icon: 'fab fa-java'
     },
     sidebar: {
@@ -45,6 +46,10 @@ exports.config = {
             'SynchronousLocksAndDeadlocks',
             'ThreadPoolPrinciple',
             'BlockingQueue',
+        ],
+        '/java/container/': [
+            '',
+            'ArrayList'
         ],
         '/java/io/': [],
         '/java/nio/': [
