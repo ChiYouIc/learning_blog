@@ -24,9 +24,9 @@ const plugins = {
             theme: '好吧，希望你能喜欢我的其他小伙伴。',
             close: '你知道我喜欢吃什么吗？痴痴地望着你。'
         },
-        messageStyle: {right: '68px', bottom: '190px'},
-        modelStyle: {right: '90px', bottom: '-20px', opacity: '0.9'},
-        btnStyle: {right: '90px', bottom: '40px'},
+        messageStyle: { right: '68px', bottom: '190px' },
+        modelStyle: { right: '90px', bottom: '-20px', opacity: '0.9' },
+        btnStyle: { right: '90px', bottom: '40px' },
         width: 200,
         height: 300
     },
@@ -44,7 +44,7 @@ const plugins = {
 }
 
 const nav = [
-    {text: '首页', link: '/', icon: 'reco-home'},
+    { text: '首页', link: '/', icon: 'reco-home' },
     java.config.nav,
     go.config.nav,
     spring.config.nav,
@@ -52,7 +52,7 @@ const nav = [
     database.config.nav,
     server.config.nav,
     architect.config.nav,
-    {text: '时间线', link: '/timeline/', icon: 'reco-date'}
+    { text: '时间线', link: '/timeline/', icon: 'reco-date' }
 ]
 
 
@@ -70,12 +70,12 @@ function handleSidebar() {
 
 module.exports = {
     head: [
-        ['link', {rel: 'icon', href: '/logo.png'}],
-        ['link', {rel: 'manifest', href: '/manifest.json'}],
+        ['link', { rel: 'icon', href: '/logo.png' }],
+        ['link', { rel: 'manifest', href: '/manifest.json' }],
     ],
     plugins,
     title: '一兜小白菜',
-    description: 'learning something',
+    description: '任何职业都可以成为黑客。你可以是一个木匠黑客。不一定是高科技。只要与技能有关，并且倾心专注于你正在做的事情，你就可能成为黑客。',
     port: 8085,
     dest: 'public',
     base: '/learning_blog/',
@@ -94,6 +94,9 @@ module.exports = {
         subSidebar: 'auto', //在所有页面中启用自动生成子侧边栏，原 sidebar 仍然兼容
         sidebarDepth: 1,
         displayAllHeaders: false, // 显示所有页面的标题链接 默认值：false
+        bgImageStyle: {
+            height: '350px'
+        },
         nav,
         sidebar: handleSidebar(),
         // 博客配置
@@ -108,10 +111,10 @@ module.exports = {
             },
             // 信息栏展示社交信息
             socialLinks: [
-                {icon: 'reco-github', link: 'https://github.com/ChiYouIc'},
-                {icon: 'reco-mayun', link: 'https://gitee.com/athenIc'},
-                {icon: 'reco-wechat', link: 'https://github.com/ChiYouIc'},
-                {icon: 'reco-qq', link: 'https://github.com/ChiYouIc'},
+                { icon: 'reco-github', link: 'https://github.com/ChiYouIc' },
+                { icon: 'reco-mayun', link: 'https://gitee.com/athenIc' },
+                { icon: 'reco-wechat', link: 'https://github.com/ChiYouIc' },
+                { icon: 'reco-qq', link: 'https://github.com/ChiYouIc' },
             ]
         },
         // 友情链接
@@ -132,9 +135,9 @@ module.exports = {
     // markdown 扩展
     markdown: {
         // markdown-it-anchor 的选项
-        anchor: {permalink: false},
+        anchor: { permalink: false },
         // markdown-it-toc 的选项
-        toc: {includeLevel: [1, 2]},
+        toc: { includeLevel: [1, 2] },
         extendMarkdown: md => {
             // 使用更多的 markdown-it 插件!
             md.use(require('markdown-it-plantuml'))

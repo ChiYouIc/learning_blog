@@ -49,7 +49,11 @@ exports.config = {
         ],
         '/java/container/': [
             '',
-            'ArrayList'
+            'ArrayList',
+            'Vector',
+            'LinkedList',
+            'HashSet',
+            'LinkedHashSet'
         ],
         '/java/io/': [],
         '/java/nio/': [

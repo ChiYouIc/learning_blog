@@ -19,7 +19,7 @@ ArrayList 是最常用的 List 实现类，内部是通过数组实现的，它�
 - Seriaizable 接口实现，表示 ArrayList 还支持序列化和反序列化操作，具有固定的 `serialVersionUID`属性值。
 - RandomAccess 接口实现，表示 ArrayList 里的元素可以被高效率的随机访问，以下标数字的方式获取元素。实现 RandomAccess 接口的列表上在遍历时可直接使用普通的 for 循环方式，并且执行效率上给迭代器方式更高。
 
-### 源码分析
+## 源码分析
 
 ArrayList 有两个非常重要的成员变量：`elementData` 和 `size`。
 
@@ -63,7 +63,7 @@ private int size;
 
 因为底层维护的是一个对象数组，所以向 ArrayList 集合添加的元素自然是可以重复的，允许为 null 的，并且它们的索引位置各不一样。
 
-### 如何扩容
+## 如何扩容
 
 上诉中，已经说到当 size 字段与 elementData 长度相同时，此时再添加元素到集合中就会出现容量不够的情况，需要进行扩容，也就是说 ArrayList 的扩容操作发生在添加方法中，并且满足一定条件时才会发生。
 
@@ -176,7 +176,7 @@ private static int hugeCapacity(int minCapacity) {
 
 <img :src="$withBase('/img/java/container/ArrayList_23ensureCapacityIternal.png')" alt="ArrayList_23ensureCapacityIternal">
 
-### 序列化与反序列化
+## 序列化与反序列化
 
 ``` java
 /**
@@ -253,7 +253,7 @@ private void readObject(java.io.ObjectInputStream s)
 }
 ```
 
-### 关于拷贝
+## 关于拷贝
 
 针对列表元素的拷贝，ArrayList 提供自定义的 clone 实现如下：
 
@@ -279,7 +279,7 @@ public Object clone() {
 
 从上述代码可以清楚看出执行的`copyOf`操作是一次浅拷贝操作，原 ArrayList 对象的元素不会被拷贝一份存入到新的 ArrayList 对象中返回，它们各自的字段`elementData`里各位置存放的都是一样的元素引用，一旦某个列表修改了数据，另一个列表也会跟着改变。
 
-### JDK 1.8 后的 ArrayList
+## JDK 1.8 后的 ArrayList
 
 1. 新增 removeIf() 方法
 
@@ -527,10 +527,10 @@ String[] array = list.toArray(new String[list.size()]);
 System.out.println(Arrays.toString(array)); // [A, B, C, D]
 ```
 
-### 应对多线程
+## 应对多线程
 
 ArrayList 本身是非线程安全的，如果需要使用线程安全的列表通常采用的方式是`java.util.Collections#synchronizedList(java.util.List<T>)` 或者 使用 Vector 类代替。还有一种方式是使用并发容器类`CopyOnWriteArrayList`在多线程中使用，它底层通过创建原数组的副本来实现更新，不仅线程安全，同时减少了对线程的同步操作。
 
-### 应对头部节点的增删
+## 应对头部节点的增删
 
 ArrayList是数组实现的，使用的是连续的内存空间，当有需要在数组头部进行元素的添加或删除操作的时候，需要对目标元素以后的元素进行复制并重新排序，效率很低。针对有大量类似操作的场景，出于性能考虑，我们应该使用`LinkedList`代替。因为 LinkedList 是基于链表实现，当我们需要操作的目标元素处于整个链表的前半段时，可直接通过遍历的方式查询目标元素，然后进行元素的增删操作。
