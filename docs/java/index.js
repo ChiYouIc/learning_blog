@@ -53,7 +53,10 @@ exports.config = {
             'Vector',
             'LinkedList',
             'HashSet',
-            'LinkedHashSet'
+            'LinkedHashSet',
+            'TreeSet',
+            'HashMap7',
+            'HashMap8'
         ],
         '/java/io/': [],
         '/java/nio/': [
