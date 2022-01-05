@@ -5,7 +5,7 @@ date: 2021-12-15
 categories:
  - container 容器
 tags:
- - Collection
+ - Collections
 ---
 
 > 哈希表（hash table），也叫做 散列表，是一种非常重要的数据结构，引用场景及其丰富，许多缓存技术（比如 memcached）的核心其实就是在内存中维护一张大的哈希表，接下来会对 Java 集合框架中的 HashMap 的实现原理进行解析，主要针对的是 JDK7。

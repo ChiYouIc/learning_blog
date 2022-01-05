@@ -56,7 +56,8 @@ exports.config = {
             'LinkedHashSet',
             'TreeSet',
             'HashMap7',
-            'HashMap8'
+            'HashMap8',
+            'Hashtable'
         ],
         '/java/io/': [],
         '/java/nio/': [
