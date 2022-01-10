@@ -84,7 +84,9 @@ exports.config = {
             'CommandPattern',
             'ChainOfResponsibilityPattern',
             'DecoratorPattern',
-            'StrategyPattern'
+            'StrategyPattern',
+            'AdapterPattern',
+            'IteratorPattern'
         ]
     }
 }
