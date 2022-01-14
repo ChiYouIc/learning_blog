@@ -17,8 +17,8 @@ exports.config = {
             'DataType',
             'Engine',
             'Interview',
-            'Function'
-
+            'Function',
+            'Explain'
         ],
         '/database/redis/': [
             '',
