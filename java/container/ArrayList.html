@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>ArrayList（数组） | 一兜小白菜</title>
+    <meta name="generator" content="VuePress 1.8.2">
+    <link rel="icon" href="/learning_blog/logo.png">
+    <link rel="manifest" href="/learning_blog/manifest.json">
+    <meta name="description" content="任何职业都可以成为黑客。你可以是一个木匠黑客。不一定是高科技。只要与技能有关，并且倾心专注于你正在做的事情，你就可能成为黑客。">
+    
+    <link rel="preload" href="/learning_blog/assets/css/0.styles.c68b611a.css" as="style"><link rel="preload" href="/learning_blog/assets/js/app.e6e1c34c.js" as="script"><link rel="preload" href="/learning_blog/assets/js/4.ff23c0b7.js" as="script"><link rel="preload" href="/learning_blog/assets/js/1.81582bd8.js" as="script"><link rel="preload" href="/learning_blog/assets/js/43.5375d7c9.js" as="script"><link rel="preload" href="/learning_blog/assets/js/8.f416b1e6.js" as="script"><link rel="prefetch" href="/learning_blog/assets/js/10.58adca44.js"><link rel="prefetch" href="/learning_blog/assets/js/100.c3e38fd7.js"><link rel="prefetch" href="/learning_blog/assets/js/101.71ef1da5.js"><link rel="prefetch" href="/learning_blog/assets/js/102.3a27c764.js"><link rel="prefetch" href="/learning_blog/assets/js/103.d8079be3.js"><link rel="prefetch" href="/learning_blog/assets/js/104.5ec19ab4.js"><link rel="prefetch" href="/learning_blog/assets/js/105.641d7f30.js"><link rel="prefetch" href="/learning_blog/assets/js/106.17533908.js"><link rel="prefetch" href="/learning_blog/assets/js/107.ef428cf3.js"><link rel="prefetch" href="/learning_blog/assets/js/108.8955c0b8.js"><link rel="prefetch" href="/learning_blog/assets/js/109.a4034281.js"><link rel="prefetch" href="/learning_blog/assets/js/11.64cdb03a.js"><link rel="prefetch" href="/learning_blog/assets/js/110.0f3db165.js"><link rel="prefetch" href="/learning_blog/assets/js/111.a6baa137.js"><link rel="prefetch" href="/learning_blog/assets/js/112.0efc57dc.js"><link rel="prefetch" href="/learning_blog/assets/js/113.e20800cf.js"><link rel="prefetch" href="/learning_blog/assets/js/114.24666c6e.js"><link rel="prefetch" href="/learning_blog/assets/js/115.c931f24e.js"><link rel="prefetch" href="/learning_blog/assets/js/116.b4b50591.js"><link rel="prefetch" href="/learning_blog/assets/js/117.1466ffb7.js"><link rel="prefetch" href="/learning_blog/assets/js/118.3dc9a8cc.js"><link rel="prefetch" href="/learning_blog/assets/js/119.55cc810f.js"><link rel="prefetch" href="/learning_blog/assets/js/12.37800769.js"><link rel="prefetch" href="/learning_blog/assets/js/120.5d596352.js"><link rel="prefetch" href="/learning_blog/assets/js/121.d0a2bb19.js"><link rel="prefetch" href="/learning_blog/assets/js/122.4223d0e2.js"><link rel="prefetch" href="/learning_blog/assets/js/123.d14c8967.js"><link rel="prefetch" href="/learning_blog/assets/js/124.0fc87088.js"><link rel="prefetch" href="/learning_blog/assets/js/125.dfe739d7.js"><link rel="prefetch" href="/learning_blog/assets/js/126.0ceed23b.js"><link rel="prefetch" href="/learning_blog/assets/js/127.e1351c71.js"><link rel="prefetch" href="/learning_blog/assets/js/128.e9c08785.js"><link rel="prefetch" href="/learning_blog/assets/js/129.375419eb.js"><link rel="prefetch" href="/learning_blog/assets/js/13.27b4e468.js"><link rel="prefetch" href="/learning_blog/assets/js/130.925350ba.js"><link rel="prefetch" href="/learning_blog/assets/js/131.22a9bdb2.js"><link rel="prefetch" href="/learning_blog/assets/js/132.aedcc038.js"><link rel="prefetch" href="/learning_blog/assets/js/133.a7fc8c8f.js"><link rel="prefetch" href="/learning_blog/assets/js/134.7c062a25.js"><link rel="prefetch" href="/learning_blog/assets/js/135.edeca75d.js"><link rel="prefetch" href="/learning_blog/assets/js/136.8f20389e.js"><link rel="prefetch" href="/learning_blog/assets/js/137.fea26a7b.js"><link rel="prefetch" href="/learning_blog/assets/js/138.371da223.js"><link rel="prefetch" href="/learning_blog/assets/js/139.0d856709.js"><link rel="prefetch" href="/learning_blog/assets/js/14.e1478ea8.js"><link rel="prefetch" href="/learning_blog/assets/js/140.cf989f01.js"><link rel="prefetch" href="/learning_blog/assets/js/141.453925ca.js"><link rel="prefetch" href="/learning_blog/assets/js/142.61fe7b6e.js"><link rel="prefetch" href="/learning_blog/assets/js/143.c6d38d96.js"><link rel="prefetch" href="/learning_blog/assets/js/144.d56f9555.js"><link rel="prefetch" href="/learning_blog/assets/js/145.5ea7e139.js"><link rel="prefetch" href="/learning_blog/assets/js/146.7a0eb5c7.js"><link rel="prefetch" href="/learning_blog/assets/js/147.bf426f23.js"><link rel="prefetch" href="/learning_blog/assets/js/148.a423a0f8.js"><link rel="prefetch" href="/learning_blog/assets/js/149.928a0e3a.js"><link rel="prefetch" href="/learning_blog/assets/js/15.07fa313c.js"><link rel="prefetch" href="/learning_blog/assets/js/150.d7e729a8.js"><link rel="prefetch" href="/learning_blog/assets/js/151.6cd16f87.js"><link rel="prefetch" href="/learning_blog/assets/js/16.425e28fa.js"><link rel="prefetch" href="/learning_blog/assets/js/17.a9fca2d8.js"><link rel="prefetch" href="/learning_blog/assets/js/18.8fb99b25.js"><link rel="prefetch" href="/learning_blog/assets/js/19.29145c92.js"><link rel="prefetch" href="/learning_blog/assets/js/20.87886092.js"><link rel="prefetch" href="/learning_blog/assets/js/21.e69894c0.js"><link rel="prefetch" href="/learning_blog/assets/js/22.9d216b69.js"><link rel="prefetch" href="/learning_blog/assets/js/23.8c8cc5b8.js"><link rel="prefetch" href="/learning_blog/assets/js/24.da7befb5.js"><link rel="prefetch" href="/learning_blog/assets/js/25.aba65622.js"><link rel="prefetch" href="/learning_blog/assets/js/26.3dd77b52.js"><link rel="prefetch" href="/learning_blog/assets/js/27.e5f60060.js"><link rel="prefetch" href="/learning_blog/assets/js/28.520f8846.js"><link rel="prefetch" href="/learning_blog/assets/js/29.85cba1c5.js"><link rel="prefetch" href="/learning_blog/assets/js/30.fa653075.js"><link rel="prefetch" href="/learning_blog/assets/js/31.1a1ede8e.js"><link rel="prefetch" href="/learning_blog/assets/js/32.3c34adc1.js"><link rel="prefetch" href="/learning_blog/assets/js/33.b3030e84.js"><link rel="prefetch" href="/learning_blog/assets/js/34.7632da2a.js"><link rel="prefetch" href="/learning_blog/assets/js/35.5c9094dd.js"><link rel="prefetch" href="/learning_blog/assets/js/36.f96ff6e1.js"><link rel="prefetch" href="/learning_blog/assets/js/37.0d008c56.js"><link rel="prefetch" href="/learning_blog/assets/js/38.dea1713b.js"><link rel="prefetch" href="/learning_blog/assets/js/39.9b6a40d4.js"><link rel="prefetch" href="/learning_blog/assets/js/40.38ed0206.js"><link rel="prefetch" href="/learning_blog/assets/js/41.12b53694.js"><link rel="prefetch" href="/learning_blog/assets/js/42.0a1bf74c.js"><link rel="prefetch" href="/learning_blog/assets/js/44.82bb804e.js"><link rel="prefetch" href="/learning_blog/assets/js/45.67a4706a.js"><link rel="prefetch" href="/learning_blog/assets/js/46.fcba3164.js"><link rel="prefetch" href="/learning_blog/assets/js/47.8658a1cc.js"><link rel="prefetch" href="/learning_blog/assets/js/48.51f5a45d.js"><link rel="prefetch" href="/learning_blog/assets/js/49.93b1425f.js"><link rel="prefetch" href="/learning_blog/assets/js/5.24f9e3cd.js"><link rel="prefetch" href="/learning_blog/assets/js/50.855fad56.js"><link rel="prefetch" href="/learning_blog/assets/js/51.0da4f39b.js"><link rel="prefetch" href="/learning_blog/assets/js/52.ecdfca48.js"><link rel="prefetch" href="/learning_blog/assets/js/53.a7febaa9.js"><link rel="prefetch" href="/learning_blog/assets/js/54.870d0e17.js"><link rel="prefetch" href="/learning_blog/assets/js/55.c7201cec.js"><link rel="prefetch" href="/learning_blog/assets/js/56.42f1a7b2.js"><link rel="prefetch" href="/learning_blog/assets/js/57.a07e4e0b.js"><link rel="prefetch" href="/learning_blog/assets/js/58.a68368b2.js"><link rel="prefetch" href="/learning_blog/assets/js/59.bb85fc0d.js"><link rel="prefetch" href="/learning_blog/assets/js/6.2d21da84.js"><link rel="prefetch" href="/learning_blog/assets/js/60.baf33af5.js"><link rel="prefetch" href="/learning_blog/assets/js/61.146a561e.js"><link rel="prefetch" href="/learning_blog/assets/js/62.0f723ed7.js"><link rel="prefetch" href="/learning_blog/assets/js/63.2a3264a5.js"><link rel="prefetch" href="/learning_blog/assets/js/64.38c1721e.js"><link rel="prefetch" href="/learning_blog/assets/js/65.81ff89ba.js"><link rel="prefetch" href="/learning_blog/assets/js/66.56685ef7.js"><link rel="prefetch" href="/learning_blog/assets/js/67.8f16a979.js"><link rel="prefetch" href="/learning_blog/assets/js/68.69433f16.js"><link rel="prefetch" href="/learning_blog/assets/js/69.99218738.js"><link rel="prefetch" href="/learning_blog/assets/js/7.706ac388.js"><link rel="prefetch" href="/learning_blog/assets/js/70.27595144.js"><link rel="prefetch" href="/learning_blog/assets/js/71.b08b8cdf.js"><link rel="prefetch" href="/learning_blog/assets/js/72.29b2d9ce.js"><link rel="prefetch" href="/learning_blog/assets/js/73.2e100c2e.js"><link rel="prefetch" href="/learning_blog/assets/js/74.d0513690.js"><link rel="prefetch" href="/learning_blog/assets/js/75.2b371472.js"><link rel="prefetch" href="/learning_blog/assets/js/76.b993c2c6.js"><link rel="prefetch" href="/learning_blog/assets/js/77.2f22d7d3.js"><link rel="prefetch" href="/learning_blog/assets/js/78.0f685bfc.js"><link rel="prefetch" href="/learning_blog/assets/js/79.cb3e911c.js"><link rel="prefetch" href="/learning_blog/assets/js/80.2738107d.js"><link rel="prefetch" href="/learning_blog/assets/js/81.1425f348.js"><link rel="prefetch" href="/learning_blog/assets/js/82.a4532418.js"><link rel="prefetch" href="/learning_blog/assets/js/83.b846c18d.js"><link rel="prefetch" href="/learning_blog/assets/js/84.122f9ad2.js"><link rel="prefetch" href="/learning_blog/assets/js/85.23f37097.js"><link rel="prefetch" href="/learning_blog/assets/js/86.74b20100.js"><link rel="prefetch" href="/learning_blog/assets/js/87.bfc377d3.js"><link rel="prefetch" href="/learning_blog/assets/js/88.3fe754ec.js"><link rel="prefetch" href="/learning_blog/assets/js/89.3739c793.js"><link rel="prefetch" href="/learning_blog/assets/js/9.de853e93.js"><link rel="prefetch" href="/learning_blog/assets/js/90.7bdbcef5.js"><link rel="prefetch" href="/learning_blog/assets/js/91.8ab64d44.js"><link rel="prefetch" href="/learning_blog/assets/js/92.207acafe.js"><link rel="prefetch" href="/learning_blog/assets/js/93.c5be03f7.js"><link rel="prefetch" href="/learning_blog/assets/js/94.174920d9.js"><link rel="prefetch" href="/learning_blog/assets/js/95.e214b95b.js"><link rel="prefetch" href="/learning_blog/assets/js/96.67ec6921.js"><link rel="prefetch" href="/learning_blog/assets/js/97.26bc9461.js"><link rel="prefetch" href="/learning_blog/assets/js/98.7cc709e3.js"><link rel="prefetch" href="/learning_blog/assets/js/99.68f77857.js"><link rel="prefetch" href="/learning_blog/assets/js/vendors~flowchart.7829265f.js">
+    <link rel="stylesheet" href="/learning_blog/assets/css/0.styles.c68b611a.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container" data-v-1156296a><div data-v-1156296a><div id="loader-wrapper" class="loading-wrapper" data-v-d48f4d20 data-v-1156296a data-v-1156296a><div class="loader-main" data-v-d48f4d20><div data-v-d48f4d20></div><div data-v-d48f4d20></div><div data-v-d48f4d20></div><div data-v-d48f4d20></div></div> <!----> <!----></div> <div class="password-shadow password-wrapper-out" style="display:none;" data-v-4e82dffc data-v-1156296a data-v-1156296a><h3 class="title" data-v-4e82dffc data-v-4e82dffc>一兜小白菜</h3> <p class="description" data-v-4e82dffc data-v-4e82dffc>任何职业都可以成为黑客。你可以是一个木匠黑客。不一定是高科技。只要与技能有关，并且倾心专注于你正在做的事情，你就可能成为黑客。</p> <label id="box" class="inputBox" data-v-4e82dffc data-v-4e82dffc><input type="password" value="" data-v-4e82dffc> <span data-v-4e82dffc>Konck! Knock!</span> <button data-v-4e82dffc>OK</button></label> <div class="footer" data-v-4e82dffc data-v-4e82dffc><span data-v-4e82dffc><i class="iconfont reco-theme" data-v-4e82dffc></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-4e82dffc>vuePress-theme-reco</a></span> <span data-v-4e82dffc><i class="iconfont reco-copyright" data-v-4e82dffc></i> <a data-v-4e82dffc><span data-v-4e82dffc>顿顿白菜</span>
+            
+          <!---->
+          2022
+        </a></span></div></div> <div class="hide" data-v-1156296a><header class="navbar" data-v-1156296a><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/learning_blog/" class="home-link router-link-active"><img src="/learning_blog/logo.png" alt="一兜小白菜" class="logo"> <span class="site-name">一兜小白菜</span></a> <div class="links"><div class="color-picker"><a class="color-button"><i class="iconfont reco-color"></i></a> <div class="color-picker-menu" style="display:none;"><div class="mode-options"><h4 class="title">Choose mode</h4> <ul class="color-mode-options"><li class="dark">dark</li><li class="auto active">auto</li><li class="light">light</li></ul></div></div></div> <div class="search-box"><i class="iconfont reco-search"></i> <input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/learning_blog/" class="nav-link"><i class="iconfont reco-home"></i>
+  首页
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-category"></i>
+      分类
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/categories/架构师/" class="nav-link"><i class="undefined"></i>
+  架构师
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/数据库/" class="nav-link"><i class="undefined"></i>
+  数据库
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/Go/" class="nav-link"><i class="undefined"></i>
+  Go
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/Java/" class="nav-link"><i class="undefined"></i>
+  Java
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/微服务/" class="nav-link"><i class="undefined"></i>
+  微服务
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/计算机网络/" class="nav-link"><i class="undefined"></i>
+  计算机网络
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/container 容器/" class="nav-link"><i class="undefined"></i>
+  container 容器
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/操作系统/" class="nav-link"><i class="undefined"></i>
+  操作系统
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/设计模式/" class="nav-link"><i class="undefined"></i>
+  设计模式
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/多线程/" class="nav-link"><i class="undefined"></i>
+  多线程
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/数据结构/" class="nav-link"><i class="undefined"></i>
+  数据结构
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/Server/" class="nav-link"><i class="undefined"></i>
+  Server
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/Spring 系列/" class="nav-link"><i class="undefined"></i>
+  Spring 系列
+</a></li></ul></div></div><div class="nav-item"><a href="/learning_blog/tag/" class="nav-link"><i class="iconfont reco-tag"></i>
+  标签
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="fab fa-java"></i>
+      Java Learning
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/java/jvm/" class="nav-link"><i class="undefined"></i>
+  JVM 虚拟机
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/java/thread/" class="nav-link"><i class="undefined"></i>
+  Java 多线程
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/java/container/" class="nav-link router-link-active"><i class="undefined"></i>
+  Java 集合框架
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/java/io/" class="nav-link"><i class="undefined"></i>
+  Java IO
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/java/nio/" class="nav-link"><i class="undefined"></i>
+  Java NIO
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/java/design/" class="nav-link"><i class="undefined"></i>
+  设计模式
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="fas fa-gopuram"></i>
+      Go Learning
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/go/base/" class="nav-link"><i class="undefined"></i>
+  GO 基础
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="fas fa-seedling"></i>
+      Spring Learning
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/spring/spring/" class="nav-link"><i class="undefined"></i>
+  Spring
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/spring/springBoot/" class="nav-link"><i class="undefined"></i>
+  SpringBoot
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/spring/springSecurity/" class="nav-link"><i class="undefined"></i>
+  SpringSecurity
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="fas fa-cloud"></i>
+      微服务
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/ddd/" class="nav-link"><i class="undefined"></i>
+  领域驱动设计
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/eureka/" class="nav-link"><i class="undefined"></i>
+  Eureka 服务注册与发现
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/ribbon/" class="nav-link"><i class="undefined"></i>
+  Ribbon 负载均衡
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/feign/" class="nav-link"><i class="undefined"></i>
+  Feign 声明式服务调用
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/hystrix/" class="nav-link"><i class="undefined"></i>
+  Hystrix 服务容错保护
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/zuul/" class="nav-link"><i class="undefined"></i>
+  Zuul 路由网关
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/gateway/" class="nav-link"><i class="undefined"></i>
+  Gateway 服务网关
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="fas fa-database"></i>
+      数据库
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/database/mysql/" class="nav-link"><i class="undefined"></i>
+  MySQL
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/database/redis/" class="nav-link"><i class="undefined"></i>
+  Redis
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/database/mongodb/" class="nav-link"><i class="undefined"></i>
+  MongoDB
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="fas fa-server"></i>
+      操作系统
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/server/operating/" class="nav-link"><i class="undefined"></i>
+  操作系统
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/server/network/" class="nav-link"><i class="undefined"></i>
+  计算机网络
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/server/algorithm/" class="nav-link"><i class="undefined"></i>
+  数据结构与算法
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/server/nginx/" class="nav-link"><i class="undefined"></i>
+  Nginx
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/server/docker/" class="nav-link"><i class="undefined"></i>
+  Docker
+</a></li></ul></div></div><div class="nav-item"><a href="/learning_blog/architect/" class="nav-link"><i class="fas fa-sitemap"></i>
+  软件架构师
+</a></div><div class="nav-item"><a href="/learning_blog/timeline/" class="nav-link"><i class="iconfont reco-date"></i>
+  时间线
+</a></div> <!----></nav></div></header> <div class="sidebar-mask" data-v-1156296a></div> <aside class="sidebar" data-v-1156296a><div class="personal-info-wrapper" data-v-828910c6 data-v-1156296a><img src="/learning_blog/avatar.jpg" alt="author-avatar" class="personal-img" data-v-828910c6> <h3 class="name" data-v-828910c6>
+    顿顿白菜
+  </h3> <div class="num" data-v-828910c6><div data-v-828910c6><h3 data-v-828910c6>137</h3> <h6 data-v-828910c6>文章</h6></div> <div data-v-828910c6><h3 data-v-828910c6>21</h3> <h6 data-v-828910c6>标签</h6></div></div> <ul class="social-links" data-v-828910c6><li class="social-item" data-v-828910c6><i class="iconfont reco-github" style="color:#abbd81;" data-v-828910c6></i></li><li class="social-item" data-v-828910c6><i class="iconfont reco-mayun" style="color:#f47e60;" data-v-828910c6></i></li><li class="social-item" data-v-828910c6><i class="iconfont reco-wechat" style="color:#f8b26a;" data-v-828910c6></i></li><li class="social-item" data-v-828910c6><i class="iconfont reco-qq" style="color:#abbd81;" data-v-828910c6></i></li></ul> <hr data-v-828910c6></div> <nav class="nav-links"><div class="nav-item"><a href="/learning_blog/" class="nav-link"><i class="iconfont reco-home"></i>
+  首页
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-category"></i>
+      分类
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/categories/架构师/" class="nav-link"><i class="undefined"></i>
+  架构师
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/数据库/" class="nav-link"><i class="undefined"></i>
+  数据库
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/Go/" class="nav-link"><i class="undefined"></i>
+  Go
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/Java/" class="nav-link"><i class="undefined"></i>
+  Java
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/微服务/" class="nav-link"><i class="undefined"></i>
+  微服务
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/计算机网络/" class="nav-link"><i class="undefined"></i>
+  计算机网络
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/container 容器/" class="nav-link"><i class="undefined"></i>
+  container 容器
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/操作系统/" class="nav-link"><i class="undefined"></i>
+  操作系统
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/设计模式/" class="nav-link"><i class="undefined"></i>
+  设计模式
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/多线程/" class="nav-link"><i class="undefined"></i>
+  多线程
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/数据结构/" class="nav-link"><i class="undefined"></i>
+  数据结构
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/Server/" class="nav-link"><i class="undefined"></i>
+  Server
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/Spring 系列/" class="nav-link"><i class="undefined"></i>
+  Spring 系列
+</a></li></ul></div></div><div class="nav-item"><a href="/learning_blog/tag/" class="nav-link"><i class="iconfont reco-tag"></i>
+  标签
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="fab fa-java"></i>
+      Java Learning
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/java/jvm/" class="nav-link"><i class="undefined"></i>
+  JVM 虚拟机
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/java/thread/" class="nav-link"><i class="undefined"></i>
+  Java 多线程
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/java/container/" class="nav-link router-link-active"><i class="undefined"></i>
+  Java 集合框架
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/java/io/" class="nav-link"><i class="undefined"></i>
+  Java IO
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/java/nio/" class="nav-link"><i class="undefined"></i>
+  Java NIO
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/java/design/" class="nav-link"><i class="undefined"></i>
+  设计模式
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="fas fa-gopuram"></i>
+      Go Learning
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/go/base/" class="nav-link"><i class="undefined"></i>
+  GO 基础
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="fas fa-seedling"></i>
+      Spring Learning
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/spring/spring/" class="nav-link"><i class="undefined"></i>
+  Spring
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/spring/springBoot/" class="nav-link"><i class="undefined"></i>
+  SpringBoot
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/spring/springSecurity/" class="nav-link"><i class="undefined"></i>
+  SpringSecurity
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="fas fa-cloud"></i>
+      微服务
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/ddd/" class="nav-link"><i class="undefined"></i>
+  领域驱动设计
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/eureka/" class="nav-link"><i class="undefined"></i>
+  Eureka 服务注册与发现
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/ribbon/" class="nav-link"><i class="undefined"></i>
+  Ribbon 负载均衡
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/feign/" class="nav-link"><i class="undefined"></i>
+  Feign 声明式服务调用
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/hystrix/" class="nav-link"><i class="undefined"></i>
+  Hystrix 服务容错保护
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/zuul/" class="nav-link"><i class="undefined"></i>
+  Zuul 路由网关
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/gateway/" class="nav-link"><i class="undefined"></i>
+  Gateway 服务网关
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="fas fa-database"></i>
+      数据库
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/database/mysql/" class="nav-link"><i class="undefined"></i>
+  MySQL
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/database/redis/" class="nav-link"><i class="undefined"></i>
+  Redis
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/database/mongodb/" class="nav-link"><i class="undefined"></i>
+  MongoDB
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="fas fa-server"></i>
+      操作系统
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/server/operating/" class="nav-link"><i class="undefined"></i>
+  操作系统
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/server/network/" class="nav-link"><i class="undefined"></i>
+  计算机网络
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/server/algorithm/" class="nav-link"><i class="undefined"></i>
+  数据结构与算法
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/server/nginx/" class="nav-link"><i class="undefined"></i>
+  Nginx
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/server/docker/" class="nav-link"><i class="undefined"></i>
+  Docker
+</a></li></ul></div></div><div class="nav-item"><a href="/learning_blog/architect/" class="nav-link"><i class="fas fa-sitemap"></i>
+  软件架构师
+</a></div><div class="nav-item"><a href="/learning_blog/timeline/" class="nav-link"><i class="iconfont reco-date"></i>
+  时间线
+</a></div> <!----></nav> <ul class="sidebar-links"><li><a href="/learning_blog/java/container/" aria-current="page" class="sidebar-link">集合框架</a></li><li><a href="/learning_blog/java/container/ArrayList.html" aria-current="page" class="active sidebar-link">ArrayList（数组）</a></li><li><a href="/learning_blog/java/container/Vector.html" class="sidebar-link">Vector</a></li><li><a href="/learning_blog/java/container/LinkedList.html" class="sidebar-link">LinkedList（链表）</a></li><li><a href="/learning_blog/java/container/HashSet.html" class="sidebar-link">HashSet</a></li><li><a href="/learning_blog/java/container/LinkedHashSet.html" class="sidebar-link">LinkedHashSet</a></li><li><a href="/learning_blog/java/container/TreeSet.html" class="sidebar-link">TreeSet</a></li><li><a href="/learning_blog/java/container/HashMap7.html" class="sidebar-link">HashMap（JDK 1.7）</a></li><li><a href="/learning_blog/java/container/HashMap8.html" class="sidebar-link">HashMap（JDK 1.8）</a></li><li><a href="/learning_blog/java/container/Hashtable.html" class="sidebar-link">Hashtable</a></li></ul> </aside> <div class="password-shadow password-wrapper-in" style="display:none;" data-v-4e82dffc data-v-1156296a><h3 class="title" data-v-4e82dffc data-v-4e82dffc>ArrayList（数组）</h3> <!----> <label id="box" class="inputBox" data-v-4e82dffc data-v-4e82dffc><input type="password" value="" data-v-4e82dffc> <span data-v-4e82dffc>Konck! Knock!</span> <button data-v-4e82dffc>OK</button></label> <div class="footer" data-v-4e82dffc data-v-4e82dffc><span data-v-4e82dffc><i class="iconfont reco-theme" data-v-4e82dffc></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-4e82dffc>vuePress-theme-reco</a></span> <span data-v-4e82dffc><i class="iconfont reco-copyright" data-v-4e82dffc></i> <a data-v-4e82dffc><span data-v-4e82dffc>顿顿白菜</span>
+            
+          <!---->
+          2022
+        </a></span></div></div> <div data-v-1156296a><main class="page"><section><div class="page-title"><h1 class="title">ArrayList（数组）</h1> <div data-v-1ff7123e><i class="iconfont reco-account" data-v-1ff7123e><span data-v-1ff7123e>顿顿白菜</span></i> <i class="iconfont reco-date" data-v-1ff7123e><span data-v-1ff7123e>2021/12/10</span></i> <!----> <i class="tags iconfont reco-tag" data-v-1ff7123e><span class="tag-item" data-v-1ff7123e>Collections</span></i></div></div> <div class="theme-reco-content content__default"><p>ArrayList 是最常用的 List 实现类，内部是通过数组实现的，它允许对元素进行快速随机访问。数组的缺点是每个元素之间不能有间隔，当数组大小不满足时需要增加存储能力，就要将已经有数据的数组复制到新的存储空间中。当从 ArrayList 的中间位置插入或者删除元素时，需要对数组进行复制、移动、代价比较高。因此，他适合随机查找和遍历，不适合插入和删除。</p> <img src="/learning_blog/img/java/container/ArrayList.png" alt="ArrayList"> <p>从上图可以看出 ArrayList 继承了 AbstractList, 直接实现了 Cloneable, Serializable，RandomAccess 类型标志接口。</p> <ul><li>AbstractList 作为列表的抽象实现，将元素的增删改查都交给了具体的子类去实现，在元素的迭代遍历的操作上提供了默认实现。</li> <li>Cloneable 接口的实现，表示了 ArrayList 支持调用 Object 的 <code>clone</code> 方法，实现 ArrayList 的拷贝。</li> <li>Seriaizable 接口实现，表示 ArrayList 还支持序列化和反序列化操作，具有固定的 <code>serialVersionUID</code>属性值。</li> <li>RandomAccess 接口实现，表示 ArrayList 里的元素可以被高效率的随机访问，以下标数字的方式获取元素。实现 RandomAccess 接口的列表上在遍历时可直接使用普通的 for 循环方式，并且执行效率上给迭代器方式更高。</li></ul> <h2 id="源码分析">源码分析</h2> <p>ArrayList 有两个非常重要的成员变量：<code>elementData</code> 和 <code>size</code>。</p> <div class="language-java extra-class"><pre class="language-java"><code><span class="token comment">/**
+ * Default initial capacity.
+ * 默认初始容量
+ */</span>
+<span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">int</span> DEFAULT_CAPACITY <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
+
+<span class="token comment">/**
+ * Shared empty array instance used for empty instances.
+ */</span>
+<span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token class-name">Object</span><span class="token punctuation">[</span><span class="token punctuation">]</span> EMPTY_ELEMENTDATA <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token comment">/**
+ * Shared empty array instance used for default sized empty instances. We
+ * distinguish this from EMPTY_ELEMENTDATA to know how much to inflate when
+ * first element is added.
+ */</span>
+<span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token class-name">Object</span><span class="token punctuation">[</span><span class="token punctuation">]</span> DEFAULTCAPACITY_EMPTY_ELEMENTDATA <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token comment">/**
+ * The array buffer into which the elements of the ArrayList are stored.
+ * The capacity of the ArrayList is the length of this array buffer. Any
+ * empty ArrayList with elementData == DEFAULTCAPACITY_EMPTY_ELEMENTDATA
+ * will be expanded to DEFAULT_CAPACITY when the first element is added.
+ */</span>
+<span class="token keyword">transient</span> <span class="token class-name">Object</span><span class="token punctuation">[</span><span class="token punctuation">]</span> elementData<span class="token punctuation">;</span> <span class="token comment">// non-private to simplify nested class access</span>
+
+<span class="token comment">/**
+ * The size of the ArrayList (the number of elements it contains).
+ * ArrayList的大小（包含元素个数）
+ * @serial
+ */</span>
+<span class="token keyword">private</span> <span class="token keyword">int</span> size<span class="token punctuation">;</span>
+</code></pre></div><ul><li><code>elementData</code> 是一个 Object 数组，存放的元素，正是外部需要存放到 ArrayList 的元素，即 ArrayList 对象维护着这个对象数组 Object[]，对外提供的增删改查以及遍历都是与这个数组有关，也因此添加到 ArrayList 的元素都是有序地存储在数组对象 <code>elementData</code>中。</li> <li><code>size</code>字段表示着当前添加到 ArrayList 的元素个数，需要注意的是它必定小于等于数组对象<code>elementData</code>的长度。一旦<code>size</code>与<code>elementData</code>长度相同，并且还在往列表添加元素时，ArrayList 就会执行扩容操作，用一个更长的数组对象存储先前的元素。</li></ul> <p>因为底层维护的是一个对象数组，所以向 ArrayList 集合添加的元素自然是可以重复的，允许为 null 的，并且它们的索引位置各不一样。</p> <h2 id="如何扩容">如何扩容</h2> <p>上诉中，已经说到当 size 字段与 elementData 长度相同时，此时再添加元素到集合中就会出现容量不够的情况，需要进行扩容，也就是说 ArrayList 的扩容操作发生在添加方法中，并且满足一定条件时才会发生。</p> <img src="/learning_blog/img/java/container/ArrayList_20add.png" alt="ArrayList_20add"> <div class="language-java extra-class"><pre class="language-java"><code><span class="token comment">/**
+ * Appends the specified element to the end of this list.
+ * 向列表末尾追加元素
+ * @param e element to be appended to this list
+ * @return &lt;tt&gt;true&lt;/tt&gt; (as specified by {@link Collection#add})
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">add</span><span class="token punctuation">(</span><span class="token class-name">E</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">ensureCapacityInternal</span><span class="token punctuation">(</span>size <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// Increments modCount!!</span>
+    elementData<span class="token punctuation">[</span>size<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> e<span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>从上面可以看出第三行代码是简单地添加单个元素，并让 <code>size</code> 递增加 1；那么扩容实现就在 <code>ensureCapacityInternal</code> 方法中，这里传入参数为 <code>size</code>+1，就是要在真正添加元素前判断添加后的元素个数，也就是集合所需要的最小容量是否会超过原数组的长度。再看下这个 <code>ensureCapacityInternal</code> 方法实现。</p> <div class="language-java extra-class"><pre class="language-java"><code><span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">ensureCapacityInternal</span><span class="token punctuation">(</span><span class="token keyword">int</span> minCapacity<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">ensureExplicitCapacity</span><span class="token punctuation">(</span><span class="token function">calculateCapacity</span><span class="token punctuation">(</span>elementData<span class="token punctuation">,</span> minCapacity<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>其内部仍有两个方法调用，首先看下比较简单的 <code>calculateCapacity</code> 方法：</p> <div class="language-java extra-class"><pre class="language-java"><code><span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">int</span> <span class="token function">calculateCapacity</span><span class="token punctuation">(</span><span class="token class-name">Object</span><span class="token punctuation">[</span><span class="token punctuation">]</span> elementData<span class="token punctuation">,</span> <span class="token keyword">int</span> minCapacity<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>elementData <span class="token operator">==</span> DEFAULTCAPACITY_EMPTY_ELEMENTDATA<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token class-name">Math</span><span class="token punctuation">.</span><span class="token function">max</span><span class="token punctuation">(</span>DEFAULT_CAPACITY<span class="token punctuation">,</span> minCapacity<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> minCapacity<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>当 <code>elementData</code> 与 <code>DEFAULTCAPACITY_EMPTY_ELEMENTDATA</code> 相等，也就是空数组时，返回一个可添加元素的默认最小容量值 <code>DEFAULT_CAPACITY</code> 对应的10 ，否则按照传入的 <code>size</code> +1 为最小容量值；执行完之后接着看 <code>ensureExplicitCapacity</code> 方法：</p> <div class="language-java extra-class"><pre class="language-java"><code><span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">ensureExplicitCapacity</span><span class="token punctuation">(</span><span class="token keyword">int</span> minCapacity<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    modCount<span class="token operator">++</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// overflow-conscious code</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>minCapacity <span class="token operator">-</span> elementData<span class="token punctuation">.</span>length <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span>
+        <span class="token function">grow</span><span class="token punctuation">(</span>minCapacity<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>从代码中可以看到扩容实现在 <code>grow</code> 方法之中，并且只有当数组长度小于所需要的最小容量时执行：当数组存储元素已满，无法再存储将新加入的元素。</p> <div class="language-java extra-class"><pre class="language-java"><code><span class="token comment">/**
+ * Increases the capacity to ensure that it can hold at least the
+ * number of elements specified by the minimum capacity argument.
+ * 增加容量以确保它至少可以容纳最小容量参数指定的元素数。
+ * @param minCapacity the desired minimum capacity
+ */</span>
+<span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">grow</span><span class="token punctuation">(</span><span class="token keyword">int</span> minCapacity<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// overflow-conscious code</span>
+    <span class="token keyword">int</span> oldCapacity <span class="token operator">=</span> elementData<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+    <span class="token comment">// 扩容 1.5 倍</span>
+    <span class="token keyword">int</span> newCapacity <span class="token operator">=</span> oldCapacity <span class="token operator">+</span> <span class="token punctuation">(</span>oldCapacity <span class="token operator">&gt;&gt;</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>newCapacity <span class="token operator">-</span> minCapacity <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span> 
+        <span class="token comment">// 扩容后都还小于minCapacity，说明当前数组为空</span>
+        newCapacity <span class="token operator">=</span> minCapacity<span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>newCapacity <span class="token operator">-</span> MAX_ARRAY_SIZE <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span>
+        newCapacity <span class="token operator">=</span> <span class="token function">hugeCapacity</span><span class="token punctuation">(</span>minCapacity<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// minCapacity is usually close to size, so this is a win:</span>
+    elementData <span class="token operator">=</span> <span class="token class-name">Arrays</span><span class="token punctuation">.</span><span class="token function">copyOf</span><span class="token punctuation">(</span>elementData<span class="token punctuation">,</span> newCapacity<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>进一步跳转到 <code>grow</code> 方法的实现，可以看到第8行利用工具类方法 <code>java.util.Arrays#copyOf(T[], int)</code> ,对原有数组进行拷贝，将内部所有的元素存放到长度为 <code>newCapacity</code> 的新数组中，并将对应新数组的引用赋值给 <code>elementData</code>。此刻 ArrayList 内部引用的对象就是更新长度了的新数组，实现效果就如下图一样：</p> <img src="/learning_blog/img/java/container/ArrayList_20_u6269_u5BB91.png" alt="ArrayList_20_u6269_u5BB91"> <p>现在我们再来关注下代表数组新容量的 <code>newCapacity</code> 被调整为多少。首先 <code>newCapacity</code> 通过 <code>oldCapacity + (oldCapacity &gt;&gt; 1)</code> 计算获得，使用位运算将原容量值 <code>oldCapacity</code> 通过右移一位，获得其一半的值（向下取整）, 然后加上原来的容量值，那么就是原容量值 <code>oldCapacity</code> 的1.5倍。</p> <p>当计算得到的<code>newCapacity</code>仍然小于传入最小容量时，说明当前数组个数为空，采用默认的<code>DEFAULT_CAPACITY</code>作为容量值分配数组。</p> <p>数组默认最大值，<code>MAX_ARRAY_SIZE</code>定义如下：</p> <div class="language-java extra-class"><pre class="language-java"><code><span class="token comment">/**
+ * The maximum size of array to allocate.
+ * Some VMs reserve some header words in an array.
+ * Attempts to allocate larger arrays may result in
+ * OutOfMemoryError: Requested array size exceeds VM limit
+ */</span>
+<span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">int</span> MAX_ARRAY_SIZE <span class="token operator">=</span> <span class="token class-name">Integer</span><span class="token punctuation">.</span>MAX_VALUE <span class="token operator">-</span> <span class="token number">8</span><span class="token punctuation">;</span>
+</code></pre></div><p>当<code>newCapacity</code>大于<code>MAX_ARRAY_SIZE</code>时，执行方法<code>hugeCapacity</code> :</p> <div class="language-java extra-class"><pre class="language-java"><code><span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">int</span> <span class="token function">hugeCapacity</span><span class="token punctuation">(</span><span class="token keyword">int</span> minCapacity<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>minCapacity <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token comment">// overflow</span>
+        <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">OutOfMemoryError</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span>minCapacity <span class="token operator">&gt;</span> MAX_ARRAY_SIZE<span class="token punctuation">)</span> <span class="token operator">?</span>
+        <span class="token class-name">Integer</span><span class="token punctuation">.</span>MAX_VALUE <span class="token operator">:</span>
+    MAX_ARRAY_SIZE<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>从<code>hugeCapacity</code>中可知，ArrayList 最大容量为<code>Integer.MAX_VALUE</code>，所以当存储元素个数超出这个限制时，就会产生<code>OutOfMemoryError</code>错误。</p> <p>其实在其它添加元素的方法里实现我们都可以看到<code>ensureCapacityInternal</code>方法的调用，在真正操作底层数组前都会进行容量的确认，容量不够则进行动态扩容。</p> <img src="/learning_blog/img/java/container/ArrayList_23ensureCapacityIternal.png" alt="ArrayList_23ensureCapacityIternal"> <h2 id="序列化与反序列化">序列化与反序列化</h2> <div class="language-java extra-class"><pre class="language-java"><code><span class="token comment">/**
+ * The array buffer into which the elements of the ArrayList are stored.
+ * The capacity of the ArrayList is the length of this array buffer. Any
+ * empty ArrayList with elementData == DEFAULTCAPACITY_EMPTY_ELEMENTDATA
+ * will be expanded to DEFAULT_CAPACITY when the first element is added.
+ */</span>
+<span class="token keyword">transient</span> <span class="token class-name">Object</span><span class="token punctuation">[</span><span class="token punctuation">]</span> elementData<span class="token punctuation">;</span> <span class="token comment">// non-private to simplify nested class access</span>
+</code></pre></div><p>通常<code>transient</code>关键字修饰的字段表示该字段不会被序列化，但是 ArrayList 实现了序列化接口，并且提供了序列化方法<code>writeObject</code>与反序列化<code>readObject</code>的实现，如下：</p> <div class="language-java extra-class"><pre class="language-java"><code><span class="token comment">/**
+ * Save the state of the &lt;tt&gt;ArrayList&lt;/tt&gt; instance to a stream (that
+ * is, serialize it).
+ *
+ * @serialData The length of the array backing the &lt;tt&gt;ArrayList&lt;/tt&gt;
+ *             instance is emitted (int), followed by all of its elements
+ *             (each an &lt;tt&gt;Object&lt;/tt&gt;) in the proper order.
+ */</span>
+<span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">writeObject</span><span class="token punctuation">(</span><span class="token class-name"><span class="token namespace">java<span class="token punctuation">.</span>io<span class="token punctuation">.</span></span>ObjectOutputStream</span> s<span class="token punctuation">)</span>
+    <span class="token keyword">throws</span> <span class="token class-name"><span class="token namespace">java<span class="token punctuation">.</span>io<span class="token punctuation">.</span></span>IOException</span><span class="token punctuation">{</span>
+    <span class="token comment">// Write out element count, and any hidden stuff</span>
+    <span class="token keyword">int</span> expectedModCount <span class="token operator">=</span> modCount<span class="token punctuation">;</span>
+    <span class="token comment">// 将当前对象的非 static 修饰，非 transient 修饰的字段写出到流中</span>
+    s<span class="token punctuation">.</span><span class="token function">defaultWriteObject</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Write out size as capacity for behavioural compatibility with clone()</span>
+    <span class="token comment">// 将 ArrayList 元素个数作为输出容量大小</span>
+    s<span class="token punctuation">.</span><span class="token function">writeInt</span><span class="token punctuation">(</span>size<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Write out all elements in the proper order.</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">&lt;</span>size<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        s<span class="token punctuation">.</span><span class="token function">writeObject</span><span class="token punctuation">(</span>elementData<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>modCount <span class="token operator">!=</span> expectedModCount<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">ConcurrentModificationException</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>在反序列化中，现根据读进来的流数据中获取 size 属性，然后进行数组扩容，最后将数据流中读到的所有元素数据存放到特有的对象数组中。</p> <div class="language-java extra-class"><pre class="language-java"><code><span class="token comment">/**
+ * Reconstitute the &lt;tt&gt;ArrayList&lt;/tt&gt; instance from a stream (that is,
+ * deserialize it).
+ */</span>
+<span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">readObject</span><span class="token punctuation">(</span><span class="token class-name"><span class="token namespace">java<span class="token punctuation">.</span>io<span class="token punctuation">.</span></span>ObjectInputStream</span> s<span class="token punctuation">)</span>
+    <span class="token keyword">throws</span> <span class="token class-name"><span class="token namespace">java<span class="token punctuation">.</span>io<span class="token punctuation">.</span></span>IOException</span><span class="token punctuation">,</span> <span class="token class-name">ClassNotFoundException</span> <span class="token punctuation">{</span>
+    elementData <span class="token operator">=</span> EMPTY_ELEMENTDATA<span class="token punctuation">;</span>
+
+    <span class="token comment">// Read in size, and any hidden stuff</span>
+    s<span class="token punctuation">.</span><span class="token function">defaultReadObject</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Read in capacity</span>
+    s<span class="token punctuation">.</span><span class="token function">readInt</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// ignored</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>size <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// be like clone(), allocate array based upon size not capacity</span>
+        <span class="token keyword">int</span> capacity <span class="token operator">=</span> <span class="token function">calculateCapacity</span><span class="token punctuation">(</span>elementData<span class="token punctuation">,</span> size<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">SharedSecrets</span><span class="token punctuation">.</span><span class="token function">getJavaOISAccess</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">checkArray</span><span class="token punctuation">(</span>s<span class="token punctuation">,</span> <span class="token class-name">Object</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> capacity<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">ensureCapacityInternal</span><span class="token punctuation">(</span>size<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token class-name">Object</span><span class="token punctuation">[</span><span class="token punctuation">]</span> a <span class="token operator">=</span> elementData<span class="token punctuation">;</span>
+        <span class="token comment">// Read in all elements in the proper order.</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">&lt;</span>size<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            a<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> s<span class="token punctuation">.</span><span class="token function">readObject</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h2 id="关于拷贝">关于拷贝</h2> <p>针对列表元素的拷贝，ArrayList 提供自定义的 clone 实现如下：</p> <div class="language-java extra-class"><pre class="language-java"><code><span class="token comment">/**
+ * Returns a shallow copy of this &lt;tt&gt;ArrayList&lt;/tt&gt; instance.  (The
+ * elements themselves are not copied.)
+ * 返回此ArrayList实例的浅表副本。 （元素本身不会被复制。）浅拷贝
+ * @return a clone of this &lt;tt&gt;ArrayList&lt;/tt&gt; instance
+ */</span>
+<span class="token keyword">public</span> <span class="token class-name">Object</span> <span class="token function">clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">try</span> <span class="token punctuation">{</span>
+        <span class="token class-name">ArrayList</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span> v <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">ArrayList</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">)</span> <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        v<span class="token punctuation">.</span>elementData <span class="token operator">=</span> <span class="token class-name">Arrays</span><span class="token punctuation">.</span><span class="token function">copyOf</span><span class="token punctuation">(</span>elementData<span class="token punctuation">,</span> size<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        v<span class="token punctuation">.</span>modCount <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> v<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">CloneNotSupportedException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// this shouldn't happen, since we are Cloneable</span>
+        <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">InternalError</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>从上述代码可以清楚看出执行的<code>copyOf</code>操作是一次浅拷贝操作，原 ArrayList 对象的元素不会被拷贝一份存入到新的 ArrayList 对象中返回，它们各自的字段<code>elementData</code>里各位置存放的都是一样的元素引用，一旦某个列表修改了数据，另一个列表也会跟着改变。</p> <h2 id="jdk-1-8-后的-arraylist">JDK 1.8 后的 ArrayList</h2> <ol><li><p>新增 removeIf() 方法</p> <p><code>removeIf()</code>是 Collection 接口新增的接口方法，ArrayList 由于父类实现该接口，所以也有这个方法。<code>removeIf()</code>方法用于进行指定条件的从数组中删除元素。</p> <div class="language-java extra-class"><pre class="language-java"><code><span class="token annotation punctuation">@Override</span>
+<span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">removeIf</span><span class="token punctuation">(</span><span class="token class-name">Predicate</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span> <span class="token keyword">super</span> <span class="token class-name">E</span><span class="token punctuation">&gt;</span></span> filter<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+   <span class="token class-name">Objects</span><span class="token punctuation">.</span><span class="token function">requireNonNull</span><span class="token punctuation">(</span>filter<span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token comment">// figure out which elements are to be removed</span>
+   <span class="token comment">// any exception thrown from the filter predicate at this stage</span>
+   <span class="token comment">// will leave the collection unmodified</span>
+   <span class="token keyword">int</span> removeCount <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+   <span class="token keyword">final</span> <span class="token class-name">BitSet</span> removeSet <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BitSet</span><span class="token punctuation">(</span>size<span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token keyword">final</span> <span class="token keyword">int</span> expectedModCount <span class="token operator">=</span> modCount<span class="token punctuation">;</span>
+   <span class="token keyword">final</span> <span class="token keyword">int</span> size <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>size<span class="token punctuation">;</span>
+   <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> modCount <span class="token operator">==</span> expectedModCount <span class="token operator">&amp;&amp;</span> i <span class="token operator">&lt;</span> size<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+       <span class="token annotation punctuation">@SuppressWarnings</span><span class="token punctuation">(</span><span class="token string">&quot;unchecked&quot;</span><span class="token punctuation">)</span>
+       <span class="token keyword">final</span> <span class="token class-name">E</span> element <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">E</span><span class="token punctuation">)</span> elementData<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+       <span class="token keyword">if</span> <span class="token punctuation">(</span>filter<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>element<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+           removeSet<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+           removeCount<span class="token operator">++</span><span class="token punctuation">;</span>
+       <span class="token punctuation">}</span>
+   <span class="token punctuation">}</span>
+   <span class="token keyword">if</span> <span class="token punctuation">(</span>modCount <span class="token operator">!=</span> expectedModCount<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+       <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">ConcurrentModificationException</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token punctuation">}</span>
+
+   <span class="token comment">// shift surviving elements left over the spaces left by removed elements</span>
+   <span class="token keyword">final</span> <span class="token keyword">boolean</span> anyToRemove <span class="token operator">=</span> removeCount <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">;</span>
+   <span class="token keyword">if</span> <span class="token punctuation">(</span>anyToRemove<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+       <span class="token keyword">final</span> <span class="token keyword">int</span> newSize <span class="token operator">=</span> size <span class="token operator">-</span> removeCount<span class="token punctuation">;</span>
+       <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">,</span> j<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> <span class="token punctuation">(</span>i <span class="token operator">&lt;</span> size<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span>j <span class="token operator">&lt;</span> newSize<span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">,</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+           i <span class="token operator">=</span> removeSet<span class="token punctuation">.</span><span class="token function">nextClearBit</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+           elementData<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> elementData<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+       <span class="token punctuation">}</span>
+       <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> k<span class="token operator">=</span>newSize<span class="token punctuation">;</span> k <span class="token operator">&lt;</span> size<span class="token punctuation">;</span> k<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+           elementData<span class="token punctuation">[</span>k<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>  <span class="token comment">// Let gc do its work</span>
+       <span class="token punctuation">}</span>
+       <span class="token keyword">this</span><span class="token punctuation">.</span>size <span class="token operator">=</span> newSize<span class="token punctuation">;</span>
+       <span class="token keyword">if</span> <span class="token punctuation">(</span>modCount <span class="token operator">!=</span> expectedModCount<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+           <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">ConcurrentModificationException</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+       <span class="token punctuation">}</span>
+       modCount<span class="token operator">++</span><span class="token punctuation">;</span>
+   <span class="token punctuation">}</span>
+
+   <span class="token keyword">return</span> anyToRemove<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>传入一个代表条件的函数式接口参数<code>Predicate</code>，也就是 Lambda 表达式进行条件匹配，如果条件为 <code>true</code>，则将该元素从数组中删除，例：</p> <div class="language-java extra-class"><pre class="language-java"><code><span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Integer</span><span class="token punctuation">&gt;</span></span> list <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span><span class="token class-name">Arrays</span><span class="token punctuation">.</span><span class="token function">asList</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">,</span><span class="token number">6</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">,</span><span class="token number">8</span><span class="token punctuation">,</span><span class="token number">45</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+list<span class="token punctuation">.</span><span class="token function">removeIf</span><span class="token punctuation">(</span>l <span class="token operator">-&gt;</span> l <span class="token operator">==</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>list<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// [1, 3, 1, 6, 4, 8, 45, 2]</span>
+</code></pre></div></li> <li><p>新增 spliterator 方法</p> <p>这个方法也是来自 Collection 接口，ArrayList 对此方法进行了重写。该方法会返回 ListSpliterator 实例，该实例用于遍历和分离容器所存储的元素。</p> <div class="language-java extra-class"><pre class="language-java"><code><span class="token comment">/**
+* Creates a &lt;em&gt;&lt;a href=&quot;Spliterator.html#binding&quot;&gt;late-binding&lt;/a&gt;&lt;/em&gt;
+* and &lt;em&gt;fail-fast&lt;/em&gt; {@link Spliterator} over the elements in this
+* list.
+*
+* &lt;p&gt;The {@code Spliterator} reports {@link Spliterator#SIZED},
+* {@link Spliterator#SUBSIZED}, and {@link Spliterator#ORDERED}.
+* Overriding implementations should document the reporting of additional
+* characteristic values.
+*
+* @return a {@code Spliterator} over the elements in this list
+* @since 1.8
+*/</span>
+<span class="token annotation punctuation">@Override</span>
+<span class="token keyword">public</span> <span class="token class-name">Spliterator</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">E</span><span class="token punctuation">&gt;</span></span> <span class="token function">spliterator</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+   <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">ArrayListSpliterator</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>在 ArrayList 的实现中，改方法返回一个内部静态类对象 ArrayListSpliterator，通过它可以对集合元素进行操作。</p> <p>它的主要操作方法有：</p> <ul><li><code>tryAdvance</code>迭代单个元素，类似于<code>iterator.next()</code></li> <li><code>forEachRemaining</code>迭代剩余元素</li> <li><code>trySplit</code>将元素切分成为两部分并行处理，但需要注意 Spliterator 并不是线程安全的。</li></ul> <p>虽然这三个方法并不常用，但还是有必要了解一下，使用案例：</p> <div class="language-java extra-class"><pre class="language-java"><code><span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Integer</span><span class="token punctuation">&gt;</span></span> list <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span><span class="token class-name">Arrays</span><span class="token punctuation">.</span><span class="token function">asList</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">45</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token class-name">Spliterator</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Integer</span><span class="token punctuation">&gt;</span></span> spliterator <span class="token operator">=</span> list<span class="token punctuation">.</span><span class="token function">spliterator</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// 迭代单个元素，类似于 iterator.next()</span>
+spliterator<span class="token punctuation">.</span><span class="token function">tryAdvance</span><span class="token punctuation">(</span><span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token operator">::</span><span class="token function">println</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 1</span>
+
+<span class="token comment">// 迭代剩余元素</span>
+spliterator<span class="token punctuation">.</span><span class="token function">forEachRemaining</span><span class="token punctuation">(</span>o <span class="token operator">-&gt;</span> <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span>o <span class="token operator">+</span> <span class="token string">&quot; &quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 3 5 1 5 6 4 5 8 45 2 5 5</span>
+
+<span class="token comment">// 将元素切分成为两部分并行处理</span>
+<span class="token class-name">Spliterator</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Integer</span><span class="token punctuation">&gt;</span></span> trySplit <span class="token operator">=</span> spliterator<span class="token punctuation">.</span><span class="token function">trySplit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+trySplit<span class="token punctuation">.</span><span class="token function">forEachRemaining</span><span class="token punctuation">(</span>o <span class="token operator">-&gt;</span> <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span>o <span class="token operator">+</span> <span class="token string">&quot; &quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 3 5 1 5 6 4</span>
+spliterator<span class="token punctuation">.</span><span class="token function">forEachRemaining</span><span class="token punctuation">(</span>o <span class="token operator">-&gt;</span> <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span>o <span class="token operator">+</span> <span class="token string">&quot; &quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 5 8 45 2 5 5</span>
+</code></pre></div></li></ol> <h3 id="高效初始化">高效初始化</h3> <p>ArrayList 实现了三个构造函数，默认创建时会分配到空数组对象<code>EMPTY_ELEMENTDATA</code>；第二个是传入一个集合类型数据进行初始化；第三个允许传入集合长度的初始化值，也就是数组长度。由于每次数组长度不够会导致扩容，重新申请更长的内存空间，并进行复制。而让我们初始化 ArrayList 指定数组初始大小，可以减少数组的扩容次数，提高性能。</p> <div class="language-java extra-class"><pre class="language-java"><code> <span class="token comment">/**
+  * Constructs an empty list with the specified initial capacity.
+  *
+  * @param  initialCapacity  the initial capacity of the list
+  * @throws IllegalArgumentException if the specified initial capacity
+  *         is negative
+  */</span>
+<span class="token keyword">public</span> <span class="token class-name">ArrayList</span><span class="token punctuation">(</span><span class="token keyword">int</span> initialCapacity<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>initialCapacity <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>elementData <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Object</span><span class="token punctuation">[</span>initialCapacity<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>initialCapacity <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>elementData <span class="token operator">=</span> EMPTY_ELEMENTDATA<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">IllegalArgumentException</span><span class="token punctuation">(</span><span class="token string">&quot;Illegal Capacity: &quot;</span><span class="token operator">+</span> initialCapacity<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">/**
+ * Constructs an empty list with an initial capacity of ten.
+ */</span>
+<span class="token keyword">public</span> <span class="token class-name">ArrayList</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>elementData <span class="token operator">=</span> DEFAULTCAPACITY_EMPTY_ELEMENTDATA<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">/**
+ * Constructs a list containing the elements of the specified
+ * collection, in the order they are returned by the collection's
+ * iterator.
+ *
+ * @param c the collection whose elements are to be placed into this list
+ * @throws NullPointerException if the specified collection is null
+ */</span>
+<span class="token keyword">public</span> <span class="token class-name">ArrayList</span><span class="token punctuation">(</span><span class="token class-name">Collection</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span> <span class="token keyword">extends</span> <span class="token class-name">E</span><span class="token punctuation">&gt;</span></span> c<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    elementData <span class="token operator">=</span> c<span class="token punctuation">.</span><span class="token function">toArray</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>size <span class="token operator">=</span> elementData<span class="token punctuation">.</span>length<span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// c.toArray might (incorrectly) not return Object[] (see 6260652)</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>elementData<span class="token punctuation">.</span><span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token class-name">Object</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
+            elementData <span class="token operator">=</span> <span class="token class-name">Arrays</span><span class="token punctuation">.</span><span class="token function">copyOf</span><span class="token punctuation">(</span>elementData<span class="token punctuation">,</span> size<span class="token punctuation">,</span> <span class="token class-name">Object</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        <span class="token comment">// replace with empty array.</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>elementData <span class="token operator">=</span> EMPTY_ELEMENTDATA<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="元素遍历">元素遍历</h3> <p>JDK 1.8 前，ArrayList 只支持 3 种遍历方式：迭代器遍历，普通 for 循环，for-each 增强，在 JDK 1.8 引入了 Stream API 之后，同属于 Collection 集合的 ArrayList 可以使用 <code>stream.foreach()</code>方法一个个地获取元素：</p> <div class="language-java extra-class"><pre class="language-java"><code><span class="token class-name">ArrayList</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">&gt;</span></span> names <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span><span class="token class-name">Arrays</span><span class="token punctuation">.</span><span class="token function">asList</span><span class="token punctuation">(</span> <span class="token string">&quot;alex&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;brian&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;charles&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+names<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>name <span class="token operator">-&gt;</span> <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// alex brian charles</span>
+</code></pre></div><h3 id="转换-array">转换 Array</h3> <p>ArrayList 提供两个方法用于列表向数组的转换</p> <div class="language-java extra-class"><pre class="language-java"><code> <span class="token comment">/**
+  * Returns an array containing all of the elements in this list
+  * in proper sequence (from first to last element).
+  *
+  * &lt;p&gt;The returned array will be &quot;safe&quot; in that no references to it are
+  * maintained by this list.  (In other words, this method must allocate
+  * a new array).  The caller is thus free to modify the returned array.
+  *
+  * &lt;p&gt;This method acts as bridge between array-based and collection-based
+  * APIs.
+  *
+  * @return an array containing all of the elements in this list in
+  *         proper sequence
+  */</span>
+<span class="token keyword">public</span> <span class="token class-name">Object</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">toArray</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token class-name">Arrays</span><span class="token punctuation">.</span><span class="token function">copyOf</span><span class="token punctuation">(</span>elementData<span class="token punctuation">,</span> size<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">/**
+ * Returns an array containing all of the elements in this list in proper
+ * sequence (from first to last element); the runtime type of the returned
+ * array is that of the specified array.  If the list fits in the
+ * specified array, it is returned therein.  Otherwise, a new array is
+ * allocated with the runtime type of the specified array and the size of
+ * this list.
+ *
+ * &lt;p&gt;If the list fits in the specified array with room to spare
+ * (i.e., the array has more elements than the list), the element in
+ * the array immediately following the end of the collection is set to
+ * &lt;tt&gt;null&lt;/tt&gt;.  (This is useful in determining the length of the
+ * list &lt;i&gt;only&lt;/i&gt; if the caller knows that the list does not contain
+ * any null elements.)
+ *
+ * @param a the array into which the elements of the list are to
+ *          be stored, if it is big enough; otherwise, a new array of the
+ *          same runtime type is allocated for this purpose.
+ * @return an array containing the elements of the list
+ * @throws ArrayStoreException if the runtime type of the specified array
+ *         is not a supertype of the runtime type of every element in
+ *         this list
+ * @throws NullPointerException if the specified array is null
+ */</span>
+<span class="token annotation punctuation">@SuppressWarnings</span><span class="token punctuation">(</span><span class="token string">&quot;unchecked&quot;</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">T</span><span class="token punctuation">&gt;</span></span> <span class="token class-name">T</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">toArray</span><span class="token punctuation">(</span><span class="token class-name">T</span><span class="token punctuation">[</span><span class="token punctuation">]</span> a<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>a<span class="token punctuation">.</span>length <span class="token operator">&lt;</span> size<span class="token punctuation">)</span>
+        <span class="token comment">// Make a new array of a's runtime type, but my contents:</span>
+        <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token class-name">T</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token class-name">Arrays</span><span class="token punctuation">.</span><span class="token function">copyOf</span><span class="token punctuation">(</span>elementData<span class="token punctuation">,</span> size<span class="token punctuation">,</span> a<span class="token punctuation">.</span><span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">System</span><span class="token punctuation">.</span><span class="token function">arraycopy</span><span class="token punctuation">(</span>elementData<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> a<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> size<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>a<span class="token punctuation">.</span>length <span class="token operator">&gt;</span> size<span class="token punctuation">)</span>
+        a<span class="token punctuation">[</span>size<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> a<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><ol><li>第一个方法直接返回 Object 类型数组</li> <li>在第二个方法中，返回数组的类型为所传入的指定数组的类型。并且如果列表的长度符合传入的数组，将元素拷贝到数组后并返回。否则，将根据传入数组的类型和列表的大小重新分配一个新数组，拷贝完成后返回。</li></ol> <p>从上述描述可以看出使用第二个方法更加合适，能保留原先的数据类型：</p> <div class="language-java extra-class"><pre class="language-java"><code><span class="token class-name">ArrayList</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">&gt;</span></span> list <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+list<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token string">&quot;A&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+list<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token string">&quot;B&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+list<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token string">&quot;C&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+list<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token string">&quot;D&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> array <span class="token operator">=</span> list<span class="token punctuation">.</span><span class="token function">toArray</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">[</span>list<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token class-name">Arrays</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span>array<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// [A, B, C, D]</span>
+</code></pre></div><h2 id="应对多线程">应对多线程</h2> <p>ArrayList 本身是非线程安全的，如果需要使用线程安全的列表通常采用的方式是<code>java.util.Collections#synchronizedList(java.util.List&lt;T&gt;)</code> 或者 使用 Vector 类代替。还有一种方式是使用并发容器类<code>CopyOnWriteArrayList</code>在多线程中使用，它底层通过创建原数组的副本来实现更新，不仅线程安全，同时减少了对线程的同步操作。</p> <h2 id="应对头部节点的增删">应对头部节点的增删</h2> <p>ArrayList是数组实现的，使用的是连续的内存空间，当有需要在数组头部进行元素的添加或删除操作的时候，需要对目标元素以后的元素进行复制并重新排序，效率很低。针对有大量类似操作的场景，出于性能考虑，我们应该使用<code>LinkedList</code>代替。因为 LinkedList 是基于链表实现，当我们需要操作的目标元素处于整个链表的前半段时，可直接通过遍历的方式查询目标元素，然后进行元素的增删操作。</p></div></section> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev"><a href="/learning_blog/java/container/" class="prev router-link-active">
+            集合框架
+          </a></span> <span class="next"><a href="/learning_blog/java/container/Vector.html">
+            Vector
+          </a></span></p></div> <div class="comments-wrapper"><!----></div> <ul class="side-bar sub-sidebar-wrapper" style="width:12rem;" data-v-70334359><li class="level-2" data-v-70334359><a href="/learning_blog/java/container/ArrayList.html#源码分析" class="sidebar-link reco-side-源码分析" data-v-70334359>源码分析</a></li><li class="level-2" data-v-70334359><a href="/learning_blog/java/container/ArrayList.html#如何扩容" class="sidebar-link reco-side-如何扩容" data-v-70334359>如何扩容</a></li><li class="level-2" data-v-70334359><a href="/learning_blog/java/container/ArrayList.html#序列化与反序列化" class="sidebar-link reco-side-序列化与反序列化" data-v-70334359>序列化与反序列化</a></li><li class="level-2" data-v-70334359><a href="/learning_blog/java/container/ArrayList.html#关于拷贝" class="sidebar-link reco-side-关于拷贝" data-v-70334359>关于拷贝</a></li><li class="level-2" data-v-70334359><a href="/learning_blog/java/container/ArrayList.html#jdk-1-8-后的-arraylist" class="sidebar-link reco-side-jdk-1-8-后的-arraylist" data-v-70334359>JDK 1.8 后的 ArrayList</a></li><li class="level-3" data-v-70334359><a href="/learning_blog/java/container/ArrayList.html#高效初始化" class="sidebar-link reco-side-高效初始化" data-v-70334359>高效初始化</a></li><li class="level-3" data-v-70334359><a href="/learning_blog/java/container/ArrayList.html#元素遍历" class="sidebar-link reco-side-元素遍历" data-v-70334359>元素遍历</a></li><li class="level-3" data-v-70334359><a href="/learning_blog/java/container/ArrayList.html#转换-array" class="sidebar-link reco-side-转换-array" data-v-70334359>转换 Array</a></li><li class="level-2" data-v-70334359><a href="/learning_blog/java/container/ArrayList.html#应对多线程" class="sidebar-link reco-side-应对多线程" data-v-70334359>应对多线程</a></li><li class="level-2" data-v-70334359><a href="/learning_blog/java/container/ArrayList.html#应对头部节点的增删" class="sidebar-link reco-side-应对头部节点的增删" data-v-70334359>应对头部节点的增删</a></li></ul></main> <!----></div></div></div></div><div class="global-ui"><div class="back-to-ceiling" style="right:1rem;bottom:6rem;width:2.5rem;height:2.5rem;border-radius:.25rem;line-height:2.5rem;display:none;" data-v-c6073ba8 data-v-c6073ba8><svg t="1574745035067" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5404" class="icon" data-v-c6073ba8><path d="M526.60727968 10.90185116a27.675 27.675 0 0 0-29.21455937 0c-131.36607665 82.28402758-218.69155461 228.01873535-218.69155402 394.07834331a462.20625001 462.20625001 0 0 0 5.36959153 69.94390903c1.00431239 6.55289093-0.34802892 13.13561351-3.76865779 18.80351572-32.63518765 54.11355614-51.75690182 118.55860487-51.7569018 187.94566865a371.06718723 371.06718723 0 0 0 11.50484808 91.98906777c6.53300375 25.50556257 41.68394495 28.14064038 52.69160883 4.22606766 17.37162448-37.73630017 42.14135425-72.50938081 72.80769204-103.21549295 2.18761121 3.04276886 4.15646224 6.24463696 6.40373557 9.22774369a1871.4375 1871.4375 0 0 0 140.04691725 5.34970492 1866.36093723 1866.36093723 0 0 0 140.04691723-5.34970492c2.24727335-2.98310674 4.21612437-6.18497483 6.3937923-9.2178004 30.66633723 30.70611158 55.4360664 65.4791928 72.80769147 103.21549355 11.00766384 23.91457269 46.15860503 21.27949489 52.69160879-4.22606768a371.15156223 371.15156223 0 0 0 11.514792-91.99901164c0-69.36717486-19.13165746-133.82216804-51.75690182-187.92578088-3.42062944-5.66790279-4.76302748-12.26056868-3.76865837-18.80351632a462.20625001 462.20625001 0 0 0 5.36959269-69.943909c-0.00994388-166.08943902-87.32547796-311.81420293-218.6915546-394.09823051zM605.93803103 357.87693858a93.93749974 93.93749974 0 1 1-187.89594924 6.1e-7 93.93749974 93.93749974 0 0 1 187.89594924-6.1e-7z" p-id="5405" data-v-c6073ba8></path><path d="M429.50777625 765.63860547C429.50777625 803.39355007 466.44236686 1000.39046097 512.00932183 1000.39046097c45.56695499 0 82.4922232-197.00623328 82.5015456-234.7518555 0-37.75494459-36.9345906-68.35043303-82.4922232-68.34111062-45.57627738-0.00932239-82.52019037 30.59548842-82.51086798 68.34111062z" p-id="5406" data-v-c6073ba8></path></svg></div><canvas id="vuepress-canvas-cursor"></canvas><div class="cat-container" data-v-a13867c0><canvas id="vuepress-cat" width="280" height="250" class="live2d" data-v-a13867c0></canvas></div><!----></div></div>
+    <script src="/learning_blog/assets/js/app.e6e1c34c.js" defer></script><script src="/learning_blog/assets/js/4.ff23c0b7.js" defer></script><script src="/learning_blog/assets/js/1.81582bd8.js" defer></script><script src="/learning_blog/assets/js/43.5375d7c9.js" defer></script><script src="/learning_blog/assets/js/8.f416b1e6.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Eureka 服务注册与发现 | 一兜小白菜</title>
+    <meta name="generator" content="VuePress 1.8.2">
+    <link rel="icon" href="/learning_blog/logo.png">
+    <link rel="manifest" href="/learning_blog/manifest.json">
+    <meta name="description" content="任何职业都可以成为黑客。你可以是一个木匠黑客。不一定是高科技。只要与技能有关，并且倾心专注于你正在做的事情，你就可能成为黑客。">
+    
+    <link rel="preload" href="/learning_blog/assets/css/0.styles.c68b611a.css" as="style"><link rel="preload" href="/learning_blog/assets/js/app.e6e1c34c.js" as="script"><link rel="preload" href="/learning_blog/assets/js/4.ff23c0b7.js" as="script"><link rel="preload" href="/learning_blog/assets/js/1.81582bd8.js" as="script"><link rel="preload" href="/learning_blog/assets/js/116.b4b50591.js" as="script"><link rel="preload" href="/learning_blog/assets/js/8.f416b1e6.js" as="script"><link rel="prefetch" href="/learning_blog/assets/js/10.58adca44.js"><link rel="prefetch" href="/learning_blog/assets/js/100.c3e38fd7.js"><link rel="prefetch" href="/learning_blog/assets/js/101.71ef1da5.js"><link rel="prefetch" href="/learning_blog/assets/js/102.3a27c764.js"><link rel="prefetch" href="/learning_blog/assets/js/103.d8079be3.js"><link rel="prefetch" href="/learning_blog/assets/js/104.5ec19ab4.js"><link rel="prefetch" href="/learning_blog/assets/js/105.641d7f30.js"><link rel="prefetch" href="/learning_blog/assets/js/106.17533908.js"><link rel="prefetch" href="/learning_blog/assets/js/107.ef428cf3.js"><link rel="prefetch" href="/learning_blog/assets/js/108.8955c0b8.js"><link rel="prefetch" href="/learning_blog/assets/js/109.a4034281.js"><link rel="prefetch" href="/learning_blog/assets/js/11.64cdb03a.js"><link rel="prefetch" href="/learning_blog/assets/js/110.0f3db165.js"><link rel="prefetch" href="/learning_blog/assets/js/111.a6baa137.js"><link rel="prefetch" href="/learning_blog/assets/js/112.0efc57dc.js"><link rel="prefetch" href="/learning_blog/assets/js/113.e20800cf.js"><link rel="prefetch" href="/learning_blog/assets/js/114.24666c6e.js"><link rel="prefetch" href="/learning_blog/assets/js/115.c931f24e.js"><link rel="prefetch" href="/learning_blog/assets/js/117.1466ffb7.js"><link rel="prefetch" href="/learning_blog/assets/js/118.3dc9a8cc.js"><link rel="prefetch" href="/learning_blog/assets/js/119.55cc810f.js"><link rel="prefetch" href="/learning_blog/assets/js/12.37800769.js"><link rel="prefetch" href="/learning_blog/assets/js/120.5d596352.js"><link rel="prefetch" href="/learning_blog/assets/js/121.d0a2bb19.js"><link rel="prefetch" href="/learning_blog/assets/js/122.4223d0e2.js"><link rel="prefetch" href="/learning_blog/assets/js/123.d14c8967.js"><link rel="prefetch" href="/learning_blog/assets/js/124.0fc87088.js"><link rel="prefetch" href="/learning_blog/assets/js/125.dfe739d7.js"><link rel="prefetch" href="/learning_blog/assets/js/126.0ceed23b.js"><link rel="prefetch" href="/learning_blog/assets/js/127.e1351c71.js"><link rel="prefetch" href="/learning_blog/assets/js/128.e9c08785.js"><link rel="prefetch" href="/learning_blog/assets/js/129.375419eb.js"><link rel="prefetch" href="/learning_blog/assets/js/13.27b4e468.js"><link rel="prefetch" href="/learning_blog/assets/js/130.925350ba.js"><link rel="prefetch" href="/learning_blog/assets/js/131.22a9bdb2.js"><link rel="prefetch" href="/learning_blog/assets/js/132.aedcc038.js"><link rel="prefetch" href="/learning_blog/assets/js/133.a7fc8c8f.js"><link rel="prefetch" href="/learning_blog/assets/js/134.7c062a25.js"><link rel="prefetch" href="/learning_blog/assets/js/135.edeca75d.js"><link rel="prefetch" href="/learning_blog/assets/js/136.8f20389e.js"><link rel="prefetch" href="/learning_blog/assets/js/137.fea26a7b.js"><link rel="prefetch" href="/learning_blog/assets/js/138.371da223.js"><link rel="prefetch" href="/learning_blog/assets/js/139.0d856709.js"><link rel="prefetch" href="/learning_blog/assets/js/14.e1478ea8.js"><link rel="prefetch" href="/learning_blog/assets/js/140.cf989f01.js"><link rel="prefetch" href="/learning_blog/assets/js/141.453925ca.js"><link rel="prefetch" href="/learning_blog/assets/js/142.61fe7b6e.js"><link rel="prefetch" href="/learning_blog/assets/js/143.c6d38d96.js"><link rel="prefetch" href="/learning_blog/assets/js/144.d56f9555.js"><link rel="prefetch" href="/learning_blog/assets/js/145.5ea7e139.js"><link rel="prefetch" href="/learning_blog/assets/js/146.7a0eb5c7.js"><link rel="prefetch" href="/learning_blog/assets/js/147.bf426f23.js"><link rel="prefetch" href="/learning_blog/assets/js/148.a423a0f8.js"><link rel="prefetch" href="/learning_blog/assets/js/149.928a0e3a.js"><link rel="prefetch" href="/learning_blog/assets/js/15.07fa313c.js"><link rel="prefetch" href="/learning_blog/assets/js/150.d7e729a8.js"><link rel="prefetch" href="/learning_blog/assets/js/151.6cd16f87.js"><link rel="prefetch" href="/learning_blog/assets/js/16.425e28fa.js"><link rel="prefetch" href="/learning_blog/assets/js/17.a9fca2d8.js"><link rel="prefetch" href="/learning_blog/assets/js/18.8fb99b25.js"><link rel="prefetch" href="/learning_blog/assets/js/19.29145c92.js"><link rel="prefetch" href="/learning_blog/assets/js/20.87886092.js"><link rel="prefetch" href="/learning_blog/assets/js/21.e69894c0.js"><link rel="prefetch" href="/learning_blog/assets/js/22.9d216b69.js"><link rel="prefetch" href="/learning_blog/assets/js/23.8c8cc5b8.js"><link rel="prefetch" href="/learning_blog/assets/js/24.da7befb5.js"><link rel="prefetch" href="/learning_blog/assets/js/25.aba65622.js"><link rel="prefetch" href="/learning_blog/assets/js/26.3dd77b52.js"><link rel="prefetch" href="/learning_blog/assets/js/27.e5f60060.js"><link rel="prefetch" href="/learning_blog/assets/js/28.520f8846.js"><link rel="prefetch" href="/learning_blog/assets/js/29.85cba1c5.js"><link rel="prefetch" href="/learning_blog/assets/js/30.fa653075.js"><link rel="prefetch" href="/learning_blog/assets/js/31.1a1ede8e.js"><link rel="prefetch" href="/learning_blog/assets/js/32.3c34adc1.js"><link rel="prefetch" href="/learning_blog/assets/js/33.b3030e84.js"><link rel="prefetch" href="/learning_blog/assets/js/34.7632da2a.js"><link rel="prefetch" href="/learning_blog/assets/js/35.5c9094dd.js"><link rel="prefetch" href="/learning_blog/assets/js/36.f96ff6e1.js"><link rel="prefetch" href="/learning_blog/assets/js/37.0d008c56.js"><link rel="prefetch" href="/learning_blog/assets/js/38.dea1713b.js"><link rel="prefetch" href="/learning_blog/assets/js/39.9b6a40d4.js"><link rel="prefetch" href="/learning_blog/assets/js/40.38ed0206.js"><link rel="prefetch" href="/learning_blog/assets/js/41.12b53694.js"><link rel="prefetch" href="/learning_blog/assets/js/42.0a1bf74c.js"><link rel="prefetch" href="/learning_blog/assets/js/43.5375d7c9.js"><link rel="prefetch" href="/learning_blog/assets/js/44.82bb804e.js"><link rel="prefetch" href="/learning_blog/assets/js/45.67a4706a.js"><link rel="prefetch" href="/learning_blog/assets/js/46.fcba3164.js"><link rel="prefetch" href="/learning_blog/assets/js/47.8658a1cc.js"><link rel="prefetch" href="/learning_blog/assets/js/48.51f5a45d.js"><link rel="prefetch" href="/learning_blog/assets/js/49.93b1425f.js"><link rel="prefetch" href="/learning_blog/assets/js/5.24f9e3cd.js"><link rel="prefetch" href="/learning_blog/assets/js/50.855fad56.js"><link rel="prefetch" href="/learning_blog/assets/js/51.0da4f39b.js"><link rel="prefetch" href="/learning_blog/assets/js/52.ecdfca48.js"><link rel="prefetch" href="/learning_blog/assets/js/53.a7febaa9.js"><link rel="prefetch" href="/learning_blog/assets/js/54.870d0e17.js"><link rel="prefetch" href="/learning_blog/assets/js/55.c7201cec.js"><link rel="prefetch" href="/learning_blog/assets/js/56.42f1a7b2.js"><link rel="prefetch" href="/learning_blog/assets/js/57.a07e4e0b.js"><link rel="prefetch" href="/learning_blog/assets/js/58.a68368b2.js"><link rel="prefetch" href="/learning_blog/assets/js/59.bb85fc0d.js"><link rel="prefetch" href="/learning_blog/assets/js/6.2d21da84.js"><link rel="prefetch" href="/learning_blog/assets/js/60.baf33af5.js"><link rel="prefetch" href="/learning_blog/assets/js/61.146a561e.js"><link rel="prefetch" href="/learning_blog/assets/js/62.0f723ed7.js"><link rel="prefetch" href="/learning_blog/assets/js/63.2a3264a5.js"><link rel="prefetch" href="/learning_blog/assets/js/64.38c1721e.js"><link rel="prefetch" href="/learning_blog/assets/js/65.81ff89ba.js"><link rel="prefetch" href="/learning_blog/assets/js/66.56685ef7.js"><link rel="prefetch" href="/learning_blog/assets/js/67.8f16a979.js"><link rel="prefetch" href="/learning_blog/assets/js/68.69433f16.js"><link rel="prefetch" href="/learning_blog/assets/js/69.99218738.js"><link rel="prefetch" href="/learning_blog/assets/js/7.706ac388.js"><link rel="prefetch" href="/learning_blog/assets/js/70.27595144.js"><link rel="prefetch" href="/learning_blog/assets/js/71.b08b8cdf.js"><link rel="prefetch" href="/learning_blog/assets/js/72.29b2d9ce.js"><link rel="prefetch" href="/learning_blog/assets/js/73.2e100c2e.js"><link rel="prefetch" href="/learning_blog/assets/js/74.d0513690.js"><link rel="prefetch" href="/learning_blog/assets/js/75.2b371472.js"><link rel="prefetch" href="/learning_blog/assets/js/76.b993c2c6.js"><link rel="prefetch" href="/learning_blog/assets/js/77.2f22d7d3.js"><link rel="prefetch" href="/learning_blog/assets/js/78.0f685bfc.js"><link rel="prefetch" href="/learning_blog/assets/js/79.cb3e911c.js"><link rel="prefetch" href="/learning_blog/assets/js/80.2738107d.js"><link rel="prefetch" href="/learning_blog/assets/js/81.1425f348.js"><link rel="prefetch" href="/learning_blog/assets/js/82.a4532418.js"><link rel="prefetch" href="/learning_blog/assets/js/83.b846c18d.js"><link rel="prefetch" href="/learning_blog/assets/js/84.122f9ad2.js"><link rel="prefetch" href="/learning_blog/assets/js/85.23f37097.js"><link rel="prefetch" href="/learning_blog/assets/js/86.74b20100.js"><link rel="prefetch" href="/learning_blog/assets/js/87.bfc377d3.js"><link rel="prefetch" href="/learning_blog/assets/js/88.3fe754ec.js"><link rel="prefetch" href="/learning_blog/assets/js/89.3739c793.js"><link rel="prefetch" href="/learning_blog/assets/js/9.de853e93.js"><link rel="prefetch" href="/learning_blog/assets/js/90.7bdbcef5.js"><link rel="prefetch" href="/learning_blog/assets/js/91.8ab64d44.js"><link rel="prefetch" href="/learning_blog/assets/js/92.207acafe.js"><link rel="prefetch" href="/learning_blog/assets/js/93.c5be03f7.js"><link rel="prefetch" href="/learning_blog/assets/js/94.174920d9.js"><link rel="prefetch" href="/learning_blog/assets/js/95.e214b95b.js"><link rel="prefetch" href="/learning_blog/assets/js/96.67ec6921.js"><link rel="prefetch" href="/learning_blog/assets/js/97.26bc9461.js"><link rel="prefetch" href="/learning_blog/assets/js/98.7cc709e3.js"><link rel="prefetch" href="/learning_blog/assets/js/99.68f77857.js"><link rel="prefetch" href="/learning_blog/assets/js/vendors~flowchart.7829265f.js">
+    <link rel="stylesheet" href="/learning_blog/assets/css/0.styles.c68b611a.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container" data-v-1156296a><div data-v-1156296a><div id="loader-wrapper" class="loading-wrapper" data-v-d48f4d20 data-v-1156296a data-v-1156296a><div class="loader-main" data-v-d48f4d20><div data-v-d48f4d20></div><div data-v-d48f4d20></div><div data-v-d48f4d20></div><div data-v-d48f4d20></div></div> <!----> <!----></div> <div class="password-shadow password-wrapper-out" style="display:none;" data-v-4e82dffc data-v-1156296a data-v-1156296a><h3 class="title" data-v-4e82dffc data-v-4e82dffc>一兜小白菜</h3> <p class="description" data-v-4e82dffc data-v-4e82dffc>任何职业都可以成为黑客。你可以是一个木匠黑客。不一定是高科技。只要与技能有关，并且倾心专注于你正在做的事情，你就可能成为黑客。</p> <label id="box" class="inputBox" data-v-4e82dffc data-v-4e82dffc><input type="password" value="" data-v-4e82dffc> <span data-v-4e82dffc>Konck! Knock!</span> <button data-v-4e82dffc>OK</button></label> <div class="footer" data-v-4e82dffc data-v-4e82dffc><span data-v-4e82dffc><i class="iconfont reco-theme" data-v-4e82dffc></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-4e82dffc>vuePress-theme-reco</a></span> <span data-v-4e82dffc><i class="iconfont reco-copyright" data-v-4e82dffc></i> <a data-v-4e82dffc><span data-v-4e82dffc>顿顿白菜</span>
+            
+          <!---->
+          2022
+        </a></span></div></div> <div class="hide" data-v-1156296a><header class="navbar" data-v-1156296a><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/learning_blog/" class="home-link router-link-active"><img src="/learning_blog/logo.png" alt="一兜小白菜" class="logo"> <span class="site-name">一兜小白菜</span></a> <div class="links"><div class="color-picker"><a class="color-button"><i class="iconfont reco-color"></i></a> <div class="color-picker-menu" style="display:none;"><div class="mode-options"><h4 class="title">Choose mode</h4> <ul class="color-mode-options"><li class="dark">dark</li><li class="auto active">auto</li><li class="light">light</li></ul></div></div></div> <div class="search-box"><i class="iconfont reco-search"></i> <input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/learning_blog/" class="nav-link"><i class="iconfont reco-home"></i>
+  首页
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-category"></i>
+      分类
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/categories/架构师/" class="nav-link"><i class="undefined"></i>
+  架构师
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/数据库/" class="nav-link"><i class="undefined"></i>
+  数据库
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/Go/" class="nav-link"><i class="undefined"></i>
+  Go
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/Java/" class="nav-link"><i class="undefined"></i>
+  Java
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/微服务/" class="nav-link"><i class="undefined"></i>
+  微服务
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/计算机网络/" class="nav-link"><i class="undefined"></i>
+  计算机网络
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/container 容器/" class="nav-link"><i class="undefined"></i>
+  container 容器
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/操作系统/" class="nav-link"><i class="undefined"></i>
+  操作系统
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/设计模式/" class="nav-link"><i class="undefined"></i>
+  设计模式
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/多线程/" class="nav-link"><i class="undefined"></i>
+  多线程
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/数据结构/" class="nav-link"><i class="undefined"></i>
+  数据结构
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/Server/" class="nav-link"><i class="undefined"></i>
+  Server
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/Spring 系列/" class="nav-link"><i class="undefined"></i>
+  Spring 系列
+</a></li></ul></div></div><div class="nav-item"><a href="/learning_blog/tag/" class="nav-link"><i class="iconfont reco-tag"></i>
+  标签
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="fab fa-java"></i>
+      Java Learning
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/java/jvm/" class="nav-link"><i class="undefined"></i>
+  JVM 虚拟机
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/java/thread/" class="nav-link"><i class="undefined"></i>
+  Java 多线程
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/java/container/" class="nav-link"><i class="undefined"></i>
+  Java 集合框架
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/java/io/" class="nav-link"><i class="undefined"></i>
+  Java IO
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/java/nio/" class="nav-link"><i class="undefined"></i>
+  Java NIO
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/java/design/" class="nav-link"><i class="undefined"></i>
+  设计模式
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="fas fa-gopuram"></i>
+      Go Learning
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/go/base/" class="nav-link"><i class="undefined"></i>
+  GO 基础
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="fas fa-seedling"></i>
+      Spring Learning
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/spring/spring/" class="nav-link"><i class="undefined"></i>
+  Spring
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/spring/springBoot/" class="nav-link"><i class="undefined"></i>
+  SpringBoot
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/spring/springSecurity/" class="nav-link"><i class="undefined"></i>
+  SpringSecurity
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="fas fa-cloud"></i>
+      微服务
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/ddd/" class="nav-link"><i class="undefined"></i>
+  领域驱动设计
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/eureka/" aria-current="page" class="nav-link router-link-exact-active router-link-active"><i class="undefined"></i>
+  Eureka 服务注册与发现
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/ribbon/" class="nav-link"><i class="undefined"></i>
+  Ribbon 负载均衡
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/feign/" class="nav-link"><i class="undefined"></i>
+  Feign 声明式服务调用
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/hystrix/" class="nav-link"><i class="undefined"></i>
+  Hystrix 服务容错保护
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/zuul/" class="nav-link"><i class="undefined"></i>
+  Zuul 路由网关
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/gateway/" class="nav-link"><i class="undefined"></i>
+  Gateway 服务网关
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="fas fa-database"></i>
+      数据库
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/database/mysql/" class="nav-link"><i class="undefined"></i>
+  MySQL
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/database/redis/" class="nav-link"><i class="undefined"></i>
+  Redis
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/database/mongodb/" class="nav-link"><i class="undefined"></i>
+  MongoDB
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="fas fa-server"></i>
+      操作系统
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/server/operating/" class="nav-link"><i class="undefined"></i>
+  操作系统
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/server/network/" class="nav-link"><i class="undefined"></i>
+  计算机网络
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/server/algorithm/" class="nav-link"><i class="undefined"></i>
+  数据结构与算法
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/server/nginx/" class="nav-link"><i class="undefined"></i>
+  Nginx
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/server/docker/" class="nav-link"><i class="undefined"></i>
+  Docker
+</a></li></ul></div></div><div class="nav-item"><a href="/learning_blog/architect/" class="nav-link"><i class="fas fa-sitemap"></i>
+  软件架构师
+</a></div><div class="nav-item"><a href="/learning_blog/timeline/" class="nav-link"><i class="iconfont reco-date"></i>
+  时间线
+</a></div> <!----></nav></div></header> <div class="sidebar-mask" data-v-1156296a></div> <aside class="sidebar" data-v-1156296a><div class="personal-info-wrapper" data-v-828910c6 data-v-1156296a><img src="/learning_blog/avatar.jpg" alt="author-avatar" class="personal-img" data-v-828910c6> <h3 class="name" data-v-828910c6>
+    顿顿白菜
+  </h3> <div class="num" data-v-828910c6><div data-v-828910c6><h3 data-v-828910c6>137</h3> <h6 data-v-828910c6>文章</h6></div> <div data-v-828910c6><h3 data-v-828910c6>21</h3> <h6 data-v-828910c6>标签</h6></div></div> <ul class="social-links" data-v-828910c6><li class="social-item" data-v-828910c6><i class="iconfont reco-github" style="color:#abbd81;" data-v-828910c6></i></li><li class="social-item" data-v-828910c6><i class="iconfont reco-mayun" style="color:#f47e60;" data-v-828910c6></i></li><li class="social-item" data-v-828910c6><i class="iconfont reco-wechat" style="color:#f8b26a;" data-v-828910c6></i></li><li class="social-item" data-v-828910c6><i class="iconfont reco-qq" style="color:#abbd81;" data-v-828910c6></i></li></ul> <hr data-v-828910c6></div> <nav class="nav-links"><div class="nav-item"><a href="/learning_blog/" class="nav-link"><i class="iconfont reco-home"></i>
+  首页
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-category"></i>
+      分类
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/categories/架构师/" class="nav-link"><i class="undefined"></i>
+  架构师
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/数据库/" class="nav-link"><i class="undefined"></i>
+  数据库
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/Go/" class="nav-link"><i class="undefined"></i>
+  Go
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/Java/" class="nav-link"><i class="undefined"></i>
+  Java
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/微服务/" class="nav-link"><i class="undefined"></i>
+  微服务
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/计算机网络/" class="nav-link"><i class="undefined"></i>
+  计算机网络
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/container 容器/" class="nav-link"><i class="undefined"></i>
+  container 容器
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/操作系统/" class="nav-link"><i class="undefined"></i>
+  操作系统
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/设计模式/" class="nav-link"><i class="undefined"></i>
+  设计模式
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/多线程/" class="nav-link"><i class="undefined"></i>
+  多线程
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/数据结构/" class="nav-link"><i class="undefined"></i>
+  数据结构
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/Server/" class="nav-link"><i class="undefined"></i>
+  Server
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/Spring 系列/" class="nav-link"><i class="undefined"></i>
+  Spring 系列
+</a></li></ul></div></div><div class="nav-item"><a href="/learning_blog/tag/" class="nav-link"><i class="iconfont reco-tag"></i>
+  标签
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="fab fa-java"></i>
+      Java Learning
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/java/jvm/" class="nav-link"><i class="undefined"></i>
+  JVM 虚拟机
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/java/thread/" class="nav-link"><i class="undefined"></i>
+  Java 多线程
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/java/container/" class="nav-link"><i class="undefined"></i>
+  Java 集合框架
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/java/io/" class="nav-link"><i class="undefined"></i>
+  Java IO
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/java/nio/" class="nav-link"><i class="undefined"></i>
+  Java NIO
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/java/design/" class="nav-link"><i class="undefined"></i>
+  设计模式
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="fas fa-gopuram"></i>
+      Go Learning
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/go/base/" class="nav-link"><i class="undefined"></i>
+  GO 基础
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="fas fa-seedling"></i>
+      Spring Learning
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/spring/spring/" class="nav-link"><i class="undefined"></i>
+  Spring
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/spring/springBoot/" class="nav-link"><i class="undefined"></i>
+  SpringBoot
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/spring/springSecurity/" class="nav-link"><i class="undefined"></i>
+  SpringSecurity
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="fas fa-cloud"></i>
+      微服务
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/ddd/" class="nav-link"><i class="undefined"></i>
+  领域驱动设计
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/eureka/" aria-current="page" class="nav-link router-link-exact-active router-link-active"><i class="undefined"></i>
+  Eureka 服务注册与发现
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/ribbon/" class="nav-link"><i class="undefined"></i>
+  Ribbon 负载均衡
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/feign/" class="nav-link"><i class="undefined"></i>
+  Feign 声明式服务调用
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/hystrix/" class="nav-link"><i class="undefined"></i>
+  Hystrix 服务容错保护
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/zuul/" class="nav-link"><i class="undefined"></i>
+  Zuul 路由网关
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/gateway/" class="nav-link"><i class="undefined"></i>
+  Gateway 服务网关
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="fas fa-database"></i>
+      数据库
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/database/mysql/" class="nav-link"><i class="undefined"></i>
+  MySQL
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/database/redis/" class="nav-link"><i class="undefined"></i>
+  Redis
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/database/mongodb/" class="nav-link"><i class="undefined"></i>
+  MongoDB
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="fas fa-server"></i>
+      操作系统
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/server/operating/" class="nav-link"><i class="undefined"></i>
+  操作系统
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/server/network/" class="nav-link"><i class="undefined"></i>
+  计算机网络
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/server/algorithm/" class="nav-link"><i class="undefined"></i>
+  数据结构与算法
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/server/nginx/" class="nav-link"><i class="undefined"></i>
+  Nginx
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/server/docker/" class="nav-link"><i class="undefined"></i>
+  Docker
+</a></li></ul></div></div><div class="nav-item"><a href="/learning_blog/architect/" class="nav-link"><i class="fas fa-sitemap"></i>
+  软件架构师
+</a></div><div class="nav-item"><a href="/learning_blog/timeline/" class="nav-link"><i class="iconfont reco-date"></i>
+  时间线
+</a></div> <!----></nav> <ul class="sidebar-links"><li><a href="/learning_blog/microservice/eureka/" aria-current="page" class="active sidebar-link">Eureka 服务注册与发现</a></li><li><a href="/learning_blog/microservice/eureka/EurekaCreate.html" class="sidebar-link">Eureka 服务搭建</a></li><li><a href="/learning_blog/microservice/eureka/EurekaCluster.html" class="sidebar-link">Eureka 集群搭建</a></li></ul> </aside> <div class="password-shadow password-wrapper-in" style="display:none;" data-v-4e82dffc data-v-1156296a><h3 class="title" data-v-4e82dffc data-v-4e82dffc>Eureka 服务注册与发现</h3> <!----> <label id="box" class="inputBox" data-v-4e82dffc data-v-4e82dffc><input type="password" value="" data-v-4e82dffc> <span data-v-4e82dffc>Konck! Knock!</span> <button data-v-4e82dffc>OK</button></label> <div class="footer" data-v-4e82dffc data-v-4e82dffc><span data-v-4e82dffc><i class="iconfont reco-theme" data-v-4e82dffc></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-4e82dffc>vuePress-theme-reco</a></span> <span data-v-4e82dffc><i class="iconfont reco-copyright" data-v-4e82dffc></i> <a data-v-4e82dffc><span data-v-4e82dffc>顿顿白菜</span>
+            
+          <!---->
+          2022
+        </a></span></div></div> <div data-v-1156296a><main class="page"><section><div class="page-title"><h1 class="title">Eureka 服务注册与发现</h1> <div data-v-1ff7123e><i class="iconfont reco-account" data-v-1ff7123e><span data-v-1ff7123e>顿顿白菜</span></i> <i class="iconfont reco-date" data-v-1ff7123e><span data-v-1ff7123e>2021/8/1</span></i> <!----> <i class="tags iconfont reco-tag" data-v-1ff7123e><span class="tag-item" data-v-1ff7123e>SpringCloud</span></i></div></div> <div class="theme-reco-content content__default"><p>Eureka 是基于 REST（代表性状态转移）的服务，主要在 AWS 云中用于定位服务，以实现负载均衡和中间层服务器的故障转移。我们称此服务为 Eureka 服务器。Eureka 还带有一个基于 Java 的客户端组件 Eureka Client，它使得客户端与 Eureka 服务器交互变得更加容易。客户端还具有一个内置的负载均衡器，还可以执行基本的循环负载均衡。在 Netflix，使用了更复杂的负载均衡器将 Eureka 进行包装，以实现基于流量、资源使用、错误条件等多种因素提供加权负载均衡，提供更为出色的弹性。</p> <p>Eureka 作为一款服务发现框架，他是如何去发现服务的呢？</p> <p><strong>服务发现</strong>：服务发现的整个过程可以理解为网购，在这个过程主要涉及到三个角色：服务提供者（某电商商家）、服务消费者（消费者）、服务中介（某电商）。</p> <p><strong>服务提供者</strong>：主要提供一些自己能对外暴露的功能与服务接口给外界使用。</p> <p><strong>服务消费者</strong>：需要使用功能与服务的一方。</p> <p><strong>服务中介</strong>：作为服务提供者与消费者之间的“桥梁”，服务提供者可以把自己注册到服务中介那里，服务消费者通过询问服务中介，在服务中介的服务注册表中获取自己需要的服务提供者，进行服务的消费。（这不就是商家入住平台，对外展示自己的商品，消费者通过平台找到自己需要的商品，然后与商家进行交易）。</p> <p>Eureka 不是唯一一款可以充当服务发现的框架，可以充当服务发现的框架还有很多，例如：<code>Zookeeper</code>、<code>Consul</code>、<code>Nacos</code> 等。</p> <h2 id="eureka-基础概念">Eureka 基础概念</h2> <ul><li><p><strong>服务注册 Register</strong>：当 Eureka Client 向 Eureka Server 注册时，它会提供自身的元数据，比如<code>IP地址</code>、<code>服务端口</code>、<code>运行状态</code>、<code>URL</code>、<code>主页等信息</code>。</p></li> <li><p><strong>服务续约 Renew</strong>：Eureka Client 会每隔 <code>30 秒</code>（默认情况）发送一次心跳来续约。通过续约来告知 Eureka Server 该 Eureka Client 仍然存活，可以通讯。<code>正常情况下，如果 Eureka Server 在 90 秒没有收到 Eureka Client 的续约消息，它会将实例从其注册表中删除。</code></p></li> <li><p><strong>获取注册表信息 Fetch Registries</strong>：</p> <ul><li><p>Eureka Client 从 Eureka Server 获取注册表信息，并将其缓存在本地。客户端会使用该信息查找其他服务，从而进行远程调用；</p></li> <li><p>该注册列表信息定期（每 30 秒）更新一次；</p></li> <li><p>每次从 Eureka Server 获取的注册列表信息可能与 Eureka Client 的缓存信息不同，此时 Eureka Client 会自动处理更新；</p></li> <li><p>如果由于某种原因导致注册列表信息不能及时匹配更新，Eureka Client 则会重新获取整个注册表信息；</p></li> <li><p>Eureka Server 会对注册表以及每个应用程序的信息进行压缩存储，以便于信息的交互传输；Eureka Client 与 Eureka Server 可以用使用 JSON \ XML 格式进行通讯，默认情况下，服务端会使用压缩 JSON 格式的数据发送给客户端使用。</p></li></ul></li> <li><p><strong>服务下线 Cancel</strong>：Eureka Client 在程序关闭时会主动向 Eureka Server 发送取消请求。发送请求后，该客户端实例信息将从服务器的实例注册表中删除。该下线请求不会自动完成，他需要调用一下内容：<code>DiscoveryManager.getInstance().shutdownComponent();</code></p></li> <li><p><strong>服务剔除 Eviction</strong>：在默认情况下，当 Eureka Client 连续 90 秒（3个续约周期）没有向 Eureka Server 发送服务续约时（服务端检测不到客户端的心跳），Eureka Server 会将该服务实例从服务注册列表中删除，即服务剔除。</p></li></ul> <p>我们可以这么理解，转换为现实中的问题就是 房屋中介问题 。</p> <p><strong>服务注册</strong>： 房东或者房屋的主人 (提供者<code>Eureka Client Provider</code>)在中介 (服务器<code>Eureka Server</code>) 那里登记房屋的信息，比如面积，价格，地段等等(元数据<code>metaData</code>)。</p> <p><strong>服务续约</strong>： 房东或者房屋的主人 (提供者 <code>Eureka Client Provider</code>) 定期告诉中介 (服务器<code>Eureka Server</code>) 我的房子还租或者还卖 (续约) ，中介 (服务器<code>Eureka Server</code>) 收到之后继续保留房屋的信息。</p> <p><strong>获取注册列表信息</strong>：租客或者买主(消费者<code>Eureka Client Consumer</code>) 去中介 (服务器 Eureka Server) 那里获取所有的房屋信息列表 (客户端列表<code>Eureka Client List</code>) ，而且租客或者买主为了获取最新的信息会定期向中介 (服务器<code>Eureka Server</code>) 那里获取并更新本地列表。</p> <p><strong>服务下线</strong>：房东或者房屋的主人 (提供者<code>Eureka Client Provider</code>) 告诉中介  (服务器<code>Eureka Server</code>) 我的房子不卖了不租了，中介之后就将注册的房屋信息从列表中剔除。</p> <p><strong>服务剔除</strong>：房东或者房屋的主人 (提供者<code>Eureka Client Provider</code>) 会定期联系中介 (服务器<code>Eureka Server</code>) 告诉他我的房子还租还卖(续约)，如果中介  (服务器<code>Eureka Server</code>) 长时间没收到提供者的信息，那么中介会将他的房屋信息给下架(服务剔除)。</p> <blockquote><p>原文：https://juejin.cn/post/6844904001444511758</p></blockquote> <h2 id="eureka-架构">Eureka 架构</h2> <img src="/learning_blog/img/microservice/eureka/Eureka架构图.png" alt="Eureka架构图"> <p>蓝色的 <code>Eureka Server</code> 是 Eureka 服务器，这三个代表的是集群，而且他们是去中心化的。</p> <p>绿色的 <code>Application Client</code> 是 Eureka 客户端，其中可以是消费者和提供者，最左边的就是典型的提供者，它需要向 Eureka 服务器注册自己和发送心跳包进行续约，而其他消费者则通过 Eureka 服务器来获取提供者的信息以调用他们。</p> <h2 id="eureka-自我保护机制">Eureka 自我保护机制</h2> <p>默认情况下，如果 Eureka Server 在一定时间内没有接收到某个微服务实例的心跳，Eureka Server 将会注销该实例（默认90秒）。但是当网络分区故障发生时，Eureka Client 与 Eureka Server 之间无法正常通信，以上行为可能变得非常危险了—— 因为 Eureka Client 本身其实是健康的，此时本不应该注销这个 Eureka Client 。Eureka 通过“自我保护模式”来解决这个问题——当 Eureka Server 节点在短时间内丢失过多客户端时（可能发生了网络分区故障），那么这个节点就会进入自我保护模式。一旦进入该模式，Eureka Server 就会保护服务注册表中的信息，不再删除服务注册表中的数据（也就是不会注销任何 Eureka Client ）。当网络故障恢复后，该 Eureka Server节点会自动退出自我保护模式。</p> <p>在自我保护模式中，Eureka Server 会保护服务注册表中的信息，不再注销任何服务实例。当它收到的心跳数重新恢复到阈值以上时，该 Eureka Server 节点就会自动退出自我保护模式。它的设计哲学就是宁可保留错误的服务注册信息，也不盲目注销任何可能健康的服务实例。</p> <p>综上，自我保护模式是一种应对网络异常的安全保护措施。它的架构哲学是宁可同时保留所有微服务（健康的 Eureka Client 和不健康的 Eureka Client 都会保留），也不盲目注销任何健康的 Eureka Client 。使用自我保护模式，可以让 Eureka 集群更加的健壮、稳定。</p> <p>在 Eureka Server 的配置中，可以使用 <code>eureka.server.enable-self-preservation = false</code> 禁用自我保护模式。</p> <h2 id="eureka-与-zookeeper-对比">Eureka 与 Zookeeper 对比</h2> <p>Eureka 与 Zookeeper 的差异结合 <code>CAP（Consistency 一致性、Availability 可用性、Partition tolerance 分区容错性）</code> 理论去分析。</p> <h3 id="eureka-保证-ap">Eureka 保证 AP</h3> <p>Eureka 优先保证可用性。在 Eureka 平台中，如果某台服务器宕机，Eureka 不会有类似于 ZooKeeper 的选举 leader 的过程（Eureka 是去中心化的）；客户端请求会自动切换 到新的 Eureka 节点；当宕机的服务器重新恢复后，Eureka 会再次将其纳入到服务器集群管理之中；而对于它来说，所有要做的无非是同步一些新的服务 注册信息而已。所以，再也不用担心有“掉队”的服务器恢复以后，会从 Eureka 服务器集群中剔除出去的风险了。Eureka 甚至被设计用来应付范围更广的<code>网络分割故障</code>，并实现<code>“0”宕机维护</code>需求。当网络分割故障发生时，每个 Eureka 节点，会持续的对外提供服务（注：ZooKeeper不会）：接收新的服务注册同时将它们提供给下游的服务发现请求。这样一来，就可以实现在同一个<code>子网中（same side of partition）</code>，新发布的服务仍然可以被发现与访问。Eureka 各个节点都是平等的，几个节点挂掉不会影响正常节点的工作，剩余的节点依然可以提供注册和查询服务。而 Eureka 的客户端在向某个 Eureka 注册或时如果发现连接失败，则会自动切换至其它节点，只要有一台 Eureka 还在，就能保证注册服务可用(保证可用性)，只不过查到的信息可能不是最新的(不保证强一致性)。除此之外，Eureka 还有一种自我保护机制，如果在<code>15分钟内</code>超过<code>85%的节点</code>都没有正常的心跳，那么 Eureka 就认为客户端与注册中心出现了网络故障，此时会出现以下几种情况：</p> <ol><li><p>Eureka 不再从注册列表中移除因为长时间没收到心跳而应该过期的服务
+Eureka 仍然能够接受新服务的注册和查询请求，但是不会被同步到其它节点上(即保证当前节点依然可用)；</p></li> <li><p>当网络稳定时，当前实例新的注册信息会被同步到其它节点中；</p></li> <li><p>Eureka 还有客户端缓存功能（注：Eureka 分为客户端程序与服务器端程序两个部分，客户端程序负责向外提供注册与发现服务接口）。 所以即便 Eureka 集群中所有节点都失效，或者发生网络分割故障导致客户端不能访问任何一台 Eureka 服务器；Eureka 服务的消费者仍然可以通过 Eureka 客户端缓存来获取现有的服务注册信息。甚至最极端的环境下，所有正常的 Eureka 节点都不对请求产生响应，也没有更好的服务器解决方案来解决这种问题时；得益于 Eureka 的客户端缓存技术，消费者服务仍然可以通过 Eureka 客户端查询与获取注册服务信息。</p></li></ol> <h3 id="zookeeper-保证-cp">Zookeeper 保证 CP</h3> <p>作为一个分布式协同服务，ZooKeeper 非常好，但是最为<code>服务发现</code>使用来说就不合适了；因为对于服务发现来说就算是服务端返回了<code>包含不真实的信息的结果</code>也比<code>什么都不返回</code>要好；再者，对于服务发现而言，宁可返回某服务 5 分钟之前在哪几个服务器上可用的信息，也<code>不能因为暂时的网络故障而找不到可用的服务器，而不返回任何结果</code>。所以说，用 ZooKeeper 来做<code>服务发现</code>是不太合适的。
+当向注册中心查询服务列表时，我们可以容忍注册中心返回的是几分钟以前的注册信息，但不能接受服务直接 down 掉不可用的结果。也就是说，<code>服务注册功能对可用性的要求要高于一致性</code>。但是 ZooKeeper 会出现这样一种情况，当 master 节点因为网络故障与其他节点失去联系时，剩余节点会重新进行 leader 选举。问题在于，选举 leader 的时间太长<code>30 ~ 120s</code>, 且选举期间整个 ZooKeeper 集群都是不可用的，这就导致在选举期间注册服务瘫痪。在云部署的环境下，因网络问题使得 ZooKeeper 集群失去 master 节点是较大概率会发生的事，虽然服务能够最终恢复，但是漫长的选举时间导致的注册长期不可用是不能容忍的。</p> <h3 id="综上所述">综上所述</h3> <p>Eureka 可以很好的应对因网络故障导致部分节点失去联系的情况，而不会像 zookeeper 那样使整个注册服务瘫痪。Eureka 作为单纯的服务注册中心来说要比 zookeeper 更加可靠，因为注册服务更重要的是可用性，我们可以接受短期内达不到一致性的状况。</p> <p>作为一个分布式协同服务，ZooKeeper非常好，但是对于Service发现服务来说就不合适了；因为对于Service发现服务来说就算是 返回了包含不实的信息的结果也比什么都不返回要好；再者，对于Service发现服务而言，宁可返回某服务5分钟之前在哪几个服务器上可用的信息，也不能 因为暂时的网络故障而找不到可用的服务器，而不返回任何结果。所以说，用ZooKeeper来做Service发现服务是肯定错误的。</p> <p>当向注册中心查询服务列表时，我们可以容忍注册中心返回的是几分钟以前的注册信息，但不能接受服务直接down掉不可用。也就是说，服务注册功能对可用性的要求要高于一致性。但是zk会出现这样一种情况，当master节点因为网络故障与其他节点失去联系时，剩余节点会重新进行leader选举。问题在于，选举leader的时间太长，30 ~ 120s, 且选举期间整个zk集群都是不可用的，这就导致在选举期间注册服务瘫痪。在云部署的环境下，因网络问题使得zk集群失去master节点是较大概率会发生的事，虽然服务能够最终恢复，但是漫长的选举时间导致的注册长期不可用是不能容忍的。</p> <blockquote><p>原文：https://juejin.cn/post/6844904185381519374</p></blockquote></div></section> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><!----> <span class="next"><a href="/learning_blog/microservice/eureka/EurekaCreate.html">
+            Eureka 服务搭建
+          </a></span></p></div> <div class="comments-wrapper"><!----></div> <ul class="side-bar sub-sidebar-wrapper" style="width:12rem;" data-v-70334359><li class="level-2" data-v-70334359><a href="/learning_blog/microservice/eureka/#eureka-基础概念" class="sidebar-link reco-side-eureka-基础概念" data-v-70334359>Eureka 基础概念</a></li><li class="level-2" data-v-70334359><a href="/learning_blog/microservice/eureka/#eureka-架构" class="sidebar-link reco-side-eureka-架构" data-v-70334359>Eureka 架构</a></li><li class="level-2" data-v-70334359><a href="/learning_blog/microservice/eureka/#eureka-自我保护机制" class="sidebar-link reco-side-eureka-自我保护机制" data-v-70334359>Eureka 自我保护机制</a></li><li class="level-2" data-v-70334359><a href="/learning_blog/microservice/eureka/#eureka-与-zookeeper-对比" class="sidebar-link reco-side-eureka-与-zookeeper-对比" data-v-70334359>Eureka 与 Zookeeper 对比</a></li><li class="level-3" data-v-70334359><a href="/learning_blog/microservice/eureka/#eureka-保证-ap" class="sidebar-link reco-side-eureka-保证-ap" data-v-70334359>Eureka 保证 AP</a></li><li class="level-3" data-v-70334359><a href="/learning_blog/microservice/eureka/#zookeeper-保证-cp" class="sidebar-link reco-side-zookeeper-保证-cp" data-v-70334359>Zookeeper 保证 CP</a></li><li class="level-3" data-v-70334359><a href="/learning_blog/microservice/eureka/#综上所述" class="sidebar-link reco-side-综上所述" data-v-70334359>综上所述</a></li></ul></main> <!----></div></div></div></div><div class="global-ui"><div class="back-to-ceiling" style="right:1rem;bottom:6rem;width:2.5rem;height:2.5rem;border-radius:.25rem;line-height:2.5rem;display:none;" data-v-c6073ba8 data-v-c6073ba8><svg t="1574745035067" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5404" class="icon" data-v-c6073ba8><path d="M526.60727968 10.90185116a27.675 27.675 0 0 0-29.21455937 0c-131.36607665 82.28402758-218.69155461 228.01873535-218.69155402 394.07834331a462.20625001 462.20625001 0 0 0 5.36959153 69.94390903c1.00431239 6.55289093-0.34802892 13.13561351-3.76865779 18.80351572-32.63518765 54.11355614-51.75690182 118.55860487-51.7569018 187.94566865a371.06718723 371.06718723 0 0 0 11.50484808 91.98906777c6.53300375 25.50556257 41.68394495 28.14064038 52.69160883 4.22606766 17.37162448-37.73630017 42.14135425-72.50938081 72.80769204-103.21549295 2.18761121 3.04276886 4.15646224 6.24463696 6.40373557 9.22774369a1871.4375 1871.4375 0 0 0 140.04691725 5.34970492 1866.36093723 1866.36093723 0 0 0 140.04691723-5.34970492c2.24727335-2.98310674 4.21612437-6.18497483 6.3937923-9.2178004 30.66633723 30.70611158 55.4360664 65.4791928 72.80769147 103.21549355 11.00766384 23.91457269 46.15860503 21.27949489 52.69160879-4.22606768a371.15156223 371.15156223 0 0 0 11.514792-91.99901164c0-69.36717486-19.13165746-133.82216804-51.75690182-187.92578088-3.42062944-5.66790279-4.76302748-12.26056868-3.76865837-18.80351632a462.20625001 462.20625001 0 0 0 5.36959269-69.943909c-0.00994388-166.08943902-87.32547796-311.81420293-218.6915546-394.09823051zM605.93803103 357.87693858a93.93749974 93.93749974 0 1 1-187.89594924 6.1e-7 93.93749974 93.93749974 0 0 1 187.89594924-6.1e-7z" p-id="5405" data-v-c6073ba8></path><path d="M429.50777625 765.63860547C429.50777625 803.39355007 466.44236686 1000.39046097 512.00932183 1000.39046097c45.56695499 0 82.4922232-197.00623328 82.5015456-234.7518555 0-37.75494459-36.9345906-68.35043303-82.4922232-68.34111062-45.57627738-0.00932239-82.52019037 30.59548842-82.51086798 68.34111062z" p-id="5406" data-v-c6073ba8></path></svg></div><canvas id="vuepress-canvas-cursor"></canvas><div class="cat-container" data-v-a13867c0><canvas id="vuepress-cat" width="280" height="250" class="live2d" data-v-a13867c0></canvas></div><!----></div></div>
+    <script src="/learning_blog/assets/js/app.e6e1c34c.js" defer></script><script src="/learning_blog/assets/js/4.ff23c0b7.js" defer></script><script src="/learning_blog/assets/js/1.81582bd8.js" defer></script><script src="/learning_blog/assets/js/116.b4b50591.js" defer></script><script src="/learning_blog/assets/js/8.f416b1e6.js" defer></script>
+  </body>
+</html>

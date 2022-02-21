@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Eureka 服务搭建 | 一兜小白菜</title>
+    <meta name="generator" content="VuePress 1.8.2">
+    <link rel="icon" href="/learning_blog/logo.png">
+    <link rel="manifest" href="/learning_blog/manifest.json">
+    <meta name="description" content="任何职业都可以成为黑客。你可以是一个木匠黑客。不一定是高科技。只要与技能有关，并且倾心专注于你正在做的事情，你就可能成为黑客。">
+    
+    <link rel="preload" href="/learning_blog/assets/css/0.styles.c68b611a.css" as="style"><link rel="preload" href="/learning_blog/assets/js/app.e6e1c34c.js" as="script"><link rel="preload" href="/learning_blog/assets/js/4.ff23c0b7.js" as="script"><link rel="preload" href="/learning_blog/assets/js/1.81582bd8.js" as="script"><link rel="preload" href="/learning_blog/assets/js/115.c931f24e.js" as="script"><link rel="preload" href="/learning_blog/assets/js/8.f416b1e6.js" as="script"><link rel="prefetch" href="/learning_blog/assets/js/10.58adca44.js"><link rel="prefetch" href="/learning_blog/assets/js/100.c3e38fd7.js"><link rel="prefetch" href="/learning_blog/assets/js/101.71ef1da5.js"><link rel="prefetch" href="/learning_blog/assets/js/102.3a27c764.js"><link rel="prefetch" href="/learning_blog/assets/js/103.d8079be3.js"><link rel="prefetch" href="/learning_blog/assets/js/104.5ec19ab4.js"><link rel="prefetch" href="/learning_blog/assets/js/105.641d7f30.js"><link rel="prefetch" href="/learning_blog/assets/js/106.17533908.js"><link rel="prefetch" href="/learning_blog/assets/js/107.ef428cf3.js"><link rel="prefetch" href="/learning_blog/assets/js/108.8955c0b8.js"><link rel="prefetch" href="/learning_blog/assets/js/109.a4034281.js"><link rel="prefetch" href="/learning_blog/assets/js/11.64cdb03a.js"><link rel="prefetch" href="/learning_blog/assets/js/110.0f3db165.js"><link rel="prefetch" href="/learning_blog/assets/js/111.a6baa137.js"><link rel="prefetch" href="/learning_blog/assets/js/112.0efc57dc.js"><link rel="prefetch" href="/learning_blog/assets/js/113.e20800cf.js"><link rel="prefetch" href="/learning_blog/assets/js/114.24666c6e.js"><link rel="prefetch" href="/learning_blog/assets/js/116.b4b50591.js"><link rel="prefetch" href="/learning_blog/assets/js/117.1466ffb7.js"><link rel="prefetch" href="/learning_blog/assets/js/118.3dc9a8cc.js"><link rel="prefetch" href="/learning_blog/assets/js/119.55cc810f.js"><link rel="prefetch" href="/learning_blog/assets/js/12.37800769.js"><link rel="prefetch" href="/learning_blog/assets/js/120.5d596352.js"><link rel="prefetch" href="/learning_blog/assets/js/121.d0a2bb19.js"><link rel="prefetch" href="/learning_blog/assets/js/122.4223d0e2.js"><link rel="prefetch" href="/learning_blog/assets/js/123.d14c8967.js"><link rel="prefetch" href="/learning_blog/assets/js/124.0fc87088.js"><link rel="prefetch" href="/learning_blog/assets/js/125.dfe739d7.js"><link rel="prefetch" href="/learning_blog/assets/js/126.0ceed23b.js"><link rel="prefetch" href="/learning_blog/assets/js/127.e1351c71.js"><link rel="prefetch" href="/learning_blog/assets/js/128.e9c08785.js"><link rel="prefetch" href="/learning_blog/assets/js/129.375419eb.js"><link rel="prefetch" href="/learning_blog/assets/js/13.27b4e468.js"><link rel="prefetch" href="/learning_blog/assets/js/130.925350ba.js"><link rel="prefetch" href="/learning_blog/assets/js/131.22a9bdb2.js"><link rel="prefetch" href="/learning_blog/assets/js/132.aedcc038.js"><link rel="prefetch" href="/learning_blog/assets/js/133.a7fc8c8f.js"><link rel="prefetch" href="/learning_blog/assets/js/134.7c062a25.js"><link rel="prefetch" href="/learning_blog/assets/js/135.edeca75d.js"><link rel="prefetch" href="/learning_blog/assets/js/136.8f20389e.js"><link rel="prefetch" href="/learning_blog/assets/js/137.fea26a7b.js"><link rel="prefetch" href="/learning_blog/assets/js/138.371da223.js"><link rel="prefetch" href="/learning_blog/assets/js/139.0d856709.js"><link rel="prefetch" href="/learning_blog/assets/js/14.e1478ea8.js"><link rel="prefetch" href="/learning_blog/assets/js/140.cf989f01.js"><link rel="prefetch" href="/learning_blog/assets/js/141.453925ca.js"><link rel="prefetch" href="/learning_blog/assets/js/142.61fe7b6e.js"><link rel="prefetch" href="/learning_blog/assets/js/143.c6d38d96.js"><link rel="prefetch" href="/learning_blog/assets/js/144.d56f9555.js"><link rel="prefetch" href="/learning_blog/assets/js/145.5ea7e139.js"><link rel="prefetch" href="/learning_blog/assets/js/146.7a0eb5c7.js"><link rel="prefetch" href="/learning_blog/assets/js/147.bf426f23.js"><link rel="prefetch" href="/learning_blog/assets/js/148.a423a0f8.js"><link rel="prefetch" href="/learning_blog/assets/js/149.928a0e3a.js"><link rel="prefetch" href="/learning_blog/assets/js/15.07fa313c.js"><link rel="prefetch" href="/learning_blog/assets/js/150.d7e729a8.js"><link rel="prefetch" href="/learning_blog/assets/js/151.6cd16f87.js"><link rel="prefetch" href="/learning_blog/assets/js/16.425e28fa.js"><link rel="prefetch" href="/learning_blog/assets/js/17.a9fca2d8.js"><link rel="prefetch" href="/learning_blog/assets/js/18.8fb99b25.js"><link rel="prefetch" href="/learning_blog/assets/js/19.29145c92.js"><link rel="prefetch" href="/learning_blog/assets/js/20.87886092.js"><link rel="prefetch" href="/learning_blog/assets/js/21.e69894c0.js"><link rel="prefetch" href="/learning_blog/assets/js/22.9d216b69.js"><link rel="prefetch" href="/learning_blog/assets/js/23.8c8cc5b8.js"><link rel="prefetch" href="/learning_blog/assets/js/24.da7befb5.js"><link rel="prefetch" href="/learning_blog/assets/js/25.aba65622.js"><link rel="prefetch" href="/learning_blog/assets/js/26.3dd77b52.js"><link rel="prefetch" href="/learning_blog/assets/js/27.e5f60060.js"><link rel="prefetch" href="/learning_blog/assets/js/28.520f8846.js"><link rel="prefetch" href="/learning_blog/assets/js/29.85cba1c5.js"><link rel="prefetch" href="/learning_blog/assets/js/30.fa653075.js"><link rel="prefetch" href="/learning_blog/assets/js/31.1a1ede8e.js"><link rel="prefetch" href="/learning_blog/assets/js/32.3c34adc1.js"><link rel="prefetch" href="/learning_blog/assets/js/33.b3030e84.js"><link rel="prefetch" href="/learning_blog/assets/js/34.7632da2a.js"><link rel="prefetch" href="/learning_blog/assets/js/35.5c9094dd.js"><link rel="prefetch" href="/learning_blog/assets/js/36.f96ff6e1.js"><link rel="prefetch" href="/learning_blog/assets/js/37.0d008c56.js"><link rel="prefetch" href="/learning_blog/assets/js/38.dea1713b.js"><link rel="prefetch" href="/learning_blog/assets/js/39.9b6a40d4.js"><link rel="prefetch" href="/learning_blog/assets/js/40.38ed0206.js"><link rel="prefetch" href="/learning_blog/assets/js/41.12b53694.js"><link rel="prefetch" href="/learning_blog/assets/js/42.0a1bf74c.js"><link rel="prefetch" href="/learning_blog/assets/js/43.5375d7c9.js"><link rel="prefetch" href="/learning_blog/assets/js/44.82bb804e.js"><link rel="prefetch" href="/learning_blog/assets/js/45.67a4706a.js"><link rel="prefetch" href="/learning_blog/assets/js/46.fcba3164.js"><link rel="prefetch" href="/learning_blog/assets/js/47.8658a1cc.js"><link rel="prefetch" href="/learning_blog/assets/js/48.51f5a45d.js"><link rel="prefetch" href="/learning_blog/assets/js/49.93b1425f.js"><link rel="prefetch" href="/learning_blog/assets/js/5.24f9e3cd.js"><link rel="prefetch" href="/learning_blog/assets/js/50.855fad56.js"><link rel="prefetch" href="/learning_blog/assets/js/51.0da4f39b.js"><link rel="prefetch" href="/learning_blog/assets/js/52.ecdfca48.js"><link rel="prefetch" href="/learning_blog/assets/js/53.a7febaa9.js"><link rel="prefetch" href="/learning_blog/assets/js/54.870d0e17.js"><link rel="prefetch" href="/learning_blog/assets/js/55.c7201cec.js"><link rel="prefetch" href="/learning_blog/assets/js/56.42f1a7b2.js"><link rel="prefetch" href="/learning_blog/assets/js/57.a07e4e0b.js"><link rel="prefetch" href="/learning_blog/assets/js/58.a68368b2.js"><link rel="prefetch" href="/learning_blog/assets/js/59.bb85fc0d.js"><link rel="prefetch" href="/learning_blog/assets/js/6.2d21da84.js"><link rel="prefetch" href="/learning_blog/assets/js/60.baf33af5.js"><link rel="prefetch" href="/learning_blog/assets/js/61.146a561e.js"><link rel="prefetch" href="/learning_blog/assets/js/62.0f723ed7.js"><link rel="prefetch" href="/learning_blog/assets/js/63.2a3264a5.js"><link rel="prefetch" href="/learning_blog/assets/js/64.38c1721e.js"><link rel="prefetch" href="/learning_blog/assets/js/65.81ff89ba.js"><link rel="prefetch" href="/learning_blog/assets/js/66.56685ef7.js"><link rel="prefetch" href="/learning_blog/assets/js/67.8f16a979.js"><link rel="prefetch" href="/learning_blog/assets/js/68.69433f16.js"><link rel="prefetch" href="/learning_blog/assets/js/69.99218738.js"><link rel="prefetch" href="/learning_blog/assets/js/7.706ac388.js"><link rel="prefetch" href="/learning_blog/assets/js/70.27595144.js"><link rel="prefetch" href="/learning_blog/assets/js/71.b08b8cdf.js"><link rel="prefetch" href="/learning_blog/assets/js/72.29b2d9ce.js"><link rel="prefetch" href="/learning_blog/assets/js/73.2e100c2e.js"><link rel="prefetch" href="/learning_blog/assets/js/74.d0513690.js"><link rel="prefetch" href="/learning_blog/assets/js/75.2b371472.js"><link rel="prefetch" href="/learning_blog/assets/js/76.b993c2c6.js"><link rel="prefetch" href="/learning_blog/assets/js/77.2f22d7d3.js"><link rel="prefetch" href="/learning_blog/assets/js/78.0f685bfc.js"><link rel="prefetch" href="/learning_blog/assets/js/79.cb3e911c.js"><link rel="prefetch" href="/learning_blog/assets/js/80.2738107d.js"><link rel="prefetch" href="/learning_blog/assets/js/81.1425f348.js"><link rel="prefetch" href="/learning_blog/assets/js/82.a4532418.js"><link rel="prefetch" href="/learning_blog/assets/js/83.b846c18d.js"><link rel="prefetch" href="/learning_blog/assets/js/84.122f9ad2.js"><link rel="prefetch" href="/learning_blog/assets/js/85.23f37097.js"><link rel="prefetch" href="/learning_blog/assets/js/86.74b20100.js"><link rel="prefetch" href="/learning_blog/assets/js/87.bfc377d3.js"><link rel="prefetch" href="/learning_blog/assets/js/88.3fe754ec.js"><link rel="prefetch" href="/learning_blog/assets/js/89.3739c793.js"><link rel="prefetch" href="/learning_blog/assets/js/9.de853e93.js"><link rel="prefetch" href="/learning_blog/assets/js/90.7bdbcef5.js"><link rel="prefetch" href="/learning_blog/assets/js/91.8ab64d44.js"><link rel="prefetch" href="/learning_blog/assets/js/92.207acafe.js"><link rel="prefetch" href="/learning_blog/assets/js/93.c5be03f7.js"><link rel="prefetch" href="/learning_blog/assets/js/94.174920d9.js"><link rel="prefetch" href="/learning_blog/assets/js/95.e214b95b.js"><link rel="prefetch" href="/learning_blog/assets/js/96.67ec6921.js"><link rel="prefetch" href="/learning_blog/assets/js/97.26bc9461.js"><link rel="prefetch" href="/learning_blog/assets/js/98.7cc709e3.js"><link rel="prefetch" href="/learning_blog/assets/js/99.68f77857.js"><link rel="prefetch" href="/learning_blog/assets/js/vendors~flowchart.7829265f.js">
+    <link rel="stylesheet" href="/learning_blog/assets/css/0.styles.c68b611a.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container" data-v-1156296a><div data-v-1156296a><div id="loader-wrapper" class="loading-wrapper" data-v-d48f4d20 data-v-1156296a data-v-1156296a><div class="loader-main" data-v-d48f4d20><div data-v-d48f4d20></div><div data-v-d48f4d20></div><div data-v-d48f4d20></div><div data-v-d48f4d20></div></div> <!----> <!----></div> <div class="password-shadow password-wrapper-out" style="display:none;" data-v-4e82dffc data-v-1156296a data-v-1156296a><h3 class="title" data-v-4e82dffc data-v-4e82dffc>一兜小白菜</h3> <p class="description" data-v-4e82dffc data-v-4e82dffc>任何职业都可以成为黑客。你可以是一个木匠黑客。不一定是高科技。只要与技能有关，并且倾心专注于你正在做的事情，你就可能成为黑客。</p> <label id="box" class="inputBox" data-v-4e82dffc data-v-4e82dffc><input type="password" value="" data-v-4e82dffc> <span data-v-4e82dffc>Konck! Knock!</span> <button data-v-4e82dffc>OK</button></label> <div class="footer" data-v-4e82dffc data-v-4e82dffc><span data-v-4e82dffc><i class="iconfont reco-theme" data-v-4e82dffc></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-4e82dffc>vuePress-theme-reco</a></span> <span data-v-4e82dffc><i class="iconfont reco-copyright" data-v-4e82dffc></i> <a data-v-4e82dffc><span data-v-4e82dffc>顿顿白菜</span>
+            
+          <!---->
+          2022
+        </a></span></div></div> <div class="hide" data-v-1156296a><header class="navbar" data-v-1156296a><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/learning_blog/" class="home-link router-link-active"><img src="/learning_blog/logo.png" alt="一兜小白菜" class="logo"> <span class="site-name">一兜小白菜</span></a> <div class="links"><div class="color-picker"><a class="color-button"><i class="iconfont reco-color"></i></a> <div class="color-picker-menu" style="display:none;"><div class="mode-options"><h4 class="title">Choose mode</h4> <ul class="color-mode-options"><li class="dark">dark</li><li class="auto active">auto</li><li class="light">light</li></ul></div></div></div> <div class="search-box"><i class="iconfont reco-search"></i> <input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/learning_blog/" class="nav-link"><i class="iconfont reco-home"></i>
+  首页
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-category"></i>
+      分类
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/categories/架构师/" class="nav-link"><i class="undefined"></i>
+  架构师
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/数据库/" class="nav-link"><i class="undefined"></i>
+  数据库
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/Go/" class="nav-link"><i class="undefined"></i>
+  Go
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/Java/" class="nav-link"><i class="undefined"></i>
+  Java
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/微服务/" class="nav-link"><i class="undefined"></i>
+  微服务
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/计算机网络/" class="nav-link"><i class="undefined"></i>
+  计算机网络
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/container 容器/" class="nav-link"><i class="undefined"></i>
+  container 容器
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/操作系统/" class="nav-link"><i class="undefined"></i>
+  操作系统
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/设计模式/" class="nav-link"><i class="undefined"></i>
+  设计模式
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/多线程/" class="nav-link"><i class="undefined"></i>
+  多线程
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/数据结构/" class="nav-link"><i class="undefined"></i>
+  数据结构
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/Server/" class="nav-link"><i class="undefined"></i>
+  Server
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/Spring 系列/" class="nav-link"><i class="undefined"></i>
+  Spring 系列
+</a></li></ul></div></div><div class="nav-item"><a href="/learning_blog/tag/" class="nav-link"><i class="iconfont reco-tag"></i>
+  标签
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="fab fa-java"></i>
+      Java Learning
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/java/jvm/" class="nav-link"><i class="undefined"></i>
+  JVM 虚拟机
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/java/thread/" class="nav-link"><i class="undefined"></i>
+  Java 多线程
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/java/container/" class="nav-link"><i class="undefined"></i>
+  Java 集合框架
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/java/io/" class="nav-link"><i class="undefined"></i>
+  Java IO
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/java/nio/" class="nav-link"><i class="undefined"></i>
+  Java NIO
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/java/design/" class="nav-link"><i class="undefined"></i>
+  设计模式
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="fas fa-gopuram"></i>
+      Go Learning
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/go/base/" class="nav-link"><i class="undefined"></i>
+  GO 基础
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="fas fa-seedling"></i>
+      Spring Learning
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/spring/spring/" class="nav-link"><i class="undefined"></i>
+  Spring
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/spring/springBoot/" class="nav-link"><i class="undefined"></i>
+  SpringBoot
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/spring/springSecurity/" class="nav-link"><i class="undefined"></i>
+  SpringSecurity
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="fas fa-cloud"></i>
+      微服务
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/ddd/" class="nav-link"><i class="undefined"></i>
+  领域驱动设计
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/eureka/" class="nav-link router-link-active"><i class="undefined"></i>
+  Eureka 服务注册与发现
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/ribbon/" class="nav-link"><i class="undefined"></i>
+  Ribbon 负载均衡
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/feign/" class="nav-link"><i class="undefined"></i>
+  Feign 声明式服务调用
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/hystrix/" class="nav-link"><i class="undefined"></i>
+  Hystrix 服务容错保护
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/zuul/" class="nav-link"><i class="undefined"></i>
+  Zuul 路由网关
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/gateway/" class="nav-link"><i class="undefined"></i>
+  Gateway 服务网关
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="fas fa-database"></i>
+      数据库
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/database/mysql/" class="nav-link"><i class="undefined"></i>
+  MySQL
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/database/redis/" class="nav-link"><i class="undefined"></i>
+  Redis
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/database/mongodb/" class="nav-link"><i class="undefined"></i>
+  MongoDB
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="fas fa-server"></i>
+      操作系统
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/server/operating/" class="nav-link"><i class="undefined"></i>
+  操作系统
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/server/network/" class="nav-link"><i class="undefined"></i>
+  计算机网络
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/server/algorithm/" class="nav-link"><i class="undefined"></i>
+  数据结构与算法
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/server/nginx/" class="nav-link"><i class="undefined"></i>
+  Nginx
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/server/docker/" class="nav-link"><i class="undefined"></i>
+  Docker
+</a></li></ul></div></div><div class="nav-item"><a href="/learning_blog/architect/" class="nav-link"><i class="fas fa-sitemap"></i>
+  软件架构师
+</a></div><div class="nav-item"><a href="/learning_blog/timeline/" class="nav-link"><i class="iconfont reco-date"></i>
+  时间线
+</a></div> <!----></nav></div></header> <div class="sidebar-mask" data-v-1156296a></div> <aside class="sidebar" data-v-1156296a><div class="personal-info-wrapper" data-v-828910c6 data-v-1156296a><img src="/learning_blog/avatar.jpg" alt="author-avatar" class="personal-img" data-v-828910c6> <h3 class="name" data-v-828910c6>
+    顿顿白菜
+  </h3> <div class="num" data-v-828910c6><div data-v-828910c6><h3 data-v-828910c6>137</h3> <h6 data-v-828910c6>文章</h6></div> <div data-v-828910c6><h3 data-v-828910c6>21</h3> <h6 data-v-828910c6>标签</h6></div></div> <ul class="social-links" data-v-828910c6><li class="social-item" data-v-828910c6><i class="iconfont reco-github" style="color:#abbd81;" data-v-828910c6></i></li><li class="social-item" data-v-828910c6><i class="iconfont reco-mayun" style="color:#f47e60;" data-v-828910c6></i></li><li class="social-item" data-v-828910c6><i class="iconfont reco-wechat" style="color:#f8b26a;" data-v-828910c6></i></li><li class="social-item" data-v-828910c6><i class="iconfont reco-qq" style="color:#abbd81;" data-v-828910c6></i></li></ul> <hr data-v-828910c6></div> <nav class="nav-links"><div class="nav-item"><a href="/learning_blog/" class="nav-link"><i class="iconfont reco-home"></i>
+  首页
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-category"></i>
+      分类
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/categories/架构师/" class="nav-link"><i class="undefined"></i>
+  架构师
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/数据库/" class="nav-link"><i class="undefined"></i>
+  数据库
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/Go/" class="nav-link"><i class="undefined"></i>
+  Go
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/Java/" class="nav-link"><i class="undefined"></i>
+  Java
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/微服务/" class="nav-link"><i class="undefined"></i>
+  微服务
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/计算机网络/" class="nav-link"><i class="undefined"></i>
+  计算机网络
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/container 容器/" class="nav-link"><i class="undefined"></i>
+  container 容器
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/操作系统/" class="nav-link"><i class="undefined"></i>
+  操作系统
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/设计模式/" class="nav-link"><i class="undefined"></i>
+  设计模式
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/多线程/" class="nav-link"><i class="undefined"></i>
+  多线程
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/数据结构/" class="nav-link"><i class="undefined"></i>
+  数据结构
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/Server/" class="nav-link"><i class="undefined"></i>
+  Server
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/Spring 系列/" class="nav-link"><i class="undefined"></i>
+  Spring 系列
+</a></li></ul></div></div><div class="nav-item"><a href="/learning_blog/tag/" class="nav-link"><i class="iconfont reco-tag"></i>
+  标签
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="fab fa-java"></i>
+      Java Learning
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/java/jvm/" class="nav-link"><i class="undefined"></i>
+  JVM 虚拟机
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/java/thread/" class="nav-link"><i class="undefined"></i>
+  Java 多线程
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/java/container/" class="nav-link"><i class="undefined"></i>
+  Java 集合框架
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/java/io/" class="nav-link"><i class="undefined"></i>
+  Java IO
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/java/nio/" class="nav-link"><i class="undefined"></i>
+  Java NIO
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/java/design/" class="nav-link"><i class="undefined"></i>
+  设计模式
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="fas fa-gopuram"></i>
+      Go Learning
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/go/base/" class="nav-link"><i class="undefined"></i>
+  GO 基础
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="fas fa-seedling"></i>
+      Spring Learning
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/spring/spring/" class="nav-link"><i class="undefined"></i>
+  Spring
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/spring/springBoot/" class="nav-link"><i class="undefined"></i>
+  SpringBoot
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/spring/springSecurity/" class="nav-link"><i class="undefined"></i>
+  SpringSecurity
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="fas fa-cloud"></i>
+      微服务
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/ddd/" class="nav-link"><i class="undefined"></i>
+  领域驱动设计
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/eureka/" class="nav-link router-link-active"><i class="undefined"></i>
+  Eureka 服务注册与发现
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/ribbon/" class="nav-link"><i class="undefined"></i>
+  Ribbon 负载均衡
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/feign/" class="nav-link"><i class="undefined"></i>
+  Feign 声明式服务调用
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/hystrix/" class="nav-link"><i class="undefined"></i>
+  Hystrix 服务容错保护
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/zuul/" class="nav-link"><i class="undefined"></i>
+  Zuul 路由网关
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/gateway/" class="nav-link"><i class="undefined"></i>
+  Gateway 服务网关
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="fas fa-database"></i>
+      数据库
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/database/mysql/" class="nav-link"><i class="undefined"></i>
+  MySQL
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/database/redis/" class="nav-link"><i class="undefined"></i>
+  Redis
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/database/mongodb/" class="nav-link"><i class="undefined"></i>
+  MongoDB
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="fas fa-server"></i>
+      操作系统
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/server/operating/" class="nav-link"><i class="undefined"></i>
+  操作系统
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/server/network/" class="nav-link"><i class="undefined"></i>
+  计算机网络
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/server/algorithm/" class="nav-link"><i class="undefined"></i>
+  数据结构与算法
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/server/nginx/" class="nav-link"><i class="undefined"></i>
+  Nginx
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/server/docker/" class="nav-link"><i class="undefined"></i>
+  Docker
+</a></li></ul></div></div><div class="nav-item"><a href="/learning_blog/architect/" class="nav-link"><i class="fas fa-sitemap"></i>
+  软件架构师
+</a></div><div class="nav-item"><a href="/learning_blog/timeline/" class="nav-link"><i class="iconfont reco-date"></i>
+  时间线
+</a></div> <!----></nav> <ul class="sidebar-links"><li><a href="/learning_blog/microservice/eureka/" aria-current="page" class="sidebar-link">Eureka 服务注册与发现</a></li><li><a href="/learning_blog/microservice/eureka/EurekaCreate.html" aria-current="page" class="active sidebar-link">Eureka 服务搭建</a></li><li><a href="/learning_blog/microservice/eureka/EurekaCluster.html" class="sidebar-link">Eureka 集群搭建</a></li></ul> </aside> <div class="password-shadow password-wrapper-in" style="display:none;" data-v-4e82dffc data-v-1156296a><h3 class="title" data-v-4e82dffc data-v-4e82dffc>Eureka 服务搭建</h3> <!----> <label id="box" class="inputBox" data-v-4e82dffc data-v-4e82dffc><input type="password" value="" data-v-4e82dffc> <span data-v-4e82dffc>Konck! Knock!</span> <button data-v-4e82dffc>OK</button></label> <div class="footer" data-v-4e82dffc data-v-4e82dffc><span data-v-4e82dffc><i class="iconfont reco-theme" data-v-4e82dffc></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-4e82dffc>vuePress-theme-reco</a></span> <span data-v-4e82dffc><i class="iconfont reco-copyright" data-v-4e82dffc></i> <a data-v-4e82dffc><span data-v-4e82dffc>顿顿白菜</span>
+            
+          <!---->
+          2022
+        </a></span></div></div> <div data-v-1156296a><main class="page"><section><div class="page-title"><h1 class="title">Eureka 服务搭建</h1> <div data-v-1ff7123e><i class="iconfont reco-account" data-v-1ff7123e><span data-v-1ff7123e>顿顿白菜</span></i> <i class="iconfont reco-date" data-v-1ff7123e><span data-v-1ff7123e>2021/8/6</span></i> <!----> <i class="tags iconfont reco-tag" data-v-1ff7123e><span class="tag-item" data-v-1ff7123e>SpringCloud</span></i></div></div> <div class="theme-reco-content content__default"><h2 id="搭建项目">搭建项目</h2> <p>创建一个父工程<code>microservie-learning</code>，以及两个子工程<code>microservice-netflix-eureka-server</code>和<code>microservice-netflix-eureka-client</code>，这两个子工程分别对应的是 Eureka Server 和 Eureka Client。</p> <img src="/learning_blog/img/microservice/eureka/创建工程.png" alt="创建工程"> <h2 id="添加依赖">添加依赖</h2> <h3 id="microservie-learning-父工程">microservie-learning（父工程）</h3> <div class="language-xml extra-class"><pre class="language-xml"><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependencyManagement</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependencies</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span>
+            <span class="token comment">&lt;!-- Spring Cloud 依赖 --&gt;</span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>org.springframework.cloud<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>spring-cloud-dependencies<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span>
+            <span class="token comment">&lt;!-- 注意这里使用的版本 --&gt;</span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">&gt;</span></span>Dalston.SR1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>type</span><span class="token punctuation">&gt;</span></span>pom<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>type</span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>scope</span><span class="token punctuation">&gt;</span></span>import<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>scope</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">&gt;</span></span>
+        <span class="token comment">&lt;!-- Spring Boot 依赖 --&gt;</span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>spring-boot-dependencies<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">&gt;</span></span>1.5.9.RELEASE<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>type</span><span class="token punctuation">&gt;</span></span>pom<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>type</span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>scope</span><span class="token punctuation">&gt;</span></span>import<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>scope</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependencies</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependencyManagement</span><span class="token punctuation">&gt;</span></span>
+</code></pre></div><h3 id="microservice-netflix-eureka-server-eureka-server">microservice-netflix-eureka-server（Eureka Server）</h3> <div class="language-xml extra-class"><pre class="language-xml"><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependencies</span><span class="token punctuation">&gt;</span></span>
+    <span class="token comment">&lt;!-- Eureka Server --&gt;</span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>org.springframework.cloud<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>spring-cloud-starter-eureka-server<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependencies</span><span class="token punctuation">&gt;</span></span>
+</code></pre></div><h3 id="microservice-netflix-eureka-client-eureka-client">microservice-netflix-eureka-client（Eureka Client）</h3> <div class="language-xml extra-class"><pre class="language-xml"><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependencies</span><span class="token punctuation">&gt;</span></span>
+    <span class="token comment">&lt;!-- Eureka Client --&gt;</span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>org.springframework.cloud<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>spring-cloud-starter-eureka<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependencies</span><span class="token punctuation">&gt;</span></span>
+</code></pre></div><h2 id="eureka-server-配置">Eureka Server 配置</h2> <h3 id="启动类">启动类</h3> <div class="language-java extra-class"><pre class="language-java"><code><span class="token annotation punctuation">@SpringBootApplication</span>
+<span class="token annotation punctuation">@EnableEurekaServer</span> <span class="token comment">// 表示该服务为 Eureka Server</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">EurekaServerApplication</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">SpringApplication</span><span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span><span class="token class-name">EurekaServerApplication</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> args<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+</code></pre></div><h3 id="yml-配置">yml 配置</h3> <div class="language-yml extra-class"><pre class="language-yml"><code><span class="token key atrule">server</span><span class="token punctuation">:</span>
+  <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">8001</span>
+
+<span class="token key atrule">spring</span><span class="token punctuation">:</span>
+  <span class="token key atrule">application</span><span class="token punctuation">:</span>
+    <span class="token comment"># 配置服务名称</span>
+    <span class="token key atrule">name</span><span class="token punctuation">:</span> eureka<span class="token punctuation">-</span>server
+
+<span class="token comment"># Eureka 配置</span>
+<span class="token key atrule">eureka</span><span class="token punctuation">:</span>
+  <span class="token comment"># Eureka Server 实例配置</span>
+  <span class="token key atrule">instance</span><span class="token punctuation">:</span>
+    <span class="token key atrule">hostname</span><span class="token punctuation">:</span> localhost
+  <span class="token key atrule">client</span><span class="token punctuation">:</span>
+    <span class="token comment"># 是否从注册表中获取服务（作为注册中心不需要开启）</span>
+    <span class="token key atrule">fetch-registry</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
+    <span class="token comment"># 是否向 Eureka 注册（作为服务中心不要开启）</span>
+    <span class="token key atrule">register-with-eureka</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
+  <span class="token key atrule">server</span><span class="token punctuation">:</span>
+    <span class="token comment"># Eureka 自我保护机制（默认开启）</span>
+    <span class="token key atrule">enable-self-preservation</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+    <span class="token comment"># 开启自我保护模式比例阈值，当收到心跳包占期望收到心跳包数量低于这个值，进入自我保护模式（默认 0.85）。</span>
+    <span class="token key atrule">renewal-percent-threshold</span><span class="token punctuation">:</span> <span class="token number">0.85</span>
+</code></pre></div><h2 id="eureka-client-配置">Eureka Client 配置</h2> <h3 id="启动类-2">启动类</h3> <div class="language-java extra-class"><pre class="language-java"><code><span class="token annotation punctuation">@SpringBootApplication</span>
+<span class="token annotation punctuation">@EnableEurekaClient</span> <span class="token comment">// 标识该服务为 Eureka Client</span>
+<span class="token annotation punctuation">@EnableDiscoveryClient</span> <span class="token comment">// 开启服务发现</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">EurekaClientApplication</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">SpringApplication</span><span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span><span class="token class-name">EurekaClientApplication</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> args<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="yml-配置-2">yml 配置</h3> <div class="language-yml extra-class"><pre class="language-yml"><code><span class="token key atrule">server</span><span class="token punctuation">:</span>
+  <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">8080</span>
+
+<span class="token key atrule">spring</span><span class="token punctuation">:</span>
+  <span class="token key atrule">application</span><span class="token punctuation">:</span>
+    <span class="token comment"># 配置服务名称（作为 Eureka Client 向 Eureka Server 注册时的服务名）</span>
+    <span class="token key atrule">name</span><span class="token punctuation">:</span> eureka<span class="token punctuation">-</span>client
+
+<span class="token key atrule">eureka</span><span class="token punctuation">:</span>
+  <span class="token key atrule">instance</span><span class="token punctuation">:</span>
+    <span class="token comment"># 向 Eureka Server 注册时的实例名称</span>
+    <span class="token key atrule">instance-id</span><span class="token punctuation">:</span> eureka<span class="token punctuation">-</span>client
+    <span class="token comment"># 访问路径直接显示 Eureka Client 的服务 IP</span>
+    <span class="token key atrule">prefer-ip-address</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token key atrule">client</span><span class="token punctuation">:</span>
+    <span class="token key atrule">register-with-eureka</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+    <span class="token key atrule">fetch-registry</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+    <span class="token key atrule">service-url</span><span class="token punctuation">:</span>
+      <span class="token comment">## 配置 Eureka Server 的服务注册地址</span>
+      <span class="token key atrule">defaultZone</span><span class="token punctuation">:</span> http<span class="token punctuation">:</span>//localhost<span class="token punctuation">:</span>8001/eureka/
+</code></pre></div><h2 id="启动服务">启动服务</h2> <p>访问<code>http://localhost:8001</code>，进入 Eureka Server</p> <img src="/learning_blog/img/microservice/eureka/Eureka Server主页面.png" alt="Eureka Server主页面"> <p>整个服务的配置与启动工作就完成了，下面将演示如果获取服务的注册表信息。</p> <h2 id="获取服务注册表">获取服务注册表</h2> <p>从整个工程中,<code>microservice-netflix-eureka-client</code>其实就是一个服务的提供者（这里并没有去创建服务的消费者，服务的消费者在往后面的<code>Open Feign</code>介绍中再整合进来）；下面通过再 Eureka Client 下编写一个接口来获取服务注册表（这完全是为了演示方便）。</p> <h3 id="eurekaregistrycontroller">EurekaRegistryController</h3> <p>通过<code>DiscoveryClient</code>这个接口可以获取当前服务的<code>描述</code>、<code>实例信息</code>、<code>所有服务实例</code>、<code>所有服务名称</code>。</p> <div class="language-java extra-class"><pre class="language-java"><code><span class="token annotation punctuation">@RestController</span>
+<span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">&quot;/eureka/client&quot;</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">EurekaRegistryController</span> <span class="token punctuation">{</span>
+
+    <span class="token annotation punctuation">@Resource</span>
+    <span class="token keyword">private</span> <span class="token class-name">DiscoveryClient</span> discoveryClient<span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@Resource</span>
+    <span class="token keyword">private</span> <span class="token class-name">Registration</span> registration<span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 获取服务注册表信息
+     */</span>
+    <span class="token annotation punctuation">@GetMapping</span><span class="token punctuation">(</span><span class="token string">&quot;/registry&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token class-name">Object</span><span class="token punctuation">&gt;</span></span> <span class="token function">getEurekaRegistry</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 服务描述</span>
+        <span class="token class-name">String</span> description <span class="token operator">=</span> discoveryClient<span class="token punctuation">.</span><span class="token function">description</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 当前服务实例</span>
+        <span class="token class-name">ServiceInstance</span> localServiceInstance <span class="token operator">=</span> discoveryClient<span class="token punctuation">.</span><span class="token function">getLocalServiceInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// 该方法已被抛弃</span>
+        <span class="token comment">// 当前服务实例ID</span>
+        <span class="token class-name">String</span> serviceId <span class="token operator">=</span> registration<span class="token punctuation">.</span><span class="token function">getServiceId</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 获取服务列表</span>
+        <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">&gt;</span></span> services <span class="token operator">=</span> discoveryClient<span class="token punctuation">.</span><span class="token function">getServices</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 获取服务实例</span>
+        <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">ServiceInstance</span><span class="token punctuation">&gt;</span></span> instances <span class="token operator">=</span> discoveryClient<span class="token punctuation">.</span><span class="token function">getInstances</span><span class="token punctuation">(</span><span class="token string">&quot;eureka-client&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token class-name">Object</span><span class="token punctuation">&gt;</span></span> map <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        map<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">&quot;description&quot;</span><span class="token punctuation">,</span> description<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        map<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">&quot;localServiceInstance&quot;</span><span class="token punctuation">,</span> localServiceInstance<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        map<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">&quot;serviceId&quot;</span><span class="token punctuation">,</span> serviceId<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        map<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">&quot;services&quot;</span><span class="token punctuation">,</span> services<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        map<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">&quot;instances&quot;</span><span class="token punctuation">,</span> instances<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> map<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="discoveryclient">DiscoveryClient</h3> <p><code>DiscoveryClient</code>可以获取服务注册表信息。</p> <div class="language-java extra-class"><pre class="language-java"><code><span class="token keyword">package</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>cloud<span class="token punctuation">.</span>client<span class="token punctuation">.</span>discovery</span><span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> <span class="token namespace">java<span class="token punctuation">.</span>util<span class="token punctuation">.</span></span><span class="token class-name">List</span><span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>cloud<span class="token punctuation">.</span>client<span class="token punctuation">.</span></span><span class="token class-name">ServiceInstance</span><span class="token punctuation">;</span>
+
+<span class="token comment">/**
+ * DiscoveryClient represents read operations commonly available to Discovery service such as
+ * Netflix Eureka or consul.io
+ * @author Spencer Gibb
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">DiscoveryClient</span> <span class="token punctuation">{</span>
+
+    <span class="token comment">/**
+     * A human readable description of the implementation, used in HealthIndicator
+     * 服务的描述，主要用于健康指示器
+     * @return the description
+     */</span>
+    <span class="token class-name">String</span> <span class="token function">description</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * @deprecated use the {@link org.springframework.cloud.client.serviceregistry.Registration} bean instead
+     * 获取当前服务的服务实例（已被抛弃）
+     * @return ServiceInstance with information used to register the local service 
+     */</span>
+    <span class="token annotation punctuation">@Deprecated</span>
+    <span class="token class-name">ServiceInstance</span> <span class="token function">getLocalServiceInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * Get all ServiceInstances associated with a particular serviceId
+     * 获取与 serviceId 关联的所有服务实例
+     * @param serviceId the serviceId to query
+     * @return a List of ServiceInstance
+     */</span>
+    <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">ServiceInstance</span><span class="token punctuation">&gt;</span></span> <span class="token function">getInstances</span><span class="token punctuation">(</span><span class="token class-name">String</span> serviceId<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 获取所有已知服务实例ID
+     * @return all known service ids
+     */</span>
+    <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">&gt;</span></span> <span class="token function">getServices</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="调用接口">调用接口</h3> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">{</span>
+    <span class="token comment">// 当前服务实例</span>
+    <span class="token property">&quot;localServiceInstance&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">&quot;host&quot;</span><span class="token operator">:</span> <span class="token string">&quot;192.168.31.216&quot;</span><span class="token punctuation">,</span>
+        <span class="token property">&quot;port&quot;</span><span class="token operator">:</span> <span class="token number">8080</span><span class="token punctuation">,</span>
+        <span class="token property">&quot;serviceId&quot;</span><span class="token operator">:</span> <span class="token string">&quot;eureka-client&quot;</span><span class="token punctuation">,</span>
+        <span class="token property">&quot;uri&quot;</span><span class="token operator">:</span> <span class="token string">&quot;http://192.168.31.216:8080&quot;</span><span class="token punctuation">,</span>
+        <span class="token property">&quot;metadata&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token property">&quot;secure&quot;</span><span class="token operator">:</span> <span class="token boolean">false</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token comment">// 所有实例</span>
+    <span class="token property">&quot;instances&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">{</span>
+            <span class="token property">&quot;host&quot;</span><span class="token operator">:</span> <span class="token string">&quot;192.168.31.216&quot;</span><span class="token punctuation">,</span>                                   <span class="token comment">// IP</span>
+            <span class="token property">&quot;port&quot;</span><span class="token operator">:</span> <span class="token number">8080</span><span class="token punctuation">,</span>                                               <span class="token comment">// 端口</span>
+            <span class="token property">&quot;serviceId&quot;</span><span class="token operator">:</span> <span class="token string">&quot;EUREKA-CLIENT&quot;</span><span class="token punctuation">,</span>                               <span class="token comment">// 服务实例</span>
+            <span class="token property">&quot;uri&quot;</span><span class="token operator">:</span> <span class="token string">&quot;http://192.168.31.216:8080&quot;</span><span class="token punctuation">,</span>                        <span class="token comment">// 访问路径</span>
+            <span class="token property">&quot;metadata&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>                                             <span class="token comment">// 元数据</span>
+            <span class="token property">&quot;secure&quot;</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>                                            
+            <span class="token property">&quot;instanceInfo&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>                                           <span class="token comment">// 实例信息</span>
+                <span class="token property">&quot;instanceId&quot;</span><span class="token operator">:</span> <span class="token string">&quot;eureka-client&quot;</span><span class="token punctuation">,</span>
+                <span class="token property">&quot;app&quot;</span><span class="token operator">:</span> <span class="token string">&quot;EUREKA-CLIENT&quot;</span><span class="token punctuation">,</span>
+                <span class="token property">&quot;appGroupName&quot;</span><span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>
+                <span class="token property">&quot;ipAddr&quot;</span><span class="token operator">:</span> <span class="token string">&quot;192.168.31.216&quot;</span><span class="token punctuation">,</span>
+                <span class="token property">&quot;sid&quot;</span><span class="token operator">:</span> <span class="token string">&quot;na&quot;</span><span class="token punctuation">,</span>
+                <span class="token property">&quot;homePageUrl&quot;</span><span class="token operator">:</span> <span class="token string">&quot;http://192.168.31.216:8080/&quot;</span><span class="token punctuation">,</span>
+                <span class="token property">&quot;statusPageUrl&quot;</span><span class="token operator">:</span> <span class="token string">&quot;http://192.168.31.216:8080/info&quot;</span><span class="token punctuation">,</span>
+                <span class="token property">&quot;healthCheckUrl&quot;</span><span class="token operator">:</span> <span class="token string">&quot;http://192.168.31.216:8080/health&quot;</span><span class="token punctuation">,</span>
+                <span class="token property">&quot;secureHealthCheckUrl&quot;</span><span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>
+                <span class="token property">&quot;vipAddress&quot;</span><span class="token operator">:</span> <span class="token string">&quot;eureka-client&quot;</span><span class="token punctuation">,</span>
+                <span class="token property">&quot;secureVipAddress&quot;</span><span class="token operator">:</span> <span class="token string">&quot;eureka-client&quot;</span><span class="token punctuation">,</span>
+                <span class="token property">&quot;countryId&quot;</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+                <span class="token property">&quot;dataCenterInfo&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+                    <span class="token property">&quot;@class&quot;</span><span class="token operator">:</span> <span class="token string">&quot;com.netflix.appinfo.InstanceInfo$DefaultDataCenterInfo&quot;</span><span class="token punctuation">,</span>
+                    <span class="token property">&quot;name&quot;</span><span class="token operator">:</span> <span class="token string">&quot;MyOwn&quot;</span>
+                <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                <span class="token property">&quot;hostName&quot;</span><span class="token operator">:</span> <span class="token string">&quot;192.168.31.216&quot;</span><span class="token punctuation">,</span>
+                <span class="token property">&quot;status&quot;</span><span class="token operator">:</span> <span class="token string">&quot;UP&quot;</span><span class="token punctuation">,</span>                                         <span class="token comment">// 服务状态（UP表示存活，DOWN表示下线）</span>
+                <span class="token property">&quot;leaseInfo&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+                    <span class="token property">&quot;renewalIntervalInSecs&quot;</span><span class="token operator">:</span> <span class="token number">30</span><span class="token punctuation">,</span>
+                    <span class="token property">&quot;durationInSecs&quot;</span><span class="token operator">:</span> <span class="token number">90</span><span class="token punctuation">,</span>
+                    <span class="token property">&quot;registrationTimestamp&quot;</span><span class="token operator">:</span> <span class="token number">1619189378176</span><span class="token punctuation">,</span>
+                    <span class="token property">&quot;lastRenewalTimestamp&quot;</span><span class="token operator">:</span> <span class="token number">1619190728592</span><span class="token punctuation">,</span>
+                    <span class="token property">&quot;evictionTimestamp&quot;</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+                    <span class="token property">&quot;serviceUpTimestamp&quot;</span><span class="token operator">:</span> <span class="token number">1619189378176</span>
+                <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                <span class="token property">&quot;isCoordinatingDiscoveryServer&quot;</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+                <span class="token property">&quot;metadata&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+                <span class="token property">&quot;lastUpdatedTimestamp&quot;</span><span class="token operator">:</span> <span class="token number">1619189378176</span><span class="token punctuation">,</span>
+                <span class="token property">&quot;lastDirtyTimestamp&quot;</span><span class="token operator">:</span> <span class="token number">1619189378126</span><span class="token punctuation">,</span>
+                <span class="token property">&quot;actionType&quot;</span><span class="token operator">:</span> <span class="token string">&quot;ADDED&quot;</span><span class="token punctuation">,</span>
+                <span class="token property">&quot;asgName&quot;</span><span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>
+                <span class="token property">&quot;overriddenStatus&quot;</span><span class="token operator">:</span> <span class="token string">&quot;UNKNOWN&quot;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token comment">// 服务的描述</span>
+    <span class="token property">&quot;description&quot;</span><span class="token operator">:</span> <span class="token string">&quot;Spring Cloud Eureka Discovery Client&quot;</span><span class="token punctuation">,</span>
+    <span class="token comment">// 所有服务实例</span>
+    <span class="token property">&quot;services&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token string">&quot;eureka-client&quot;</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token comment">// 当前服务实例ID</span>
+    <span class="token property">&quot;serviceId&quot;</span><span class="token operator">:</span> <span class="token string">&quot;eureka-client&quot;</span> 
+<span class="token punctuation">}</span>
+</code></pre></div><p>Eureka 的单机服务搭建就结束了，下一章节会介绍 Eureka 集群以及搭建方式。</p></div></section> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev"><a href="/learning_blog/microservice/eureka/" class="prev router-link-active">
+            Eureka 服务注册与发现
+          </a></span> <span class="next"><a href="/learning_blog/microservice/eureka/EurekaCluster.html">
+            Eureka 集群搭建
+          </a></span></p></div> <div class="comments-wrapper"><!----></div> <ul class="side-bar sub-sidebar-wrapper" style="width:12rem;" data-v-70334359><li class="level-2" data-v-70334359><a href="/learning_blog/microservice/eureka/EurekaCreate.html#搭建项目" class="sidebar-link reco-side-搭建项目" data-v-70334359>搭建项目</a></li><li class="level-2" data-v-70334359><a href="/learning_blog/microservice/eureka/EurekaCreate.html#添加依赖" class="sidebar-link reco-side-添加依赖" data-v-70334359>添加依赖</a></li><li class="level-3" data-v-70334359><a href="/learning_blog/microservice/eureka/EurekaCreate.html#microservie-learning-父工程" class="sidebar-link reco-side-microservie-learning-父工程" data-v-70334359>microservie-learning（父工程）</a></li><li class="level-3" data-v-70334359><a href="/learning_blog/microservice/eureka/EurekaCreate.html#microservice-netflix-eureka-server-eureka-server" class="sidebar-link reco-side-microservice-netflix-eureka-server-eureka-server" data-v-70334359>microservice-netflix-eureka-server（Eureka Server）</a></li><li class="level-3" data-v-70334359><a href="/learning_blog/microservice/eureka/EurekaCreate.html#microservice-netflix-eureka-client-eureka-client" class="sidebar-link reco-side-microservice-netflix-eureka-client-eureka-client" data-v-70334359>microservice-netflix-eureka-client（Eureka Client）</a></li><li class="level-2" data-v-70334359><a href="/learning_blog/microservice/eureka/EurekaCreate.html#eureka-server-配置" class="sidebar-link reco-side-eureka-server-配置" data-v-70334359>Eureka Server 配置</a></li><li class="level-3" data-v-70334359><a href="/learning_blog/microservice/eureka/EurekaCreate.html#启动类" class="sidebar-link reco-side-启动类" data-v-70334359>启动类</a></li><li class="level-3" data-v-70334359><a href="/learning_blog/microservice/eureka/EurekaCreate.html#yml-配置" class="sidebar-link reco-side-yml-配置" data-v-70334359>yml 配置</a></li><li class="level-2" data-v-70334359><a href="/learning_blog/microservice/eureka/EurekaCreate.html#eureka-client-配置" class="sidebar-link reco-side-eureka-client-配置" data-v-70334359>Eureka Client 配置</a></li><li class="level-3" data-v-70334359><a href="/learning_blog/microservice/eureka/EurekaCreate.html#启动类-2" class="sidebar-link reco-side-启动类-2" data-v-70334359>启动类</a></li><li class="level-3" data-v-70334359><a href="/learning_blog/microservice/eureka/EurekaCreate.html#yml-配置-2" class="sidebar-link reco-side-yml-配置-2" data-v-70334359>yml 配置</a></li><li class="level-2" data-v-70334359><a href="/learning_blog/microservice/eureka/EurekaCreate.html#启动服务" class="sidebar-link reco-side-启动服务" data-v-70334359>启动服务</a></li><li class="level-2" data-v-70334359><a href="/learning_blog/microservice/eureka/EurekaCreate.html#获取服务注册表" class="sidebar-link reco-side-获取服务注册表" data-v-70334359>获取服务注册表</a></li><li class="level-3" data-v-70334359><a href="/learning_blog/microservice/eureka/EurekaCreate.html#eurekaregistrycontroller" class="sidebar-link reco-side-eurekaregistrycontroller" data-v-70334359>EurekaRegistryController</a></li><li class="level-3" data-v-70334359><a href="/learning_blog/microservice/eureka/EurekaCreate.html#discoveryclient" class="sidebar-link reco-side-discoveryclient" data-v-70334359>DiscoveryClient</a></li><li class="level-3" data-v-70334359><a href="/learning_blog/microservice/eureka/EurekaCreate.html#调用接口" class="sidebar-link reco-side-调用接口" data-v-70334359>调用接口</a></li></ul></main> <!----></div></div></div></div><div class="global-ui"><div class="back-to-ceiling" style="right:1rem;bottom:6rem;width:2.5rem;height:2.5rem;border-radius:.25rem;line-height:2.5rem;display:none;" data-v-c6073ba8 data-v-c6073ba8><svg t="1574745035067" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5404" class="icon" data-v-c6073ba8><path d="M526.60727968 10.90185116a27.675 27.675 0 0 0-29.21455937 0c-131.36607665 82.28402758-218.69155461 228.01873535-218.69155402 394.07834331a462.20625001 462.20625001 0 0 0 5.36959153 69.94390903c1.00431239 6.55289093-0.34802892 13.13561351-3.76865779 18.80351572-32.63518765 54.11355614-51.75690182 118.55860487-51.7569018 187.94566865a371.06718723 371.06718723 0 0 0 11.50484808 91.98906777c6.53300375 25.50556257 41.68394495 28.14064038 52.69160883 4.22606766 17.37162448-37.73630017 42.14135425-72.50938081 72.80769204-103.21549295 2.18761121 3.04276886 4.15646224 6.24463696 6.40373557 9.22774369a1871.4375 1871.4375 0 0 0 140.04691725 5.34970492 1866.36093723 1866.36093723 0 0 0 140.04691723-5.34970492c2.24727335-2.98310674 4.21612437-6.18497483 6.3937923-9.2178004 30.66633723 30.70611158 55.4360664 65.4791928 72.80769147 103.21549355 11.00766384 23.91457269 46.15860503 21.27949489 52.69160879-4.22606768a371.15156223 371.15156223 0 0 0 11.514792-91.99901164c0-69.36717486-19.13165746-133.82216804-51.75690182-187.92578088-3.42062944-5.66790279-4.76302748-12.26056868-3.76865837-18.80351632a462.20625001 462.20625001 0 0 0 5.36959269-69.943909c-0.00994388-166.08943902-87.32547796-311.81420293-218.6915546-394.09823051zM605.93803103 357.87693858a93.93749974 93.93749974 0 1 1-187.89594924 6.1e-7 93.93749974 93.93749974 0 0 1 187.89594924-6.1e-7z" p-id="5405" data-v-c6073ba8></path><path d="M429.50777625 765.63860547C429.50777625 803.39355007 466.44236686 1000.39046097 512.00932183 1000.39046097c45.56695499 0 82.4922232-197.00623328 82.5015456-234.7518555 0-37.75494459-36.9345906-68.35043303-82.4922232-68.34111062-45.57627738-0.00932239-82.52019037 30.59548842-82.51086798 68.34111062z" p-id="5406" data-v-c6073ba8></path></svg></div><canvas id="vuepress-canvas-cursor"></canvas><div class="cat-container" data-v-a13867c0><canvas id="vuepress-cat" width="280" height="250" class="live2d" data-v-a13867c0></canvas></div><!----></div></div>
+    <script src="/learning_blog/assets/js/app.e6e1c34c.js" defer></script><script src="/learning_blog/assets/js/4.ff23c0b7.js" defer></script><script src="/learning_blog/assets/js/1.81582bd8.js" defer></script><script src="/learning_blog/assets/js/115.c931f24e.js" defer></script><script src="/learning_blog/assets/js/8.f416b1e6.js" defer></script>
+  </body>
+</html>

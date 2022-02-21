@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>TreeSet | 一兜小白菜</title>
+    <meta name="generator" content="VuePress 1.8.2">
+    <link rel="icon" href="/learning_blog/logo.png">
+    <link rel="manifest" href="/learning_blog/manifest.json">
+    <meta name="description" content="任何职业都可以成为黑客。你可以是一个木匠黑客。不一定是高科技。只要与技能有关，并且倾心专注于你正在做的事情，你就可能成为黑客。">
+    
+    <link rel="preload" href="/learning_blog/assets/css/0.styles.c68b611a.css" as="style"><link rel="preload" href="/learning_blog/assets/js/app.e6e1c34c.js" as="script"><link rel="preload" href="/learning_blog/assets/js/4.ff23c0b7.js" as="script"><link rel="preload" href="/learning_blog/assets/js/1.81582bd8.js" as="script"><link rel="preload" href="/learning_blog/assets/js/51.0da4f39b.js" as="script"><link rel="preload" href="/learning_blog/assets/js/8.f416b1e6.js" as="script"><link rel="prefetch" href="/learning_blog/assets/js/10.58adca44.js"><link rel="prefetch" href="/learning_blog/assets/js/100.c3e38fd7.js"><link rel="prefetch" href="/learning_blog/assets/js/101.71ef1da5.js"><link rel="prefetch" href="/learning_blog/assets/js/102.3a27c764.js"><link rel="prefetch" href="/learning_blog/assets/js/103.d8079be3.js"><link rel="prefetch" href="/learning_blog/assets/js/104.5ec19ab4.js"><link rel="prefetch" href="/learning_blog/assets/js/105.641d7f30.js"><link rel="prefetch" href="/learning_blog/assets/js/106.17533908.js"><link rel="prefetch" href="/learning_blog/assets/js/107.ef428cf3.js"><link rel="prefetch" href="/learning_blog/assets/js/108.8955c0b8.js"><link rel="prefetch" href="/learning_blog/assets/js/109.a4034281.js"><link rel="prefetch" href="/learning_blog/assets/js/11.64cdb03a.js"><link rel="prefetch" href="/learning_blog/assets/js/110.0f3db165.js"><link rel="prefetch" href="/learning_blog/assets/js/111.a6baa137.js"><link rel="prefetch" href="/learning_blog/assets/js/112.0efc57dc.js"><link rel="prefetch" href="/learning_blog/assets/js/113.e20800cf.js"><link rel="prefetch" href="/learning_blog/assets/js/114.24666c6e.js"><link rel="prefetch" href="/learning_blog/assets/js/115.c931f24e.js"><link rel="prefetch" href="/learning_blog/assets/js/116.b4b50591.js"><link rel="prefetch" href="/learning_blog/assets/js/117.1466ffb7.js"><link rel="prefetch" href="/learning_blog/assets/js/118.3dc9a8cc.js"><link rel="prefetch" href="/learning_blog/assets/js/119.55cc810f.js"><link rel="prefetch" href="/learning_blog/assets/js/12.37800769.js"><link rel="prefetch" href="/learning_blog/assets/js/120.5d596352.js"><link rel="prefetch" href="/learning_blog/assets/js/121.d0a2bb19.js"><link rel="prefetch" href="/learning_blog/assets/js/122.4223d0e2.js"><link rel="prefetch" href="/learning_blog/assets/js/123.d14c8967.js"><link rel="prefetch" href="/learning_blog/assets/js/124.0fc87088.js"><link rel="prefetch" href="/learning_blog/assets/js/125.dfe739d7.js"><link rel="prefetch" href="/learning_blog/assets/js/126.0ceed23b.js"><link rel="prefetch" href="/learning_blog/assets/js/127.e1351c71.js"><link rel="prefetch" href="/learning_blog/assets/js/128.e9c08785.js"><link rel="prefetch" href="/learning_blog/assets/js/129.375419eb.js"><link rel="prefetch" href="/learning_blog/assets/js/13.27b4e468.js"><link rel="prefetch" href="/learning_blog/assets/js/130.925350ba.js"><link rel="prefetch" href="/learning_blog/assets/js/131.22a9bdb2.js"><link rel="prefetch" href="/learning_blog/assets/js/132.aedcc038.js"><link rel="prefetch" href="/learning_blog/assets/js/133.a7fc8c8f.js"><link rel="prefetch" href="/learning_blog/assets/js/134.7c062a25.js"><link rel="prefetch" href="/learning_blog/assets/js/135.edeca75d.js"><link rel="prefetch" href="/learning_blog/assets/js/136.8f20389e.js"><link rel="prefetch" href="/learning_blog/assets/js/137.fea26a7b.js"><link rel="prefetch" href="/learning_blog/assets/js/138.371da223.js"><link rel="prefetch" href="/learning_blog/assets/js/139.0d856709.js"><link rel="prefetch" href="/learning_blog/assets/js/14.e1478ea8.js"><link rel="prefetch" href="/learning_blog/assets/js/140.cf989f01.js"><link rel="prefetch" href="/learning_blog/assets/js/141.453925ca.js"><link rel="prefetch" href="/learning_blog/assets/js/142.61fe7b6e.js"><link rel="prefetch" href="/learning_blog/assets/js/143.c6d38d96.js"><link rel="prefetch" href="/learning_blog/assets/js/144.d56f9555.js"><link rel="prefetch" href="/learning_blog/assets/js/145.5ea7e139.js"><link rel="prefetch" href="/learning_blog/assets/js/146.7a0eb5c7.js"><link rel="prefetch" href="/learning_blog/assets/js/147.bf426f23.js"><link rel="prefetch" href="/learning_blog/assets/js/148.a423a0f8.js"><link rel="prefetch" href="/learning_blog/assets/js/149.928a0e3a.js"><link rel="prefetch" href="/learning_blog/assets/js/15.07fa313c.js"><link rel="prefetch" href="/learning_blog/assets/js/150.d7e729a8.js"><link rel="prefetch" href="/learning_blog/assets/js/151.6cd16f87.js"><link rel="prefetch" href="/learning_blog/assets/js/16.425e28fa.js"><link rel="prefetch" href="/learning_blog/assets/js/17.a9fca2d8.js"><link rel="prefetch" href="/learning_blog/assets/js/18.8fb99b25.js"><link rel="prefetch" href="/learning_blog/assets/js/19.29145c92.js"><link rel="prefetch" href="/learning_blog/assets/js/20.87886092.js"><link rel="prefetch" href="/learning_blog/assets/js/21.e69894c0.js"><link rel="prefetch" href="/learning_blog/assets/js/22.9d216b69.js"><link rel="prefetch" href="/learning_blog/assets/js/23.8c8cc5b8.js"><link rel="prefetch" href="/learning_blog/assets/js/24.da7befb5.js"><link rel="prefetch" href="/learning_blog/assets/js/25.aba65622.js"><link rel="prefetch" href="/learning_blog/assets/js/26.3dd77b52.js"><link rel="prefetch" href="/learning_blog/assets/js/27.e5f60060.js"><link rel="prefetch" href="/learning_blog/assets/js/28.520f8846.js"><link rel="prefetch" href="/learning_blog/assets/js/29.85cba1c5.js"><link rel="prefetch" href="/learning_blog/assets/js/30.fa653075.js"><link rel="prefetch" href="/learning_blog/assets/js/31.1a1ede8e.js"><link rel="prefetch" href="/learning_blog/assets/js/32.3c34adc1.js"><link rel="prefetch" href="/learning_blog/assets/js/33.b3030e84.js"><link rel="prefetch" href="/learning_blog/assets/js/34.7632da2a.js"><link rel="prefetch" href="/learning_blog/assets/js/35.5c9094dd.js"><link rel="prefetch" href="/learning_blog/assets/js/36.f96ff6e1.js"><link rel="prefetch" href="/learning_blog/assets/js/37.0d008c56.js"><link rel="prefetch" href="/learning_blog/assets/js/38.dea1713b.js"><link rel="prefetch" href="/learning_blog/assets/js/39.9b6a40d4.js"><link rel="prefetch" href="/learning_blog/assets/js/40.38ed0206.js"><link rel="prefetch" href="/learning_blog/assets/js/41.12b53694.js"><link rel="prefetch" href="/learning_blog/assets/js/42.0a1bf74c.js"><link rel="prefetch" href="/learning_blog/assets/js/43.5375d7c9.js"><link rel="prefetch" href="/learning_blog/assets/js/44.82bb804e.js"><link rel="prefetch" href="/learning_blog/assets/js/45.67a4706a.js"><link rel="prefetch" href="/learning_blog/assets/js/46.fcba3164.js"><link rel="prefetch" href="/learning_blog/assets/js/47.8658a1cc.js"><link rel="prefetch" href="/learning_blog/assets/js/48.51f5a45d.js"><link rel="prefetch" href="/learning_blog/assets/js/49.93b1425f.js"><link rel="prefetch" href="/learning_blog/assets/js/5.24f9e3cd.js"><link rel="prefetch" href="/learning_blog/assets/js/50.855fad56.js"><link rel="prefetch" href="/learning_blog/assets/js/52.ecdfca48.js"><link rel="prefetch" href="/learning_blog/assets/js/53.a7febaa9.js"><link rel="prefetch" href="/learning_blog/assets/js/54.870d0e17.js"><link rel="prefetch" href="/learning_blog/assets/js/55.c7201cec.js"><link rel="prefetch" href="/learning_blog/assets/js/56.42f1a7b2.js"><link rel="prefetch" href="/learning_blog/assets/js/57.a07e4e0b.js"><link rel="prefetch" href="/learning_blog/assets/js/58.a68368b2.js"><link rel="prefetch" href="/learning_blog/assets/js/59.bb85fc0d.js"><link rel="prefetch" href="/learning_blog/assets/js/6.2d21da84.js"><link rel="prefetch" href="/learning_blog/assets/js/60.baf33af5.js"><link rel="prefetch" href="/learning_blog/assets/js/61.146a561e.js"><link rel="prefetch" href="/learning_blog/assets/js/62.0f723ed7.js"><link rel="prefetch" href="/learning_blog/assets/js/63.2a3264a5.js"><link rel="prefetch" href="/learning_blog/assets/js/64.38c1721e.js"><link rel="prefetch" href="/learning_blog/assets/js/65.81ff89ba.js"><link rel="prefetch" href="/learning_blog/assets/js/66.56685ef7.js"><link rel="prefetch" href="/learning_blog/assets/js/67.8f16a979.js"><link rel="prefetch" href="/learning_blog/assets/js/68.69433f16.js"><link rel="prefetch" href="/learning_blog/assets/js/69.99218738.js"><link rel="prefetch" href="/learning_blog/assets/js/7.706ac388.js"><link rel="prefetch" href="/learning_blog/assets/js/70.27595144.js"><link rel="prefetch" href="/learning_blog/assets/js/71.b08b8cdf.js"><link rel="prefetch" href="/learning_blog/assets/js/72.29b2d9ce.js"><link rel="prefetch" href="/learning_blog/assets/js/73.2e100c2e.js"><link rel="prefetch" href="/learning_blog/assets/js/74.d0513690.js"><link rel="prefetch" href="/learning_blog/assets/js/75.2b371472.js"><link rel="prefetch" href="/learning_blog/assets/js/76.b993c2c6.js"><link rel="prefetch" href="/learning_blog/assets/js/77.2f22d7d3.js"><link rel="prefetch" href="/learning_blog/assets/js/78.0f685bfc.js"><link rel="prefetch" href="/learning_blog/assets/js/79.cb3e911c.js"><link rel="prefetch" href="/learning_blog/assets/js/80.2738107d.js"><link rel="prefetch" href="/learning_blog/assets/js/81.1425f348.js"><link rel="prefetch" href="/learning_blog/assets/js/82.a4532418.js"><link rel="prefetch" href="/learning_blog/assets/js/83.b846c18d.js"><link rel="prefetch" href="/learning_blog/assets/js/84.122f9ad2.js"><link rel="prefetch" href="/learning_blog/assets/js/85.23f37097.js"><link rel="prefetch" href="/learning_blog/assets/js/86.74b20100.js"><link rel="prefetch" href="/learning_blog/assets/js/87.bfc377d3.js"><link rel="prefetch" href="/learning_blog/assets/js/88.3fe754ec.js"><link rel="prefetch" href="/learning_blog/assets/js/89.3739c793.js"><link rel="prefetch" href="/learning_blog/assets/js/9.de853e93.js"><link rel="prefetch" href="/learning_blog/assets/js/90.7bdbcef5.js"><link rel="prefetch" href="/learning_blog/assets/js/91.8ab64d44.js"><link rel="prefetch" href="/learning_blog/assets/js/92.207acafe.js"><link rel="prefetch" href="/learning_blog/assets/js/93.c5be03f7.js"><link rel="prefetch" href="/learning_blog/assets/js/94.174920d9.js"><link rel="prefetch" href="/learning_blog/assets/js/95.e214b95b.js"><link rel="prefetch" href="/learning_blog/assets/js/96.67ec6921.js"><link rel="prefetch" href="/learning_blog/assets/js/97.26bc9461.js"><link rel="prefetch" href="/learning_blog/assets/js/98.7cc709e3.js"><link rel="prefetch" href="/learning_blog/assets/js/99.68f77857.js"><link rel="prefetch" href="/learning_blog/assets/js/vendors~flowchart.7829265f.js">
+    <link rel="stylesheet" href="/learning_blog/assets/css/0.styles.c68b611a.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container" data-v-1156296a><div data-v-1156296a><div id="loader-wrapper" class="loading-wrapper" data-v-d48f4d20 data-v-1156296a data-v-1156296a><div class="loader-main" data-v-d48f4d20><div data-v-d48f4d20></div><div data-v-d48f4d20></div><div data-v-d48f4d20></div><div data-v-d48f4d20></div></div> <!----> <!----></div> <div class="password-shadow password-wrapper-out" style="display:none;" data-v-4e82dffc data-v-1156296a data-v-1156296a><h3 class="title" data-v-4e82dffc data-v-4e82dffc>一兜小白菜</h3> <p class="description" data-v-4e82dffc data-v-4e82dffc>任何职业都可以成为黑客。你可以是一个木匠黑客。不一定是高科技。只要与技能有关，并且倾心专注于你正在做的事情，你就可能成为黑客。</p> <label id="box" class="inputBox" data-v-4e82dffc data-v-4e82dffc><input type="password" value="" data-v-4e82dffc> <span data-v-4e82dffc>Konck! Knock!</span> <button data-v-4e82dffc>OK</button></label> <div class="footer" data-v-4e82dffc data-v-4e82dffc><span data-v-4e82dffc><i class="iconfont reco-theme" data-v-4e82dffc></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-4e82dffc>vuePress-theme-reco</a></span> <span data-v-4e82dffc><i class="iconfont reco-copyright" data-v-4e82dffc></i> <a data-v-4e82dffc><span data-v-4e82dffc>顿顿白菜</span>
+            
+          <!---->
+          2022
+        </a></span></div></div> <div class="hide" data-v-1156296a><header class="navbar" data-v-1156296a><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/learning_blog/" class="home-link router-link-active"><img src="/learning_blog/logo.png" alt="一兜小白菜" class="logo"> <span class="site-name">一兜小白菜</span></a> <div class="links"><div class="color-picker"><a class="color-button"><i class="iconfont reco-color"></i></a> <div class="color-picker-menu" style="display:none;"><div class="mode-options"><h4 class="title">Choose mode</h4> <ul class="color-mode-options"><li class="dark">dark</li><li class="auto active">auto</li><li class="light">light</li></ul></div></div></div> <div class="search-box"><i class="iconfont reco-search"></i> <input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/learning_blog/" class="nav-link"><i class="iconfont reco-home"></i>
+  首页
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-category"></i>
+      分类
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/categories/架构师/" class="nav-link"><i class="undefined"></i>
+  架构师
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/数据库/" class="nav-link"><i class="undefined"></i>
+  数据库
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/Go/" class="nav-link"><i class="undefined"></i>
+  Go
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/Java/" class="nav-link"><i class="undefined"></i>
+  Java
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/微服务/" class="nav-link"><i class="undefined"></i>
+  微服务
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/计算机网络/" class="nav-link"><i class="undefined"></i>
+  计算机网络
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/container 容器/" class="nav-link"><i class="undefined"></i>
+  container 容器
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/操作系统/" class="nav-link"><i class="undefined"></i>
+  操作系统
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/设计模式/" class="nav-link"><i class="undefined"></i>
+  设计模式
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/多线程/" class="nav-link"><i class="undefined"></i>
+  多线程
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/数据结构/" class="nav-link"><i class="undefined"></i>
+  数据结构
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/Server/" class="nav-link"><i class="undefined"></i>
+  Server
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/Spring 系列/" class="nav-link"><i class="undefined"></i>
+  Spring 系列
+</a></li></ul></div></div><div class="nav-item"><a href="/learning_blog/tag/" class="nav-link"><i class="iconfont reco-tag"></i>
+  标签
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="fab fa-java"></i>
+      Java Learning
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/java/jvm/" class="nav-link"><i class="undefined"></i>
+  JVM 虚拟机
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/java/thread/" class="nav-link"><i class="undefined"></i>
+  Java 多线程
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/java/container/" class="nav-link router-link-active"><i class="undefined"></i>
+  Java 集合框架
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/java/io/" class="nav-link"><i class="undefined"></i>
+  Java IO
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/java/nio/" class="nav-link"><i class="undefined"></i>
+  Java NIO
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/java/design/" class="nav-link"><i class="undefined"></i>
+  设计模式
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="fas fa-gopuram"></i>
+      Go Learning
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/go/base/" class="nav-link"><i class="undefined"></i>
+  GO 基础
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="fas fa-seedling"></i>
+      Spring Learning
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/spring/spring/" class="nav-link"><i class="undefined"></i>
+  Spring
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/spring/springBoot/" class="nav-link"><i class="undefined"></i>
+  SpringBoot
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/spring/springSecurity/" class="nav-link"><i class="undefined"></i>
+  SpringSecurity
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="fas fa-cloud"></i>
+      微服务
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/ddd/" class="nav-link"><i class="undefined"></i>
+  领域驱动设计
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/eureka/" class="nav-link"><i class="undefined"></i>
+  Eureka 服务注册与发现
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/ribbon/" class="nav-link"><i class="undefined"></i>
+  Ribbon 负载均衡
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/feign/" class="nav-link"><i class="undefined"></i>
+  Feign 声明式服务调用
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/hystrix/" class="nav-link"><i class="undefined"></i>
+  Hystrix 服务容错保护
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/zuul/" class="nav-link"><i class="undefined"></i>
+  Zuul 路由网关
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/gateway/" class="nav-link"><i class="undefined"></i>
+  Gateway 服务网关
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="fas fa-database"></i>
+      数据库
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/database/mysql/" class="nav-link"><i class="undefined"></i>
+  MySQL
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/database/redis/" class="nav-link"><i class="undefined"></i>
+  Redis
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/database/mongodb/" class="nav-link"><i class="undefined"></i>
+  MongoDB
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="fas fa-server"></i>
+      操作系统
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/server/operating/" class="nav-link"><i class="undefined"></i>
+  操作系统
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/server/network/" class="nav-link"><i class="undefined"></i>
+  计算机网络
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/server/algorithm/" class="nav-link"><i class="undefined"></i>
+  数据结构与算法
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/server/nginx/" class="nav-link"><i class="undefined"></i>
+  Nginx
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/server/docker/" class="nav-link"><i class="undefined"></i>
+  Docker
+</a></li></ul></div></div><div class="nav-item"><a href="/learning_blog/architect/" class="nav-link"><i class="fas fa-sitemap"></i>
+  软件架构师
+</a></div><div class="nav-item"><a href="/learning_blog/timeline/" class="nav-link"><i class="iconfont reco-date"></i>
+  时间线
+</a></div> <!----></nav></div></header> <div class="sidebar-mask" data-v-1156296a></div> <aside class="sidebar" data-v-1156296a><div class="personal-info-wrapper" data-v-828910c6 data-v-1156296a><img src="/learning_blog/avatar.jpg" alt="author-avatar" class="personal-img" data-v-828910c6> <h3 class="name" data-v-828910c6>
+    顿顿白菜
+  </h3> <div class="num" data-v-828910c6><div data-v-828910c6><h3 data-v-828910c6>137</h3> <h6 data-v-828910c6>文章</h6></div> <div data-v-828910c6><h3 data-v-828910c6>21</h3> <h6 data-v-828910c6>标签</h6></div></div> <ul class="social-links" data-v-828910c6><li class="social-item" data-v-828910c6><i class="iconfont reco-github" style="color:#abbd81;" data-v-828910c6></i></li><li class="social-item" data-v-828910c6><i class="iconfont reco-mayun" style="color:#f47e60;" data-v-828910c6></i></li><li class="social-item" data-v-828910c6><i class="iconfont reco-wechat" style="color:#f8b26a;" data-v-828910c6></i></li><li class="social-item" data-v-828910c6><i class="iconfont reco-qq" style="color:#abbd81;" data-v-828910c6></i></li></ul> <hr data-v-828910c6></div> <nav class="nav-links"><div class="nav-item"><a href="/learning_blog/" class="nav-link"><i class="iconfont reco-home"></i>
+  首页
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-category"></i>
+      分类
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/categories/架构师/" class="nav-link"><i class="undefined"></i>
+  架构师
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/数据库/" class="nav-link"><i class="undefined"></i>
+  数据库
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/Go/" class="nav-link"><i class="undefined"></i>
+  Go
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/Java/" class="nav-link"><i class="undefined"></i>
+  Java
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/微服务/" class="nav-link"><i class="undefined"></i>
+  微服务
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/计算机网络/" class="nav-link"><i class="undefined"></i>
+  计算机网络
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/container 容器/" class="nav-link"><i class="undefined"></i>
+  container 容器
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/操作系统/" class="nav-link"><i class="undefined"></i>
+  操作系统
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/设计模式/" class="nav-link"><i class="undefined"></i>
+  设计模式
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/多线程/" class="nav-link"><i class="undefined"></i>
+  多线程
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/数据结构/" class="nav-link"><i class="undefined"></i>
+  数据结构
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/Server/" class="nav-link"><i class="undefined"></i>
+  Server
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/Spring 系列/" class="nav-link"><i class="undefined"></i>
+  Spring 系列
+</a></li></ul></div></div><div class="nav-item"><a href="/learning_blog/tag/" class="nav-link"><i class="iconfont reco-tag"></i>
+  标签
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="fab fa-java"></i>
+      Java Learning
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/java/jvm/" class="nav-link"><i class="undefined"></i>
+  JVM 虚拟机
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/java/thread/" class="nav-link"><i class="undefined"></i>
+  Java 多线程
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/java/container/" class="nav-link router-link-active"><i class="undefined"></i>
+  Java 集合框架
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/java/io/" class="nav-link"><i class="undefined"></i>
+  Java IO
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/java/nio/" class="nav-link"><i class="undefined"></i>
+  Java NIO
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/java/design/" class="nav-link"><i class="undefined"></i>
+  设计模式
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="fas fa-gopuram"></i>
+      Go Learning
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/go/base/" class="nav-link"><i class="undefined"></i>
+  GO 基础
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="fas fa-seedling"></i>
+      Spring Learning
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/spring/spring/" class="nav-link"><i class="undefined"></i>
+  Spring
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/spring/springBoot/" class="nav-link"><i class="undefined"></i>
+  SpringBoot
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/spring/springSecurity/" class="nav-link"><i class="undefined"></i>
+  SpringSecurity
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="fas fa-cloud"></i>
+      微服务
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/ddd/" class="nav-link"><i class="undefined"></i>
+  领域驱动设计
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/eureka/" class="nav-link"><i class="undefined"></i>
+  Eureka 服务注册与发现
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/ribbon/" class="nav-link"><i class="undefined"></i>
+  Ribbon 负载均衡
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/feign/" class="nav-link"><i class="undefined"></i>
+  Feign 声明式服务调用
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/hystrix/" class="nav-link"><i class="undefined"></i>
+  Hystrix 服务容错保护
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/zuul/" class="nav-link"><i class="undefined"></i>
+  Zuul 路由网关
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/gateway/" class="nav-link"><i class="undefined"></i>
+  Gateway 服务网关
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="fas fa-database"></i>
+      数据库
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/database/mysql/" class="nav-link"><i class="undefined"></i>
+  MySQL
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/database/redis/" class="nav-link"><i class="undefined"></i>
+  Redis
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/database/mongodb/" class="nav-link"><i class="undefined"></i>
+  MongoDB
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="fas fa-server"></i>
+      操作系统
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/server/operating/" class="nav-link"><i class="undefined"></i>
+  操作系统
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/server/network/" class="nav-link"><i class="undefined"></i>
+  计算机网络
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/server/algorithm/" class="nav-link"><i class="undefined"></i>
+  数据结构与算法
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/server/nginx/" class="nav-link"><i class="undefined"></i>
+  Nginx
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/server/docker/" class="nav-link"><i class="undefined"></i>
+  Docker
+</a></li></ul></div></div><div class="nav-item"><a href="/learning_blog/architect/" class="nav-link"><i class="fas fa-sitemap"></i>
+  软件架构师
+</a></div><div class="nav-item"><a href="/learning_blog/timeline/" class="nav-link"><i class="iconfont reco-date"></i>
+  时间线
+</a></div> <!----></nav> <ul class="sidebar-links"><li><a href="/learning_blog/java/container/" aria-current="page" class="sidebar-link">集合框架</a></li><li><a href="/learning_blog/java/container/ArrayList.html" class="sidebar-link">ArrayList（数组）</a></li><li><a href="/learning_blog/java/container/Vector.html" class="sidebar-link">Vector</a></li><li><a href="/learning_blog/java/container/LinkedList.html" class="sidebar-link">LinkedList（链表）</a></li><li><a href="/learning_blog/java/container/HashSet.html" class="sidebar-link">HashSet</a></li><li><a href="/learning_blog/java/container/LinkedHashSet.html" class="sidebar-link">LinkedHashSet</a></li><li><a href="/learning_blog/java/container/TreeSet.html" aria-current="page" class="active sidebar-link">TreeSet</a></li><li><a href="/learning_blog/java/container/HashMap7.html" class="sidebar-link">HashMap（JDK 1.7）</a></li><li><a href="/learning_blog/java/container/HashMap8.html" class="sidebar-link">HashMap（JDK 1.8）</a></li><li><a href="/learning_blog/java/container/Hashtable.html" class="sidebar-link">Hashtable</a></li></ul> </aside> <div class="password-shadow password-wrapper-in" style="display:none;" data-v-4e82dffc data-v-1156296a><h3 class="title" data-v-4e82dffc data-v-4e82dffc>TreeSet</h3> <!----> <label id="box" class="inputBox" data-v-4e82dffc data-v-4e82dffc><input type="password" value="" data-v-4e82dffc> <span data-v-4e82dffc>Konck! Knock!</span> <button data-v-4e82dffc>OK</button></label> <div class="footer" data-v-4e82dffc data-v-4e82dffc><span data-v-4e82dffc><i class="iconfont reco-theme" data-v-4e82dffc></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-4e82dffc>vuePress-theme-reco</a></span> <span data-v-4e82dffc><i class="iconfont reco-copyright" data-v-4e82dffc></i> <a data-v-4e82dffc><span data-v-4e82dffc>顿顿白菜</span>
+            
+          <!---->
+          2022
+        </a></span></div></div> <div data-v-1156296a><main class="page"><section><div class="page-title"><h1 class="title">TreeSet</h1> <div data-v-1ff7123e><i class="iconfont reco-account" data-v-1ff7123e><span data-v-1ff7123e>顿顿白菜</span></i> <i class="iconfont reco-date" data-v-1ff7123e><span data-v-1ff7123e>2021/12/15</span></i> <!----> <i class="tags iconfont reco-tag" data-v-1ff7123e><span class="tag-item" data-v-1ff7123e>Collections</span></i></div></div> <div class="theme-reco-content content__default"><p>TreeSet 是使用二叉树的原理对新的 add() 的对象按照指定的顺序排序（升序、降序），每增加一个对象就会进行排序，将对象插入到二叉树指定的位置。</p> <p>Integer 和 String 对象都可以进行默认的 TreeSet 排序，而自定义的对象是不可以的，自定义的类必须实现 Comparable 接口，并且重写相应的 compareTo()  函数，才可以正常使用。</p> <p>在覆写 compare() 函数时，要返回相应的值才能使 TreeSet 按照一定的规则排序。比较此对象与指定对象的顺序。如果改对象小于、等于或大于指定对象，则分别返回负整数、零或正整数。</p> <h2 id="继承关系">继承关系</h2> <img src="/learning_blog/img/java/container/TreeSet_u7EE7_u627F_u56FE.png" alt="TreeSet_u7EE7_u627F_u56FE"> <ol><li>实现了 Serializable 接口，支持对象序列化。</li> <li>实现了 Cloneable 接口，意味着它能被克隆。</li> <li>实现了 Iterable 接口，即能用 foreach 迭代器遍历集合元素。</li> <li>实现了 NavigableSet 接口，意味着它支持一系列的导航方法，比如查找与指定目标最匹配项。</li> <li>继承了 AbstractSet，AbstractSet 实现了 set，所以它是一个 Set 集合，不包含满足 element1.equals(element2) 的元素树，不重复，并且最后包含一个 null。</li></ol> <h2 id="源码分析">源码分析</h2> <h3 id="基本属性">基本属性</h3> <div class="language-java extra-class"><pre class="language-java"><code><span class="token comment">/**
+ * The backing map.
+ */</span>
+<span class="token keyword">private</span> <span class="token keyword">transient</span> <span class="token class-name">NavigableMap</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">E</span><span class="token punctuation">,</span><span class="token class-name">Object</span><span class="token punctuation">&gt;</span></span> m<span class="token punctuation">;</span>
+
+<span class="token comment">// Dummy value to associate with an Object in the backing Map</span>
+<span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token class-name">Object</span> PRESENT <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Object</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><h3 id="构造方法及初始化">构造方法及初始化</h3> <div class="language-java extra-class"><pre class="language-java"><code><span class="token comment">/**
+ * Constructs a set backed by the specified navigable map.
+ * 
+ * 底层维护其实是一个 Navigable Map 
+ */</span>
+<span class="token class-name">TreeSet</span><span class="token punctuation">(</span><span class="token class-name">NavigableMap</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">E</span><span class="token punctuation">,</span><span class="token class-name">Object</span><span class="token punctuation">&gt;</span></span> m<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>m <span class="token operator">=</span> m<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">/**
+ * Constructs a new, empty tree set, sorted according to the
+ * natural ordering of its elements.  All elements inserted into
+ * the set must implement the {@link Comparable} interface.
+ * Furthermore, all such elements must be &lt;i&gt;mutually
+ * comparable&lt;/i&gt;: {@code e1.compareTo(e2)} must not throw a
+ * {@code ClassCastException} for any elements {@code e1} and
+ * {@code e2} in the set.  If the user attempts to add an element
+ * to the set that violates this constraint (for example, the user
+ * attempts to add a string element to a set whose elements are
+ * integers), the {@code add} call will throw a
+ * {@code ClassCastException}.
+ *
+ * 构造一个新的空树集，并根据其元素的自然顺序对其进行排序。 插入集合中的所有元素都必须实现Comparable接口。
+ * 此外，所有这些元素必须相互可比较（即都重写了 compareTo() 方法）： e1.compareTo(e2)不得为集合中的任何元素e1和e2引发ClassCastException 。
+ * 如果用户尝试向违反此约束的集合中添加元素（例如，用户尝试向其元素为整数的集合中添加字符串元素），则add调用将抛出ClassCastException 。
+ */</span>
+<span class="token keyword">public</span> <span class="token class-name">TreeSet</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">TreeMap</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">E</span><span class="token punctuation">,</span><span class="token class-name">Object</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">/**
+ * Constructs a new, empty tree set, sorted according to the specified
+ * comparator.  All elements inserted into the set must be &lt;i&gt;mutually
+ * comparable&lt;/i&gt; by the specified comparator: {@code comparator.compare(e1,
+ * e2)} must not throw a {@code ClassCastException} for any elements
+ * {@code e1} and {@code e2} in the set.  If the user attempts to add
+ * an element to the set that violates this constraint, the
+ * {@code add} call will throw a {@code ClassCastException}.
+ *
+ * @param comparator the comparator that will be used to order this set.
+ *        If {@code null}, the {@linkplain Comparable natural
+ *        ordering} of the elements will be used.
+ *
+ * 构造一个新的空树集，该树集根据指定的比较器进行排序。 
+ * 插入到集合中的所有元素必须与指定的比较器相互比较： comparator.compare(e1, e2)不得对集合中的任何元素e1和e2抛出ClassCastException 。
+ * 如果用户尝试将违反此约束的元素添加到集合中，则add调用将抛出ClassCastException 。
+ */</span>
+<span class="token keyword">public</span> <span class="token class-name">TreeSet</span><span class="token punctuation">(</span><span class="token class-name">Comparator</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span> <span class="token keyword">super</span> <span class="token class-name">E</span><span class="token punctuation">&gt;</span></span> comparator<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">TreeMap</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span>comparator<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">/**
+ * Constructs a new tree set containing the elements in the specified
+ * collection, sorted according to the &lt;i&gt;natural ordering&lt;/i&gt; of its
+ * elements.  All elements inserted into the set must implement the
+ * {@link Comparable} interface.  Furthermore, all such elements must be
+ * &lt;i&gt;mutually comparable&lt;/i&gt;: {@code e1.compareTo(e2)} must not throw a
+ * {@code ClassCastException} for any elements {@code e1} and
+ * {@code e2} in the set.
+ *
+ * @param c collection whose elements will comprise the new set
+ * @throws ClassCastException if the elements in {@code c} are
+ *         not {@link Comparable}, or are not mutually comparable
+ * @throws NullPointerException if the specified collection is null
+ *
+ * 构造一个包含指定集合中元素的新树集，并根据其元素的自然顺序对其进行排序。 插入集合中的所有元素都必须实现Comparable接口。 
+ * 此外，所有这些元素必须相互可比较： e1.compareTo(e2)不得为集合中的任何元素e1和e2引发ClassCastException 。
+ */</span>
+<span class="token keyword">public</span> <span class="token class-name">TreeSet</span><span class="token punctuation">(</span><span class="token class-name">Collection</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span> <span class="token keyword">extends</span> <span class="token class-name">E</span><span class="token punctuation">&gt;</span></span> c<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">addAll</span><span class="token punctuation">(</span>c<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">/**
+ * Constructs a new tree set containing the same elements and
+ * using the same ordering as the specified sorted set.
+ *
+ * @param s sorted set whose elements will comprise the new set
+ * @throws NullPointerException if the specified sorted set is null
+ *
+ * 构造一个新的树集，其中包含与指定的排序集相同的元素，并使用相同的顺序。
+ */</span>
+<span class="token keyword">public</span> <span class="token class-name">TreeSet</span><span class="token punctuation">(</span><span class="token class-name">SortedSet</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">E</span><span class="token punctuation">&gt;</span></span> s<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">(</span>s<span class="token punctuation">.</span><span class="token function">comparator</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">addAll</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><ul><li>TreeSet 是基于 TreeMap 实现的。</li> <li>TreeSet 中的元素支持 2 种排序方式：自然排序或者根据创建 TreeSet 时提供的 Comparator 进行排序。这取决于使用的构造方法。</li> <li>TreeSet 为基本操作（add、remove 和 contains）提供受保证的 log(n) 时间开销。</li> <li>TreeSet 是非同步的。它的 iterator 方法返回的迭代器是 fail - fast 的。</li></ul> <h3 id="常用方法">常用方法</h3> <div class="language-java extra-class"><pre class="language-java"><code><span class="token comment">/**
+ * Adds the specified element to this set if it is not already present.
+ * More formally, adds the specified element {@code e} to this set if
+ * the set contains no element {@code e2} such that
+ * &lt;tt&gt;(e==null&amp;nbsp;?&amp;nbsp;e2==null&amp;nbsp;:&amp;nbsp;e.equals(e2))&lt;/tt&gt;.
+ * If this set already contains the element, the call leaves the set
+ * unchanged and returns {@code false}.
+ *
+ * @param e element to be added to this set
+ * @return {@code true} if this set did not already contain the specified
+ *         element
+ * @throws ClassCastException if the specified object cannot be compared
+ *         with the elements currently in this set
+ * @throws NullPointerException if the specified element is null
+ *         and this set uses natural ordering, or its comparator
+ *         does not permit null elements
+ * 
+ * 如果指定的元素尚不存在，则将其添加到该集合中。 更正式地讲，如果集合中不包含任何元素e2 ，
+ * 则将指定的元素e添加到该集合中，使得（e == null？e2 == null：e.equals（e2）） 。 
+ * 如果此集合已经包含该元素，则调用将使该集合保持不变，并返回false 。
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">add</span><span class="token punctuation">(</span><span class="token class-name">E</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> m<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>e<span class="token punctuation">,</span> PRESENT<span class="token punctuation">)</span><span class="token operator">==</span><span class="token keyword">null</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">/**
+ * Removes the specified element from this set if it is present.
+ * More formally, removes an element {@code e} such that
+ * &lt;tt&gt;(o==null&amp;nbsp;?&amp;nbsp;e==null&amp;nbsp;:&amp;nbsp;o.equals(e))&lt;/tt&gt;,
+ * if this set contains such an element.  Returns {@code true} if
+ * this set contained the element (or equivalently, if this set
+ * changed as a result of the call).  (This set will not contain the
+ * element once the call returns.)
+ *
+ * @param o object to be removed from this set, if present
+ * @return {@code true} if this set contained the specified element
+ * @throws ClassCastException if the specified object cannot be compared
+ *         with the elements currently in this set
+ * @throws NullPointerException if the specified element is null
+ *         and this set uses natural ordering, or its comparator
+ *         does not permit null elements
+ *
+ * 如果存在，则从此集合中删除指定的元素。 更正式地说，移除元素e满足（o == NULLé== NULL：o.equals（e）条），如果此set包含这样的元素。 
+ * 如果此集合包含元素，则返回true （或者等效地，如果此集合由于调用而更改），则返回true 。 （一旦调用返回，此集合将不包含该元素。）
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">remove</span><span class="token punctuation">(</span><span class="token class-name">Object</span> o<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> m<span class="token punctuation">.</span><span class="token function">remove</span><span class="token punctuation">(</span>o<span class="token punctuation">)</span><span class="token operator">==</span>PRESENT<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">/**
+ * Removes all of the elements from this set.
+ * The set will be empty after this call returns.
+ *
+ * 从该集合中删除所有元素。 该调用返回后，该集合将为空。
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">clear</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    m<span class="token punctuation">.</span><span class="token function">clear</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">/**
+ * Adds all of the elements in the specified collection to this set.
+ *
+ * @param c collection containing elements to be added to this set
+ * @return {@code true} if this set changed as a result of the call
+ * @throws ClassCastException if the elements provided cannot be compared
+ *         with the elements currently in the set
+ * @throws NullPointerException if the specified collection is null or
+ *         if any element is null and this set uses natural ordering, or
+ *         its comparator does not permit null elements
+ *
+ * 将指定集合中的所有元素添加到该集合中。
+ */</span>
+<span class="token keyword">public</span>  <span class="token keyword">boolean</span> <span class="token function">addAll</span><span class="token punctuation">(</span><span class="token class-name">Collection</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span> <span class="token keyword">extends</span> <span class="token class-name">E</span><span class="token punctuation">&gt;</span></span> c<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// Use linear-time version if applicable</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>m<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">==</span><span class="token number">0</span> <span class="token operator">&amp;&amp;</span> c<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&gt;</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span>
+        c <span class="token keyword">instanceof</span> <span class="token class-name">SortedSet</span> <span class="token operator">&amp;&amp;</span>
+        m <span class="token keyword">instanceof</span> <span class="token class-name">TreeMap</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">SortedSet</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span> <span class="token keyword">extends</span> <span class="token class-name">E</span><span class="token punctuation">&gt;</span></span> set <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">SortedSet</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span> <span class="token keyword">extends</span> <span class="token class-name">E</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">)</span> c<span class="token punctuation">;</span>
+        <span class="token class-name">TreeMap</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">E</span><span class="token punctuation">,</span><span class="token class-name">Object</span><span class="token punctuation">&gt;</span></span> map <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">TreeMap</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">E</span><span class="token punctuation">,</span> <span class="token class-name">Object</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">)</span> m<span class="token punctuation">;</span>
+        <span class="token class-name">Comparator</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span> cc <span class="token operator">=</span> set<span class="token punctuation">.</span><span class="token function">comparator</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">Comparator</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span> <span class="token keyword">super</span> <span class="token class-name">E</span><span class="token punctuation">&gt;</span></span> mc <span class="token operator">=</span> map<span class="token punctuation">.</span><span class="token function">comparator</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>cc<span class="token operator">==</span>mc <span class="token operator">||</span> <span class="token punctuation">(</span>cc <span class="token operator">!=</span> <span class="token keyword">null</span> <span class="token operator">&amp;&amp;</span> cc<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>mc<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            map<span class="token punctuation">.</span><span class="token function">addAllForTreeSet</span><span class="token punctuation">(</span>set<span class="token punctuation">,</span> PRESENT<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">addAll</span><span class="token punctuation">(</span>c<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">/**
+ * Returns an iterator over the elements in this set in ascending order.
+ *
+ * @return an iterator over the elements in this set in ascending order
+ *
+ * 以升序返回此集合中元素的迭代器。
+ */</span>
+<span class="token keyword">public</span> <span class="token class-name">Iterator</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">E</span><span class="token punctuation">&gt;</span></span> <span class="token function">iterator</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> m<span class="token punctuation">.</span><span class="token function">navigableKeySet</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">iterator</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">/**
+ * Returns an iterator over the elements in this set in descending order.
+ *
+ * @return an iterator over the elements in this set in descending order
+ * @since 1.6
+ *
+ * 以降序返回此集合中元素的迭代器。
+ */</span>
+<span class="token keyword">public</span> <span class="token class-name">Iterator</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">E</span><span class="token punctuation">&gt;</span></span> <span class="token function">descendingIterator</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> m<span class="token punctuation">.</span><span class="token function">descendingKeySet</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">iterator</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h2 id="总结">总结</h2> <ol><li>不能有重复的元素；</li> <li>具有排序功能；</li> <li>TreeSet中的元素必须实现Comparable接口并重写compareTo()方法，TreeSet判断元素是否重复 、以及确定元素的顺序 靠的都是这个方法；</li> <li>对于java类库中定义的类，TreeSet可以直接对其进行存储，如String，Integer等,因为这些类已经实现了Comparable接口);</li> <li>对于自定义类，如果不做适当的处理，TreeSet中只能存储一个该类型的对象实例，否则无法判断是否重复。</li> <li>依赖于TreeMap，底层是TreeMap。</li> <li>相对HashSet,TreeSet的优势是有序，劣势是相对读取慢。</li></ol> <h3 id="treeset-与-hashset">TreeSet 与 HashSet</h3> <ul><li>相同点：都是唯一不重复的 Set 集合</li> <li>不同点：
+<ul><li>底层结构：HashSet 是用 Hash 表来存储数据，而 TreeSet 是采用二叉平衡树来存储数据。</li> <li>功能上：由于 TreeSet 是有序的 Set，可以使用 SortedSet 接口的 first()、last()等方法；但由于要排序，势必要影响速度；所以，在不需要顺序的情况下，使用 HashSet，在这方面使用 Hash 表存储数据的 HashSet 在速度上更胜一筹；如果需要顺序则使用 TreeSet。</li></ul></li></ul> <h3 id="treeset-与-hashmap">TreeSet 与 HashMap</h3> <ul><li>相同点：
+<ul><li>TreeMap 和 TreeSet 都是有序的集合。</li> <li>TreeMap 和 TreeSet 都是非同步集合，因此它们不能在多线程之间共享，不过可以使用方法 Collections.synchroinzedMap() 来实现同步。</li> <li>运行速度都要比 Hash 集合满，它们内部对元素的操作时间复杂度为 O(logN)，而 HashMap / HashSet 则为 O(1)。</li></ul></li> <li>不同点：
+<ul><li>实现的接口不同，TreeSet 实现 Set 接口，而 TreeMap 实现 Map 接口。</li> <li>TreeSet 只存储一个对象，而 TreeMap 存储两个对象 key 和 value。</li> <li>TreeSet 种不能有重复对象，而 TreeMap 种可以存在。</li></ul></li></ul></div></section> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev"><a href="/learning_blog/java/container/LinkedHashSet.html" class="prev">
+            LinkedHashSet
+          </a></span> <span class="next"><a href="/learning_blog/java/container/HashMap7.html">
+            HashMap（JDK 1.7）
+          </a></span></p></div> <div class="comments-wrapper"><!----></div> <ul class="side-bar sub-sidebar-wrapper" style="width:12rem;" data-v-70334359><li class="level-2" data-v-70334359><a href="/learning_blog/java/container/TreeSet.html#继承关系" class="sidebar-link reco-side-继承关系" data-v-70334359>继承关系</a></li><li class="level-2" data-v-70334359><a href="/learning_blog/java/container/TreeSet.html#源码分析" class="sidebar-link reco-side-源码分析" data-v-70334359>源码分析</a></li><li class="level-3" data-v-70334359><a href="/learning_blog/java/container/TreeSet.html#基本属性" class="sidebar-link reco-side-基本属性" data-v-70334359>基本属性</a></li><li class="level-3" data-v-70334359><a href="/learning_blog/java/container/TreeSet.html#构造方法及初始化" class="sidebar-link reco-side-构造方法及初始化" data-v-70334359>构造方法及初始化</a></li><li class="level-3" data-v-70334359><a href="/learning_blog/java/container/TreeSet.html#常用方法" class="sidebar-link reco-side-常用方法" data-v-70334359>常用方法</a></li><li class="level-2" data-v-70334359><a href="/learning_blog/java/container/TreeSet.html#总结" class="sidebar-link reco-side-总结" data-v-70334359>总结</a></li><li class="level-3" data-v-70334359><a href="/learning_blog/java/container/TreeSet.html#treeset-与-hashset" class="sidebar-link reco-side-treeset-与-hashset" data-v-70334359>TreeSet 与 HashSet</a></li><li class="level-3" data-v-70334359><a href="/learning_blog/java/container/TreeSet.html#treeset-与-hashmap" class="sidebar-link reco-side-treeset-与-hashmap" data-v-70334359>TreeSet 与 HashMap</a></li></ul></main> <!----></div></div></div></div><div class="global-ui"><div class="back-to-ceiling" style="right:1rem;bottom:6rem;width:2.5rem;height:2.5rem;border-radius:.25rem;line-height:2.5rem;display:none;" data-v-c6073ba8 data-v-c6073ba8><svg t="1574745035067" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5404" class="icon" data-v-c6073ba8><path d="M526.60727968 10.90185116a27.675 27.675 0 0 0-29.21455937 0c-131.36607665 82.28402758-218.69155461 228.01873535-218.69155402 394.07834331a462.20625001 462.20625001 0 0 0 5.36959153 69.94390903c1.00431239 6.55289093-0.34802892 13.13561351-3.76865779 18.80351572-32.63518765 54.11355614-51.75690182 118.55860487-51.7569018 187.94566865a371.06718723 371.06718723 0 0 0 11.50484808 91.98906777c6.53300375 25.50556257 41.68394495 28.14064038 52.69160883 4.22606766 17.37162448-37.73630017 42.14135425-72.50938081 72.80769204-103.21549295 2.18761121 3.04276886 4.15646224 6.24463696 6.40373557 9.22774369a1871.4375 1871.4375 0 0 0 140.04691725 5.34970492 1866.36093723 1866.36093723 0 0 0 140.04691723-5.34970492c2.24727335-2.98310674 4.21612437-6.18497483 6.3937923-9.2178004 30.66633723 30.70611158 55.4360664 65.4791928 72.80769147 103.21549355 11.00766384 23.91457269 46.15860503 21.27949489 52.69160879-4.22606768a371.15156223 371.15156223 0 0 0 11.514792-91.99901164c0-69.36717486-19.13165746-133.82216804-51.75690182-187.92578088-3.42062944-5.66790279-4.76302748-12.26056868-3.76865837-18.80351632a462.20625001 462.20625001 0 0 0 5.36959269-69.943909c-0.00994388-166.08943902-87.32547796-311.81420293-218.6915546-394.09823051zM605.93803103 357.87693858a93.93749974 93.93749974 0 1 1-187.89594924 6.1e-7 93.93749974 93.93749974 0 0 1 187.89594924-6.1e-7z" p-id="5405" data-v-c6073ba8></path><path d="M429.50777625 765.63860547C429.50777625 803.39355007 466.44236686 1000.39046097 512.00932183 1000.39046097c45.56695499 0 82.4922232-197.00623328 82.5015456-234.7518555 0-37.75494459-36.9345906-68.35043303-82.4922232-68.34111062-45.57627738-0.00932239-82.52019037 30.59548842-82.51086798 68.34111062z" p-id="5406" data-v-c6073ba8></path></svg></div><canvas id="vuepress-canvas-cursor"></canvas><div class="cat-container" data-v-a13867c0><canvas id="vuepress-cat" width="280" height="250" class="live2d" data-v-a13867c0></canvas></div><!----></div></div>
+    <script src="/learning_blog/assets/js/app.e6e1c34c.js" defer></script><script src="/learning_blog/assets/js/4.ff23c0b7.js" defer></script><script src="/learning_blog/assets/js/1.81582bd8.js" defer></script><script src="/learning_blog/assets/js/51.0da4f39b.js" defer></script><script src="/learning_blog/assets/js/8.f416b1e6.js" defer></script>
+  </body>
+</html>

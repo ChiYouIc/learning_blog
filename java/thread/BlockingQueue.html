@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>阻塞队列 | 一兜小白菜</title>
+    <meta name="generator" content="VuePress 1.8.2">
+    <link rel="icon" href="/learning_blog/logo.png">
+    <link rel="manifest" href="/learning_blog/manifest.json">
+    <meta name="description" content="任何职业都可以成为黑客。你可以是一个木匠黑客。不一定是高科技。只要与技能有关，并且倾心专注于你正在做的事情，你就可能成为黑客。">
+    
+    <link rel="preload" href="/learning_blog/assets/css/0.styles.c68b611a.css" as="style"><link rel="preload" href="/learning_blog/assets/js/app.e6e1c34c.js" as="script"><link rel="preload" href="/learning_blog/assets/js/4.ff23c0b7.js" as="script"><link rel="preload" href="/learning_blog/assets/js/1.81582bd8.js" as="script"><link rel="preload" href="/learning_blog/assets/js/94.174920d9.js" as="script"><link rel="preload" href="/learning_blog/assets/js/8.f416b1e6.js" as="script"><link rel="prefetch" href="/learning_blog/assets/js/10.58adca44.js"><link rel="prefetch" href="/learning_blog/assets/js/100.c3e38fd7.js"><link rel="prefetch" href="/learning_blog/assets/js/101.71ef1da5.js"><link rel="prefetch" href="/learning_blog/assets/js/102.3a27c764.js"><link rel="prefetch" href="/learning_blog/assets/js/103.d8079be3.js"><link rel="prefetch" href="/learning_blog/assets/js/104.5ec19ab4.js"><link rel="prefetch" href="/learning_blog/assets/js/105.641d7f30.js"><link rel="prefetch" href="/learning_blog/assets/js/106.17533908.js"><link rel="prefetch" href="/learning_blog/assets/js/107.ef428cf3.js"><link rel="prefetch" href="/learning_blog/assets/js/108.8955c0b8.js"><link rel="prefetch" href="/learning_blog/assets/js/109.a4034281.js"><link rel="prefetch" href="/learning_blog/assets/js/11.64cdb03a.js"><link rel="prefetch" href="/learning_blog/assets/js/110.0f3db165.js"><link rel="prefetch" href="/learning_blog/assets/js/111.a6baa137.js"><link rel="prefetch" href="/learning_blog/assets/js/112.0efc57dc.js"><link rel="prefetch" href="/learning_blog/assets/js/113.e20800cf.js"><link rel="prefetch" href="/learning_blog/assets/js/114.24666c6e.js"><link rel="prefetch" href="/learning_blog/assets/js/115.c931f24e.js"><link rel="prefetch" href="/learning_blog/assets/js/116.b4b50591.js"><link rel="prefetch" href="/learning_blog/assets/js/117.1466ffb7.js"><link rel="prefetch" href="/learning_blog/assets/js/118.3dc9a8cc.js"><link rel="prefetch" href="/learning_blog/assets/js/119.55cc810f.js"><link rel="prefetch" href="/learning_blog/assets/js/12.37800769.js"><link rel="prefetch" href="/learning_blog/assets/js/120.5d596352.js"><link rel="prefetch" href="/learning_blog/assets/js/121.d0a2bb19.js"><link rel="prefetch" href="/learning_blog/assets/js/122.4223d0e2.js"><link rel="prefetch" href="/learning_blog/assets/js/123.d14c8967.js"><link rel="prefetch" href="/learning_blog/assets/js/124.0fc87088.js"><link rel="prefetch" href="/learning_blog/assets/js/125.dfe739d7.js"><link rel="prefetch" href="/learning_blog/assets/js/126.0ceed23b.js"><link rel="prefetch" href="/learning_blog/assets/js/127.e1351c71.js"><link rel="prefetch" href="/learning_blog/assets/js/128.e9c08785.js"><link rel="prefetch" href="/learning_blog/assets/js/129.375419eb.js"><link rel="prefetch" href="/learning_blog/assets/js/13.27b4e468.js"><link rel="prefetch" href="/learning_blog/assets/js/130.925350ba.js"><link rel="prefetch" href="/learning_blog/assets/js/131.22a9bdb2.js"><link rel="prefetch" href="/learning_blog/assets/js/132.aedcc038.js"><link rel="prefetch" href="/learning_blog/assets/js/133.a7fc8c8f.js"><link rel="prefetch" href="/learning_blog/assets/js/134.7c062a25.js"><link rel="prefetch" href="/learning_blog/assets/js/135.edeca75d.js"><link rel="prefetch" href="/learning_blog/assets/js/136.8f20389e.js"><link rel="prefetch" href="/learning_blog/assets/js/137.fea26a7b.js"><link rel="prefetch" href="/learning_blog/assets/js/138.371da223.js"><link rel="prefetch" href="/learning_blog/assets/js/139.0d856709.js"><link rel="prefetch" href="/learning_blog/assets/js/14.e1478ea8.js"><link rel="prefetch" href="/learning_blog/assets/js/140.cf989f01.js"><link rel="prefetch" href="/learning_blog/assets/js/141.453925ca.js"><link rel="prefetch" href="/learning_blog/assets/js/142.61fe7b6e.js"><link rel="prefetch" href="/learning_blog/assets/js/143.c6d38d96.js"><link rel="prefetch" href="/learning_blog/assets/js/144.d56f9555.js"><link rel="prefetch" href="/learning_blog/assets/js/145.5ea7e139.js"><link rel="prefetch" href="/learning_blog/assets/js/146.7a0eb5c7.js"><link rel="prefetch" href="/learning_blog/assets/js/147.bf426f23.js"><link rel="prefetch" href="/learning_blog/assets/js/148.a423a0f8.js"><link rel="prefetch" href="/learning_blog/assets/js/149.928a0e3a.js"><link rel="prefetch" href="/learning_blog/assets/js/15.07fa313c.js"><link rel="prefetch" href="/learning_blog/assets/js/150.d7e729a8.js"><link rel="prefetch" href="/learning_blog/assets/js/151.6cd16f87.js"><link rel="prefetch" href="/learning_blog/assets/js/16.425e28fa.js"><link rel="prefetch" href="/learning_blog/assets/js/17.a9fca2d8.js"><link rel="prefetch" href="/learning_blog/assets/js/18.8fb99b25.js"><link rel="prefetch" href="/learning_blog/assets/js/19.29145c92.js"><link rel="prefetch" href="/learning_blog/assets/js/20.87886092.js"><link rel="prefetch" href="/learning_blog/assets/js/21.e69894c0.js"><link rel="prefetch" href="/learning_blog/assets/js/22.9d216b69.js"><link rel="prefetch" href="/learning_blog/assets/js/23.8c8cc5b8.js"><link rel="prefetch" href="/learning_blog/assets/js/24.da7befb5.js"><link rel="prefetch" href="/learning_blog/assets/js/25.aba65622.js"><link rel="prefetch" href="/learning_blog/assets/js/26.3dd77b52.js"><link rel="prefetch" href="/learning_blog/assets/js/27.e5f60060.js"><link rel="prefetch" href="/learning_blog/assets/js/28.520f8846.js"><link rel="prefetch" href="/learning_blog/assets/js/29.85cba1c5.js"><link rel="prefetch" href="/learning_blog/assets/js/30.fa653075.js"><link rel="prefetch" href="/learning_blog/assets/js/31.1a1ede8e.js"><link rel="prefetch" href="/learning_blog/assets/js/32.3c34adc1.js"><link rel="prefetch" href="/learning_blog/assets/js/33.b3030e84.js"><link rel="prefetch" href="/learning_blog/assets/js/34.7632da2a.js"><link rel="prefetch" href="/learning_blog/assets/js/35.5c9094dd.js"><link rel="prefetch" href="/learning_blog/assets/js/36.f96ff6e1.js"><link rel="prefetch" href="/learning_blog/assets/js/37.0d008c56.js"><link rel="prefetch" href="/learning_blog/assets/js/38.dea1713b.js"><link rel="prefetch" href="/learning_blog/assets/js/39.9b6a40d4.js"><link rel="prefetch" href="/learning_blog/assets/js/40.38ed0206.js"><link rel="prefetch" href="/learning_blog/assets/js/41.12b53694.js"><link rel="prefetch" href="/learning_blog/assets/js/42.0a1bf74c.js"><link rel="prefetch" href="/learning_blog/assets/js/43.5375d7c9.js"><link rel="prefetch" href="/learning_blog/assets/js/44.82bb804e.js"><link rel="prefetch" href="/learning_blog/assets/js/45.67a4706a.js"><link rel="prefetch" href="/learning_blog/assets/js/46.fcba3164.js"><link rel="prefetch" href="/learning_blog/assets/js/47.8658a1cc.js"><link rel="prefetch" href="/learning_blog/assets/js/48.51f5a45d.js"><link rel="prefetch" href="/learning_blog/assets/js/49.93b1425f.js"><link rel="prefetch" href="/learning_blog/assets/js/5.24f9e3cd.js"><link rel="prefetch" href="/learning_blog/assets/js/50.855fad56.js"><link rel="prefetch" href="/learning_blog/assets/js/51.0da4f39b.js"><link rel="prefetch" href="/learning_blog/assets/js/52.ecdfca48.js"><link rel="prefetch" href="/learning_blog/assets/js/53.a7febaa9.js"><link rel="prefetch" href="/learning_blog/assets/js/54.870d0e17.js"><link rel="prefetch" href="/learning_blog/assets/js/55.c7201cec.js"><link rel="prefetch" href="/learning_blog/assets/js/56.42f1a7b2.js"><link rel="prefetch" href="/learning_blog/assets/js/57.a07e4e0b.js"><link rel="prefetch" href="/learning_blog/assets/js/58.a68368b2.js"><link rel="prefetch" href="/learning_blog/assets/js/59.bb85fc0d.js"><link rel="prefetch" href="/learning_blog/assets/js/6.2d21da84.js"><link rel="prefetch" href="/learning_blog/assets/js/60.baf33af5.js"><link rel="prefetch" href="/learning_blog/assets/js/61.146a561e.js"><link rel="prefetch" href="/learning_blog/assets/js/62.0f723ed7.js"><link rel="prefetch" href="/learning_blog/assets/js/63.2a3264a5.js"><link rel="prefetch" href="/learning_blog/assets/js/64.38c1721e.js"><link rel="prefetch" href="/learning_blog/assets/js/65.81ff89ba.js"><link rel="prefetch" href="/learning_blog/assets/js/66.56685ef7.js"><link rel="prefetch" href="/learning_blog/assets/js/67.8f16a979.js"><link rel="prefetch" href="/learning_blog/assets/js/68.69433f16.js"><link rel="prefetch" href="/learning_blog/assets/js/69.99218738.js"><link rel="prefetch" href="/learning_blog/assets/js/7.706ac388.js"><link rel="prefetch" href="/learning_blog/assets/js/70.27595144.js"><link rel="prefetch" href="/learning_blog/assets/js/71.b08b8cdf.js"><link rel="prefetch" href="/learning_blog/assets/js/72.29b2d9ce.js"><link rel="prefetch" href="/learning_blog/assets/js/73.2e100c2e.js"><link rel="prefetch" href="/learning_blog/assets/js/74.d0513690.js"><link rel="prefetch" href="/learning_blog/assets/js/75.2b371472.js"><link rel="prefetch" href="/learning_blog/assets/js/76.b993c2c6.js"><link rel="prefetch" href="/learning_blog/assets/js/77.2f22d7d3.js"><link rel="prefetch" href="/learning_blog/assets/js/78.0f685bfc.js"><link rel="prefetch" href="/learning_blog/assets/js/79.cb3e911c.js"><link rel="prefetch" href="/learning_blog/assets/js/80.2738107d.js"><link rel="prefetch" href="/learning_blog/assets/js/81.1425f348.js"><link rel="prefetch" href="/learning_blog/assets/js/82.a4532418.js"><link rel="prefetch" href="/learning_blog/assets/js/83.b846c18d.js"><link rel="prefetch" href="/learning_blog/assets/js/84.122f9ad2.js"><link rel="prefetch" href="/learning_blog/assets/js/85.23f37097.js"><link rel="prefetch" href="/learning_blog/assets/js/86.74b20100.js"><link rel="prefetch" href="/learning_blog/assets/js/87.bfc377d3.js"><link rel="prefetch" href="/learning_blog/assets/js/88.3fe754ec.js"><link rel="prefetch" href="/learning_blog/assets/js/89.3739c793.js"><link rel="prefetch" href="/learning_blog/assets/js/9.de853e93.js"><link rel="prefetch" href="/learning_blog/assets/js/90.7bdbcef5.js"><link rel="prefetch" href="/learning_blog/assets/js/91.8ab64d44.js"><link rel="prefetch" href="/learning_blog/assets/js/92.207acafe.js"><link rel="prefetch" href="/learning_blog/assets/js/93.c5be03f7.js"><link rel="prefetch" href="/learning_blog/assets/js/95.e214b95b.js"><link rel="prefetch" href="/learning_blog/assets/js/96.67ec6921.js"><link rel="prefetch" href="/learning_blog/assets/js/97.26bc9461.js"><link rel="prefetch" href="/learning_blog/assets/js/98.7cc709e3.js"><link rel="prefetch" href="/learning_blog/assets/js/99.68f77857.js"><link rel="prefetch" href="/learning_blog/assets/js/vendors~flowchart.7829265f.js">
+    <link rel="stylesheet" href="/learning_blog/assets/css/0.styles.c68b611a.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container" data-v-1156296a><div data-v-1156296a><div id="loader-wrapper" class="loading-wrapper" data-v-d48f4d20 data-v-1156296a data-v-1156296a><div class="loader-main" data-v-d48f4d20><div data-v-d48f4d20></div><div data-v-d48f4d20></div><div data-v-d48f4d20></div><div data-v-d48f4d20></div></div> <!----> <!----></div> <div class="password-shadow password-wrapper-out" style="display:none;" data-v-4e82dffc data-v-1156296a data-v-1156296a><h3 class="title" data-v-4e82dffc data-v-4e82dffc>一兜小白菜</h3> <p class="description" data-v-4e82dffc data-v-4e82dffc>任何职业都可以成为黑客。你可以是一个木匠黑客。不一定是高科技。只要与技能有关，并且倾心专注于你正在做的事情，你就可能成为黑客。</p> <label id="box" class="inputBox" data-v-4e82dffc data-v-4e82dffc><input type="password" value="" data-v-4e82dffc> <span data-v-4e82dffc>Konck! Knock!</span> <button data-v-4e82dffc>OK</button></label> <div class="footer" data-v-4e82dffc data-v-4e82dffc><span data-v-4e82dffc><i class="iconfont reco-theme" data-v-4e82dffc></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-4e82dffc>vuePress-theme-reco</a></span> <span data-v-4e82dffc><i class="iconfont reco-copyright" data-v-4e82dffc></i> <a data-v-4e82dffc><span data-v-4e82dffc>顿顿白菜</span>
+            
+          <!---->
+          2022
+        </a></span></div></div> <div class="hide" data-v-1156296a><header class="navbar" data-v-1156296a><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/learning_blog/" class="home-link router-link-active"><img src="/learning_blog/logo.png" alt="一兜小白菜" class="logo"> <span class="site-name">一兜小白菜</span></a> <div class="links"><div class="color-picker"><a class="color-button"><i class="iconfont reco-color"></i></a> <div class="color-picker-menu" style="display:none;"><div class="mode-options"><h4 class="title">Choose mode</h4> <ul class="color-mode-options"><li class="dark">dark</li><li class="auto active">auto</li><li class="light">light</li></ul></div></div></div> <div class="search-box"><i class="iconfont reco-search"></i> <input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/learning_blog/" class="nav-link"><i class="iconfont reco-home"></i>
+  首页
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-category"></i>
+      分类
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/categories/架构师/" class="nav-link"><i class="undefined"></i>
+  架构师
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/数据库/" class="nav-link"><i class="undefined"></i>
+  数据库
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/Go/" class="nav-link"><i class="undefined"></i>
+  Go
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/Java/" class="nav-link"><i class="undefined"></i>
+  Java
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/微服务/" class="nav-link"><i class="undefined"></i>
+  微服务
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/计算机网络/" class="nav-link"><i class="undefined"></i>
+  计算机网络
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/container 容器/" class="nav-link"><i class="undefined"></i>
+  container 容器
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/操作系统/" class="nav-link"><i class="undefined"></i>
+  操作系统
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/设计模式/" class="nav-link"><i class="undefined"></i>
+  设计模式
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/多线程/" class="nav-link"><i class="undefined"></i>
+  多线程
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/数据结构/" class="nav-link"><i class="undefined"></i>
+  数据结构
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/Server/" class="nav-link"><i class="undefined"></i>
+  Server
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/Spring 系列/" class="nav-link"><i class="undefined"></i>
+  Spring 系列
+</a></li></ul></div></div><div class="nav-item"><a href="/learning_blog/tag/" class="nav-link"><i class="iconfont reco-tag"></i>
+  标签
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="fab fa-java"></i>
+      Java Learning
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/java/jvm/" class="nav-link"><i class="undefined"></i>
+  JVM 虚拟机
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/java/thread/" class="nav-link router-link-active"><i class="undefined"></i>
+  Java 多线程
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/java/container/" class="nav-link"><i class="undefined"></i>
+  Java 集合框架
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/java/io/" class="nav-link"><i class="undefined"></i>
+  Java IO
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/java/nio/" class="nav-link"><i class="undefined"></i>
+  Java NIO
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/java/design/" class="nav-link"><i class="undefined"></i>
+  设计模式
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="fas fa-gopuram"></i>
+      Go Learning
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/go/base/" class="nav-link"><i class="undefined"></i>
+  GO 基础
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="fas fa-seedling"></i>
+      Spring Learning
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/spring/spring/" class="nav-link"><i class="undefined"></i>
+  Spring
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/spring/springBoot/" class="nav-link"><i class="undefined"></i>
+  SpringBoot
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/spring/springSecurity/" class="nav-link"><i class="undefined"></i>
+  SpringSecurity
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="fas fa-cloud"></i>
+      微服务
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/ddd/" class="nav-link"><i class="undefined"></i>
+  领域驱动设计
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/eureka/" class="nav-link"><i class="undefined"></i>
+  Eureka 服务注册与发现
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/ribbon/" class="nav-link"><i class="undefined"></i>
+  Ribbon 负载均衡
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/feign/" class="nav-link"><i class="undefined"></i>
+  Feign 声明式服务调用
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/hystrix/" class="nav-link"><i class="undefined"></i>
+  Hystrix 服务容错保护
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/zuul/" class="nav-link"><i class="undefined"></i>
+  Zuul 路由网关
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/gateway/" class="nav-link"><i class="undefined"></i>
+  Gateway 服务网关
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="fas fa-database"></i>
+      数据库
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/database/mysql/" class="nav-link"><i class="undefined"></i>
+  MySQL
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/database/redis/" class="nav-link"><i class="undefined"></i>
+  Redis
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/database/mongodb/" class="nav-link"><i class="undefined"></i>
+  MongoDB
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="fas fa-server"></i>
+      操作系统
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/server/operating/" class="nav-link"><i class="undefined"></i>
+  操作系统
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/server/network/" class="nav-link"><i class="undefined"></i>
+  计算机网络
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/server/algorithm/" class="nav-link"><i class="undefined"></i>
+  数据结构与算法
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/server/nginx/" class="nav-link"><i class="undefined"></i>
+  Nginx
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/server/docker/" class="nav-link"><i class="undefined"></i>
+  Docker
+</a></li></ul></div></div><div class="nav-item"><a href="/learning_blog/architect/" class="nav-link"><i class="fas fa-sitemap"></i>
+  软件架构师
+</a></div><div class="nav-item"><a href="/learning_blog/timeline/" class="nav-link"><i class="iconfont reco-date"></i>
+  时间线
+</a></div> <!----></nav></div></header> <div class="sidebar-mask" data-v-1156296a></div> <aside class="sidebar" data-v-1156296a><div class="personal-info-wrapper" data-v-828910c6 data-v-1156296a><img src="/learning_blog/avatar.jpg" alt="author-avatar" class="personal-img" data-v-828910c6> <h3 class="name" data-v-828910c6>
+    顿顿白菜
+  </h3> <div class="num" data-v-828910c6><div data-v-828910c6><h3 data-v-828910c6>137</h3> <h6 data-v-828910c6>文章</h6></div> <div data-v-828910c6><h3 data-v-828910c6>21</h3> <h6 data-v-828910c6>标签</h6></div></div> <ul class="social-links" data-v-828910c6><li class="social-item" data-v-828910c6><i class="iconfont reco-github" style="color:#abbd81;" data-v-828910c6></i></li><li class="social-item" data-v-828910c6><i class="iconfont reco-mayun" style="color:#f47e60;" data-v-828910c6></i></li><li class="social-item" data-v-828910c6><i class="iconfont reco-wechat" style="color:#f8b26a;" data-v-828910c6></i></li><li class="social-item" data-v-828910c6><i class="iconfont reco-qq" style="color:#abbd81;" data-v-828910c6></i></li></ul> <hr data-v-828910c6></div> <nav class="nav-links"><div class="nav-item"><a href="/learning_blog/" class="nav-link"><i class="iconfont reco-home"></i>
+  首页
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-category"></i>
+      分类
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/categories/架构师/" class="nav-link"><i class="undefined"></i>
+  架构师
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/数据库/" class="nav-link"><i class="undefined"></i>
+  数据库
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/Go/" class="nav-link"><i class="undefined"></i>
+  Go
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/Java/" class="nav-link"><i class="undefined"></i>
+  Java
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/微服务/" class="nav-link"><i class="undefined"></i>
+  微服务
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/计算机网络/" class="nav-link"><i class="undefined"></i>
+  计算机网络
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/container 容器/" class="nav-link"><i class="undefined"></i>
+  container 容器
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/操作系统/" class="nav-link"><i class="undefined"></i>
+  操作系统
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/设计模式/" class="nav-link"><i class="undefined"></i>
+  设计模式
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/多线程/" class="nav-link"><i class="undefined"></i>
+  多线程
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/数据结构/" class="nav-link"><i class="undefined"></i>
+  数据结构
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/Server/" class="nav-link"><i class="undefined"></i>
+  Server
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/categories/Spring 系列/" class="nav-link"><i class="undefined"></i>
+  Spring 系列
+</a></li></ul></div></div><div class="nav-item"><a href="/learning_blog/tag/" class="nav-link"><i class="iconfont reco-tag"></i>
+  标签
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="fab fa-java"></i>
+      Java Learning
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/java/jvm/" class="nav-link"><i class="undefined"></i>
+  JVM 虚拟机
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/java/thread/" class="nav-link router-link-active"><i class="undefined"></i>
+  Java 多线程
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/java/container/" class="nav-link"><i class="undefined"></i>
+  Java 集合框架
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/java/io/" class="nav-link"><i class="undefined"></i>
+  Java IO
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/java/nio/" class="nav-link"><i class="undefined"></i>
+  Java NIO
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/java/design/" class="nav-link"><i class="undefined"></i>
+  设计模式
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="fas fa-gopuram"></i>
+      Go Learning
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/go/base/" class="nav-link"><i class="undefined"></i>
+  GO 基础
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="fas fa-seedling"></i>
+      Spring Learning
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/spring/spring/" class="nav-link"><i class="undefined"></i>
+  Spring
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/spring/springBoot/" class="nav-link"><i class="undefined"></i>
+  SpringBoot
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/spring/springSecurity/" class="nav-link"><i class="undefined"></i>
+  SpringSecurity
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="fas fa-cloud"></i>
+      微服务
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/ddd/" class="nav-link"><i class="undefined"></i>
+  领域驱动设计
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/eureka/" class="nav-link"><i class="undefined"></i>
+  Eureka 服务注册与发现
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/ribbon/" class="nav-link"><i class="undefined"></i>
+  Ribbon 负载均衡
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/feign/" class="nav-link"><i class="undefined"></i>
+  Feign 声明式服务调用
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/hystrix/" class="nav-link"><i class="undefined"></i>
+  Hystrix 服务容错保护
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/zuul/" class="nav-link"><i class="undefined"></i>
+  Zuul 路由网关
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/microservice/gateway/" class="nav-link"><i class="undefined"></i>
+  Gateway 服务网关
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="fas fa-database"></i>
+      数据库
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/database/mysql/" class="nav-link"><i class="undefined"></i>
+  MySQL
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/database/redis/" class="nav-link"><i class="undefined"></i>
+  Redis
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/database/mongodb/" class="nav-link"><i class="undefined"></i>
+  MongoDB
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="fas fa-server"></i>
+      操作系统
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learning_blog/server/operating/" class="nav-link"><i class="undefined"></i>
+  操作系统
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/server/network/" class="nav-link"><i class="undefined"></i>
+  计算机网络
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/server/algorithm/" class="nav-link"><i class="undefined"></i>
+  数据结构与算法
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/server/nginx/" class="nav-link"><i class="undefined"></i>
+  Nginx
+</a></li><li class="dropdown-item"><!----> <a href="/learning_blog/server/docker/" class="nav-link"><i class="undefined"></i>
+  Docker
+</a></li></ul></div></div><div class="nav-item"><a href="/learning_blog/architect/" class="nav-link"><i class="fas fa-sitemap"></i>
+  软件架构师
+</a></div><div class="nav-item"><a href="/learning_blog/timeline/" class="nav-link"><i class="iconfont reco-date"></i>
+  时间线
+</a></div> <!----></nav> <ul class="sidebar-links"><li><a href="/learning_blog/java/thread/" aria-current="page" class="sidebar-link">线程概念</a></li><li><a href="/learning_blog/java/thread/ThreadCreation.html" class="sidebar-link">线程创建方式</a></li><li><a href="/learning_blog/java/thread/ThreadPool.html" class="sidebar-link">线程池</a></li><li><a href="/learning_blog/java/thread/ThreadLifeCycle.html" class="sidebar-link">线程生命周期</a></li><li><a href="/learning_blog/java/thread/ThreadStop.html" class="sidebar-link">线程终止</a></li><li><a href="/learning_blog/java/thread/Sleep()AndWait().html" class="sidebar-link">sleep() 与 wait()</a></li><li><a href="/learning_blog/java/thread/Start()AndRun().html" class="sidebar-link">start() 与 Run()</a></li><li><a href="/learning_blog/java/thread/OptimisticAndPessimisticLocks.html" class="sidebar-link">乐观锁与悲观锁</a></li><li><a href="/learning_blog/java/thread/SpinLock.html" class="sidebar-link">自旋锁</a></li><li><a href="/learning_blog/java/thread/SynchronizedLock.html" class="sidebar-link">Synchronized 同步锁</a></li><li><a href="/learning_blog/java/thread/ReentrantLock.html" class="sidebar-link">ReentrantLock</a></li><li><a href="/learning_blog/java/thread/Semaphore.html" class="sidebar-link">Semaphore 信号量</a></li><li><a href="/learning_blog/java/thread/CyclicBarrier.html" class="sidebar-link">CyclicBarrier 栅栏</a></li><li><a href="/learning_blog/java/thread/CountDownLatch.html" class="sidebar-link">CountDownLatch 倒计时器</a></li><li><a href="/learning_blog/java/thread/ThreadLock.html" class="sidebar-link">线程锁</a></li><li><a href="/learning_blog/java/thread/BasicThreadingMethods.html" class="sidebar-link">线程基本方法</a></li><li><a href="/learning_blog/java/thread/ThreadContextSwitch.html" class="sidebar-link">线程上下文切换</a></li><li><a href="/learning_blog/java/thread/SynchronousLocksAndDeadlocks.html" class="sidebar-link">同步锁与死锁</a></li><li><a href="/learning_blog/java/thread/ThreadPoolPrinciple.html" class="sidebar-link">线程池原理</a></li><li><a href="/learning_blog/java/thread/BlockingQueue.html" aria-current="page" class="active sidebar-link">阻塞队列</a></li></ul> </aside> <div class="password-shadow password-wrapper-in" style="display:none;" data-v-4e82dffc data-v-1156296a><h3 class="title" data-v-4e82dffc data-v-4e82dffc>阻塞队列</h3> <!----> <label id="box" class="inputBox" data-v-4e82dffc data-v-4e82dffc><input type="password" value="" data-v-4e82dffc> <span data-v-4e82dffc>Konck! Knock!</span> <button data-v-4e82dffc>OK</button></label> <div class="footer" data-v-4e82dffc data-v-4e82dffc><span data-v-4e82dffc><i class="iconfont reco-theme" data-v-4e82dffc></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-4e82dffc>vuePress-theme-reco</a></span> <span data-v-4e82dffc><i class="iconfont reco-copyright" data-v-4e82dffc></i> <a data-v-4e82dffc><span data-v-4e82dffc>顿顿白菜</span>
+            
+          <!---->
+          2022
+        </a></span></div></div> <div data-v-1156296a><main class="page"><section><div class="page-title"><h1 class="title">阻塞队列</h1> <div data-v-1ff7123e><i class="iconfont reco-account" data-v-1ff7123e><span data-v-1ff7123e>顿顿白菜</span></i> <i class="iconfont reco-date" data-v-1ff7123e><span data-v-1ff7123e>2021/6/9</span></i> <!----> <i class="tags iconfont reco-tag" data-v-1ff7123e><span class="tag-item" data-v-1ff7123e>Thread</span></i></div></div> <div class="theme-reco-content content__default"><p>阻塞队列，关键字是阻塞，先理解阻塞的含义，在阻塞队列中，线程阻塞有这样的两种情况：</p> <ol><li>当队列中没有数据的情况下，消费者端的所有线程都会被自动阻塞（挂起），直到有数据放入队列。</li></ol> <img src="/learning_blog/img/java/thread/BlockingConsumer.png" alt="BlockingConsumer"> <ol start="2"><li>当队列中填满数据的情况下，生产者端的所有线程都会被自动阻塞（挂起），直到队列中有空的位置，线程被自动唤醒。</li></ol> <img src="/learning_blog/img/java/thread/BlockingProducer.png" alt="BlockingProducer"> <h2 id="阻塞队列的主要方法">阻塞队列的主要方法</h2> <table><thead><tr><th style="text-align:left;">方法类型</th> <th>抛出异常</th> <th>特殊值</th> <th>阻塞</th> <th>超时</th></tr></thead> <tbody><tr><td style="text-align:left;">插入</td> <td>add(e)</td> <td>offer(e)</td> <td>put(e)</td> <td>offer(e, time, unit)</td></tr> <tr><td style="text-align:left;">移除</td> <td>remove()</td> <td>poll()</td> <td>take()</td> <td>poll(time, unit)</td></tr> <tr><td style="text-align:left;">检查</td> <td>element()</td> <td>peek()</td> <td>不可用</td> <td>不可用</td></tr></tbody></table> <blockquote><p>抛出异常：抛出一个异常</p> <p>特殊值：返回一个特殊值（null 或 false，视情况而定）</p> <p>阻塞：在成功操作之前，一直阻塞线程</p> <p>超时：放弃前只在最大的时间内阻塞</p></blockquote> <h3 id="插入操作">插入操作</h3> <ol><li><p><code>public abstract boolean add(E param)</code>：将指定元素插入次队列中，成功时返回 true，如果当前没有可用空间，则抛出 IllegalStateException。如果该元素是 NULL，则会抛出 NullPointerException 异常；</p></li> <li><p><code>public abstract boolean offer(E param)</code>： 将指定元素插入此队列中（如果立即可行且不会违反容量限制），成功时返回 true，如果当前没有可用的空间，则返回 false；</p></li> <li><p><code>public abstract void put(E param) throws InterruptedException</code>：将指定元素插入此队列中，将等待可用的空间（如果有必要）；</p></li></ol> <div class="language-java extra-class"><pre class="language-java"><code><span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">put</span><span class="token punctuation">(</span><span class="token class-name">E</span> paramE<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">InterruptedException</span> <span class="token punctuation">{</span>
+    
+    <span class="token function">checkNotNull</span><span class="token punctuation">(</span>paramE<span class="token punctuation">)</span><span class="token punctuation">;</span>
+   
+    <span class="token class-name">ReentrantLock</span> localReentrantLock <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>lock<span class="token punctuation">;</span>
+    
+    localReentrantLock<span class="token punctuation">.</span><span class="token function">lockInterruptibly</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    
+    <span class="token keyword">try</span> <span class="token punctuation">{</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>count <span class="token operator">==</span> <span class="token keyword">this</span><span class="token punctuation">.</span>items<span class="token punctuation">.</span>length<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment">//如果队列满了，则线程阻塞等待</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>notFull<span class="token punctuation">.</span><span class="token function">await</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   
+        <span class="token punctuation">}</span>
+        <span class="token function">enqueue</span><span class="token punctuation">(</span>paramE<span class="token punctuation">)</span><span class="token punctuation">;</span> 
+        localReentrantLock<span class="token punctuation">.</span><span class="token function">unlock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">finally</span> <span class="token punctuation">{</span>
+        localReentrantLock<span class="token punctuation">.</span><span class="token function">unlock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><ol start="4"><li><code>offer(E o, long timeout, TimeUnit unit)</code>：可以设定等待的时间，如果在指定的时间内，还不能往队列中加入 BlockingQueue，则返回失败。</li></ol> <h3 id="获取数据操作">获取数据操作</h3> <ol><li><p><code>poll(time)</code>：取走 BlockingQueue 里排在首位的对象,若不能立即取出，则可以等 time 参数规定的时间，取不到时返回 null;</p></li> <li><p><code>poll(long timeout, TimeUnit unit)</code>： 从 BlockingQueue 取出一个队首的对象，如果在指定时间内，队列一旦有数据可取，则立即返回队列中的数据。否则直到时间超时还没有数据可取，返回失败。</p></li> <li><p><code>take()</code>：取走 BlockingQueue 里排在首位的对象，若 BlockingQueue 为空，阻断进入等待状态直到 BlockingQueue 有新的数据被加入。</p></li> <li><p><code>drainTo()</code>：一次性从 BlockingQueue 获取所有可用的数据对象（还可以指定获取数据的个数），通过该方法，可以提升获取数据效率；不需要多次分批加锁或释放锁。</p></li></ol> <h2 id="阻塞队列">阻塞队列</h2> <ul><li><p>ArrayBlockingQueue：由数组结构组成的有界阻塞队列；</p></li> <li><p>LinkedBlockingQueue：由链表结构组成的有界阻塞队列；</p></li> <li><p>PriorityBlockingQueue：支持优先级排序的无界阻塞队列；</p></li> <li><p>DelayQueue：使用优先级队列实现的无界阻塞队列；</p></li> <li><p>SynchronousQueue：不存储元素的阻塞队列；</p></li> <li><p>LinkedTransferQueue：由链表结构组成的无界阻塞队列；</p></li> <li><p>LinkedBlockingDeque：由链表结构组成的双向阻塞队列。</p></li></ul> <h3 id="示意图">示意图</h3> <img src="/learning_blog/img/java/thread/BlockingQueue.png" alt="BlockingQueue"> <h2 id="arrayblockingqueue-公平、非公平">ArrayBlockingQueue（公平、非公平）</h2> <p>用数组实现的有界阻塞队列。此队列按照先进先出（FIFO）的原则对元素进行排序。<code>默认情况下不保证访问者能公平访地问队列</code>，所谓公平访问队列是指阻塞的所有生产者线程或消费者线程，
+当队列可用时，可以按照阻塞的先后顺序访问队列，即先阻塞的生产者线程，可以先往队列里插入元素，先阻塞的消费者线程，可以先从队列里获取元素。通常情况下为了保证公平性会降低吞吐量。</p> <h3 id="构造方法">### 构造方法</h3> <div class="language-java extra-class"><pre class="language-java"><code><span class="token keyword">public</span> <span class="token class-name">ArrayBlockingQueue</span><span class="token punctuation">(</span><span class="token keyword">int</span> capacity<span class="token punctuation">,</span> <span class="token keyword">boolean</span> fair<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">}</span>
+</code></pre></div><div class="custom-block tip"><p class="title">参数解析</p><ul><li><p>capacity：队列容量</p></li> <li><p>fair：是否公平，true 创建能公平访问地队列，false 反之</p></li></ul></div><h2 id="linkedblockingqueue-两个独立锁提供并发">LinkedBlockingQueue（两个独立锁提供并发）</h2> <p>基于链表的阻塞队列，同 ArrayListBlockingQueue 类似，此队列按照先进先出（FIFO）的原则对元素进行排序。而 LinkedBlockingQueue 之所以能够<code>高效地处理并发数据</code>，
+是因为其对于<code>生产端和消费端分别采用了独立的锁来控制数据同步</code>，这也意味着高并发的情况下生产者和消费者可以并行地操作队列中的数据，以此来提供整个队列的并发性能。</p> <p>LinkedBlockingQueue 默认初始化大小为 <code>Integer.MAX_VALUE</code>。</p> <h3 id="构造方法-2">构造方法</h3> <div class="language-java extra-class"><pre class="language-java"><code><span class="token keyword">public</span> <span class="token class-name">LinkedBlockingQueue</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">(</span><span class="token class-name">Integer</span><span class="token punctuation">.</span>MAX_VALUE<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">public</span> <span class="token class-name">LinkedBlockingQueue</span><span class="token punctuation">(</span><span class="token keyword">int</span> capacity<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">}</span>
+</code></pre></div><div class="custom-block tip"><p class="title">参数详解</p><ul><li>capacity：队列容量，当创建时，不指定初始化容量时，默认容量大小为 Integer.MAX_VALUE。</li></ul></div><h2 id="priorityblockingqueue-compareto-排序实现优先">PriorityBlockingQueue（compareTo 排序实现优先）</h2> <p>这是一个支持优先级的无界队列。默认情况下元素采取自然顺序升序排列。可以自定义实现 compareTo() 方法来指定元素进行排序规则，或者初始化 PriorityBlockingQueue 时，
+指定构造参数 Comparator 来对元素进行排序。需要注意的是不能保证同优先级元素的顺序。</p> <h3 id="构造方法-3">构造方法</h3> <div class="language-java extra-class"><pre class="language-java"><code><span class="token keyword">public</span> <span class="token class-name">PriorityBlockingQueue</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">(</span>DEFAULT_INITIAL_CAPACITY<span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">public</span> <span class="token class-name">PriorityBlockingQueue</span><span class="token punctuation">(</span><span class="token keyword">int</span> initialCapacity<span class="token punctuation">,</span> <span class="token class-name">Comparator</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span> <span class="token keyword">super</span> <span class="token class-name">E</span><span class="token punctuation">&gt;</span></span> comparator<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>    
+<span class="token punctuation">}</span>
+</code></pre></div><div class="custom-block tip"><p class="title">参数详解</p><ul><li><p>initialCapacity：初始化队列容量，默认值，<code>private static final int DEFAULT_INITIAL_CAPACITY = 11;</code></p></li> <li><p>comparator：初始化队列</p></li></ul></div><h2 id="delayqueue-缓存失效、定时任务">DelayQueue（缓存失效、定时任务）</h2> <p>这是一个支持<code>延迟获取元素的无界阻塞队列</code>。队列使用 PriorityQueue 来实现。队列中的元素必须实现 Delayed 接口，在创建元素时可以指定多久才能从队列中获取当前元素。
+只有在延迟期满时才能从队列中提取元素。我们可以将 DelayQueue 运用在一下应用场景：</p> <ol><li><p>缓存系统的设计：可以用 DelayQueue 保存缓存元素的有效期，使用一个线程循环查询 DelayQueue，一旦能从 DelayQueue 中获取元素时，表示缓存有效期到了。</p></li> <li><p>定时任务调度：使用 DelayQueue 保存当前将会执行的任务和执行时间，一旦从 DelayQueue 中获取到任务就开始执行，从比如 TimerQueue 就是使用 DelayQueue 实现的。</p></li></ol> <h2 id="synchronousqueue-不存储数据、可用于传递数据">SynchronousQueue（不存储数据、可用于传递数据）</h2> <p>这是<code>一个不存储元素的阻塞队列。每一个 put 操作必须等待一个 take 操作，否则不能继续添加元素</code>。SynchronousQueue 可以看成是一个传球手，负责把生产者线程处理的数据直接传递给消费者线程。
+队列本身本部存储任何元素，非常适合于传递性场景，比如在一个线程中使用的数据，传递给另外一个线程使用，SynchronousQueue 的吞吐量高于 LinkedBlockingQueue 和 ArrayBlockingQueue。</p> <h3 id="构造方法-4">构造方法</h3> <div class="language-java extra-class"><pre class="language-java"><code><span class="token keyword">public</span> <span class="token class-name">SynchronousQueue</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">public</span> <span class="token class-name">SynchronousQueue</span><span class="token punctuation">(</span><span class="token keyword">boolean</span> fair<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    transferer <span class="token operator">=</span> fair <span class="token operator">?</span> <span class="token keyword">new</span> <span class="token class-name">TransferQueue</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">E</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token keyword">new</span> <span class="token class-name">TransferStack</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">E</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><div class="custom-block tip"><p class="title">参数详解</p><ul><li>fair：默认是 false，创建不公平的存储队列</li></ul></div><h2 id="linkedtransferqueue">LinkedTransferQueue</h2> <p>这是一个由链表结构组成的无界阻塞 TransferQueue 队列。相对于其它阻塞队列，LinkedTransferQueue 多了 <code>tryTransfer</code> 和 <code>transfer</code> 方法。</p> <ol><li>transfer 方法：如果当前有消费者正在等待接收元素（消费者使用 take() 方法或带时间限制的 poll() 方法时），<code>transfer 方法可以把生产者传入的元素立刻 transfer（传输）给消费者</code>。
+如果没有消费者在等待接收元素，<code>transfer 方法会将元素存放在队列的尾节点，并等到该元素被消费者消费了才返回</code>。</li></ol> <div class="language-java extra-class"><pre class="language-java"><code><span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">transfer</span><span class="token punctuation">(</span><span class="token class-name">E</span> e<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">InterruptedException</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">xfer</span><span class="token punctuation">(</span>e<span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">,</span> SYNC<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        
+        <span class="token class-name">Thread</span><span class="token punctuation">.</span><span class="token function">interrupted</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 可能会因为线程中断导致返回失败（消费空数据）</span>
+        
+        <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">InterruptedException</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><ol start="2"><li>tryTransfer 方法。则是用来试探生产者传入的元素是否能直接传给消费者。如果没有消费者等待接收元素，则返回 false。和 transfer 方法的区别是 tryTransfer 方法无论
+消费者是否接收，方法立即放回。而 transfer 方法是必须等到消费者消费了才返回。</li></ol> <div class="language-java extra-class"><pre class="language-java"><code><span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">tryTransfer</span><span class="token punctuation">(</span><span class="token class-name">E</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token function">xfer</span><span class="token punctuation">(</span>e<span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">,</span> NOW<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>对于带有时间限制的 tryTransfer(E e, long timeout, TimeUnit unit) 方法，则是试图把生产者传入的元素直接传给消费者，但是如果没有消费者消费该元素则等待指定的时间再返回，如果超时
+还没有消费元素，则返回 false，如果在超时时间内消费了元素，则返回 true。</p> <div class="language-java extra-class"><pre class="language-java"><code><span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">tryTransfer</span><span class="token punctuation">(</span><span class="token class-name">E</span> e<span class="token punctuation">,</span> <span class="token keyword">long</span> timeout<span class="token punctuation">,</span> <span class="token class-name">TimeUnit</span> unit<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">InterruptedException</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">xfer</span><span class="token punctuation">(</span>e<span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">,</span> TIMED<span class="token punctuation">,</span> unit<span class="token punctuation">.</span><span class="token function">toNanos</span><span class="token punctuation">(</span>timeout<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> 
+        <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+    
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token class-name">Thread</span><span class="token punctuation">.</span><span class="token function">interrupted</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+        
+    <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">InterruptedException</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h2 id="linkedblockingdeque">LinkedBlockingDeque</h2> <p>这是一个由链表结构组成的双向阻塞队列。所谓双向队列指的是<code>可以从队列的两端插入和移除元素</code>。双端队列因为多了一个操作队列的入口，在多线程同时入队时，也就减少了一半的竞争。
+相比其它的阻塞队列，LinkedBlockingDeque 多了 <code>addFirst</code>、<code>addLast</code>、<code>offerFirst</code>、<code>offerLast</code>、<code>peekFirst</code>、<code>peekLast</code> 等方法，以 First 单词结尾的方法表示插入、获取或移除
+双端队列的最后一个元素。另外插入方法 add 等同于 addLast，移除方法 remove 等同于 removeFirst。但是 take 方法却是等同于 takeFirst，所以在使用时还是用带有 First
+和 Last 后缀的方法更清楚。</p> <p>在初始化 LinkedBlockingDeque 时可以设置容量防止其过度膨胀。另外双端队列可以运用在<code>&quot;工作窃取&quot;</code>模式中。</p> <div class="language-java extra-class"><pre class="language-java"><code><span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">addFirst</span><span class="token punctuation">(</span><span class="token class-name">E</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">offerFirst</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">IllegalStateException</span><span class="token punctuation">(</span><span class="token string">&quot;Deque full&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+
+<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">addLast</span><span class="token punctuation">(</span><span class="token class-name">E</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">offerLast</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">IllegalStateException</span><span class="token punctuation">(</span><span class="token string">&quot;Deque full&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">offerFirst</span><span class="token punctuation">(</span><span class="token class-name">E</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>e <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">NullPointerException</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">Node</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">E</span><span class="token punctuation">&gt;</span></span> node <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Node</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">E</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span>e<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">final</span> <span class="token class-name">ReentrantLock</span> lock <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>lock<span class="token punctuation">;</span>
+    lock<span class="token punctuation">.</span><span class="token function">lock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">try</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token function">linkFirst</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">finally</span> <span class="token punctuation">{</span>
+        lock<span class="token punctuation">.</span><span class="token function">unlock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">offerLast</span><span class="token punctuation">(</span><span class="token class-name">E</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>e <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">NullPointerException</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">Node</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">E</span><span class="token punctuation">&gt;</span></span> node <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Node</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">E</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span>e<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">final</span> <span class="token class-name">ReentrantLock</span> lock <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>lock<span class="token punctuation">;</span>
+    lock<span class="token punctuation">.</span><span class="token function">lock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">try</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token function">linkLast</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">finally</span> <span class="token punctuation">{</span>
+        lock<span class="token punctuation">.</span><span class="token function">unlock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">public</span> <span class="token class-name">E</span> <span class="token function">peekFirst</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">final</span> <span class="token class-name">ReentrantLock</span> lock <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>lock<span class="token punctuation">;</span>
+    lock<span class="token punctuation">.</span><span class="token function">lock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">try</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token punctuation">(</span>first <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token operator">?</span> <span class="token keyword">null</span> <span class="token operator">:</span> first<span class="token punctuation">.</span>item<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">finally</span> <span class="token punctuation">{</span>
+        lock<span class="token punctuation">.</span><span class="token function">unlock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">public</span> <span class="token class-name">E</span> <span class="token function">peekLast</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">final</span> <span class="token class-name">ReentrantLock</span> lock <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>lock<span class="token punctuation">;</span>
+    lock<span class="token punctuation">.</span><span class="token function">lock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">try</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token punctuation">(</span>last <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token operator">?</span> <span class="token keyword">null</span> <span class="token operator">:</span> last<span class="token punctuation">.</span>item<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">finally</span> <span class="token punctuation">{</span>
+        lock<span class="token punctuation">.</span><span class="token function">unlock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">public</span> <span class="token class-name">E</span> <span class="token function">removeFirst</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token class-name">E</span> x <span class="token operator">=</span> <span class="token function">pollFirst</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>x <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">NoSuchElementException</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> x<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">public</span> <span class="token class-name">E</span> <span class="token function">removeLast</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token class-name">E</span> x <span class="token operator">=</span> <span class="token function">pollLast</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>x <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">NoSuchElementException</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> x<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">public</span> <span class="token class-name">E</span> <span class="token function">pollFirst</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">final</span> <span class="token class-name">ReentrantLock</span> lock <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>lock<span class="token punctuation">;</span>
+    lock<span class="token punctuation">.</span><span class="token function">lock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">try</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token function">unlinkFirst</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">finally</span> <span class="token punctuation">{</span>
+        lock<span class="token punctuation">.</span><span class="token function">unlock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">public</span> <span class="token class-name">E</span> <span class="token function">pollLast</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">final</span> <span class="token class-name">ReentrantLock</span> lock <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>lock<span class="token punctuation">;</span>
+    lock<span class="token punctuation">.</span><span class="token function">lock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">try</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token function">unlinkLast</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">finally</span> <span class="token punctuation">{</span>
+        lock<span class="token punctuation">.</span><span class="token function">unlock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="构造方法-5">构造方法</h3> <div class="language-java extra-class"><pre class="language-java"><code><span class="token keyword">public</span> <span class="token class-name">LinkedBlockingDeque</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">(</span><span class="token class-name">Integer</span><span class="token punctuation">.</span>MAX_VALUE<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">public</span> <span class="token class-name">LinkedBlockingDeque</span><span class="token punctuation">(</span><span class="token keyword">int</span> capacity<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">}</span>
+</code></pre></div><div class="custom-block tip"><p class="title">参数详解</p><ul><li>capacity：初始化队列大小</li></ul></div></div></section> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev"><a href="/learning_blog/java/thread/ThreadPoolPrinciple.html" class="prev">
+            线程池原理
+          </a></span> <!----></p></div> <div class="comments-wrapper"><!----></div> <ul class="side-bar sub-sidebar-wrapper" style="width:12rem;" data-v-70334359><li class="level-2" data-v-70334359><a href="/learning_blog/java/thread/BlockingQueue.html#阻塞队列的主要方法" class="sidebar-link reco-side-阻塞队列的主要方法" data-v-70334359>阻塞队列的主要方法</a></li><li class="level-3" data-v-70334359><a href="/learning_blog/java/thread/BlockingQueue.html#插入操作" class="sidebar-link reco-side-插入操作" data-v-70334359>插入操作</a></li><li class="level-3" data-v-70334359><a href="/learning_blog/java/thread/BlockingQueue.html#获取数据操作" class="sidebar-link reco-side-获取数据操作" data-v-70334359>获取数据操作</a></li><li class="level-2" data-v-70334359><a href="/learning_blog/java/thread/BlockingQueue.html#阻塞队列" class="sidebar-link reco-side-阻塞队列" data-v-70334359>阻塞队列</a></li><li class="level-3" data-v-70334359><a href="/learning_blog/java/thread/BlockingQueue.html#示意图" class="sidebar-link reco-side-示意图" data-v-70334359>示意图</a></li><li class="level-2" data-v-70334359><a href="/learning_blog/java/thread/BlockingQueue.html#arrayblockingqueue-公平、非公平" class="sidebar-link reco-side-arrayblockingqueue-公平、非公平" data-v-70334359>ArrayBlockingQueue（公平、非公平）</a></li><li class="level-3" data-v-70334359><a href="/learning_blog/java/thread/BlockingQueue.html#构造方法" class="sidebar-link reco-side-构造方法" data-v-70334359>### 构造方法</a></li><li class="level-2" data-v-70334359><a href="/learning_blog/java/thread/BlockingQueue.html#linkedblockingqueue-两个独立锁提供并发" class="sidebar-link reco-side-linkedblockingqueue-两个独立锁提供并发" data-v-70334359>LinkedBlockingQueue（两个独立锁提供并发）</a></li><li class="level-3" data-v-70334359><a href="/learning_blog/java/thread/BlockingQueue.html#构造方法-2" class="sidebar-link reco-side-构造方法-2" data-v-70334359>构造方法</a></li><li class="level-2" data-v-70334359><a href="/learning_blog/java/thread/BlockingQueue.html#priorityblockingqueue-compareto-排序实现优先" class="sidebar-link reco-side-priorityblockingqueue-compareto-排序实现优先" data-v-70334359>PriorityBlockingQueue（compareTo 排序实现优先）</a></li><li class="level-3" data-v-70334359><a href="/learning_blog/java/thread/BlockingQueue.html#构造方法-3" class="sidebar-link reco-side-构造方法-3" data-v-70334359>构造方法</a></li><li class="level-2" data-v-70334359><a href="/learning_blog/java/thread/BlockingQueue.html#delayqueue-缓存失效、定时任务" class="sidebar-link reco-side-delayqueue-缓存失效、定时任务" data-v-70334359>DelayQueue（缓存失效、定时任务）</a></li><li class="level-2" data-v-70334359><a href="/learning_blog/java/thread/BlockingQueue.html#synchronousqueue-不存储数据、可用于传递数据" class="sidebar-link reco-side-synchronousqueue-不存储数据、可用于传递数据" data-v-70334359>SynchronousQueue（不存储数据、可用于传递数据）</a></li><li class="level-3" data-v-70334359><a href="/learning_blog/java/thread/BlockingQueue.html#构造方法-4" class="sidebar-link reco-side-构造方法-4" data-v-70334359>构造方法</a></li><li class="level-2" data-v-70334359><a href="/learning_blog/java/thread/BlockingQueue.html#linkedtransferqueue" class="sidebar-link reco-side-linkedtransferqueue" data-v-70334359>LinkedTransferQueue</a></li><li class="level-2" data-v-70334359><a href="/learning_blog/java/thread/BlockingQueue.html#linkedblockingdeque" class="sidebar-link reco-side-linkedblockingdeque" data-v-70334359>LinkedBlockingDeque</a></li><li class="level-3" data-v-70334359><a href="/learning_blog/java/thread/BlockingQueue.html#构造方法-5" class="sidebar-link reco-side-构造方法-5" data-v-70334359>构造方法</a></li></ul></main> <!----></div></div></div></div><div class="global-ui"><div class="back-to-ceiling" style="right:1rem;bottom:6rem;width:2.5rem;height:2.5rem;border-radius:.25rem;line-height:2.5rem;display:none;" data-v-c6073ba8 data-v-c6073ba8><svg t="1574745035067" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5404" class="icon" data-v-c6073ba8><path d="M526.60727968 10.90185116a27.675 27.675 0 0 0-29.21455937 0c-131.36607665 82.28402758-218.69155461 228.01873535-218.69155402 394.07834331a462.20625001 462.20625001 0 0 0 5.36959153 69.94390903c1.00431239 6.55289093-0.34802892 13.13561351-3.76865779 18.80351572-32.63518765 54.11355614-51.75690182 118.55860487-51.7569018 187.94566865a371.06718723 371.06718723 0 0 0 11.50484808 91.98906777c6.53300375 25.50556257 41.68394495 28.14064038 52.69160883 4.22606766 17.37162448-37.73630017 42.14135425-72.50938081 72.80769204-103.21549295 2.18761121 3.04276886 4.15646224 6.24463696 6.40373557 9.22774369a1871.4375 1871.4375 0 0 0 140.04691725 5.34970492 1866.36093723 1866.36093723 0 0 0 140.04691723-5.34970492c2.24727335-2.98310674 4.21612437-6.18497483 6.3937923-9.2178004 30.66633723 30.70611158 55.4360664 65.4791928 72.80769147 103.21549355 11.00766384 23.91457269 46.15860503 21.27949489 52.69160879-4.22606768a371.15156223 371.15156223 0 0 0 11.514792-91.99901164c0-69.36717486-19.13165746-133.82216804-51.75690182-187.92578088-3.42062944-5.66790279-4.76302748-12.26056868-3.76865837-18.80351632a462.20625001 462.20625001 0 0 0 5.36959269-69.943909c-0.00994388-166.08943902-87.32547796-311.81420293-218.6915546-394.09823051zM605.93803103 357.87693858a93.93749974 93.93749974 0 1 1-187.89594924 6.1e-7 93.93749974 93.93749974 0 0 1 187.89594924-6.1e-7z" p-id="5405" data-v-c6073ba8></path><path d="M429.50777625 765.63860547C429.50777625 803.39355007 466.44236686 1000.39046097 512.00932183 1000.39046097c45.56695499 0 82.4922232-197.00623328 82.5015456-234.7518555 0-37.75494459-36.9345906-68.35043303-82.4922232-68.34111062-45.57627738-0.00932239-82.52019037 30.59548842-82.51086798 68.34111062z" p-id="5406" data-v-c6073ba8></path></svg></div><canvas id="vuepress-canvas-cursor"></canvas><div class="cat-container" data-v-a13867c0><canvas id="vuepress-cat" width="280" height="250" class="live2d" data-v-a13867c0></canvas></div><!----></div></div>
+    <script src="/learning_blog/assets/js/app.e6e1c34c.js" defer></script><script src="/learning_blog/assets/js/4.ff23c0b7.js" defer></script><script src="/learning_blog/assets/js/1.81582bd8.js" defer></script><script src="/learning_blog/assets/js/94.174920d9.js" defer></script><script src="/learning_blog/assets/js/8.f416b1e6.js" defer></script>
+  </body>
+</html>
