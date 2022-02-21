@@ -16,7 +16,6 @@ exports.config = {
             'CRUD',
             'DataType',
             'Engine',
-            'Interview',
             'Function',
             'Explain'
         ],
