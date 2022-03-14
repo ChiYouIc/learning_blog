@@ -69,15 +69,13 @@ JDK 8 做了一些较大的调整，当数组中每个格子里的链表，长�
 
 ### 什么是红黑树
 
-红黑树是一种复杂的树形结构，这里不做过于详细的解释，讲一下其基本的结构，有一个基本的概念。对于理解，还可以参考掘金上的一篇文章（掘金-漫画：什么是红黑树？@程序员小灰）非常不错！
-
 红黑树就是为了防止二叉树一些极端的情况，例如变成一条线状，或者左右不均衡，从二叉查找树，2-3树 等演变出来的一种树形结构。最主要的目的就是为了保持平衡。保证树的左右分支叶子等基本平衡。
 
 ## 源码分析
 
 ### 类成员
 
-``` java
+```java
 // 序列化自动生成的一个码，用来在正反序列化中验证版本一致性。
 private static final long serialVersionUID = 362498820763181265L;
 
@@ -139,7 +137,7 @@ final float loadFactor;
 
 ### Node 节点
 
-``` java
+```java
 static class Node<K,V> implements Map.Entry<K,V> {
     // 哈希码，用来查找位置以及比对元素是否相同
     final int hash;
@@ -189,7 +187,7 @@ static class Node<K,V> implements Map.Entry<K,V> {
 
 ### TreeNode 节点
 
-``` java
+```java
 static final class TreeNode<K,V> extends LinkedHashMap.Entry<K,V> {
     // 父节点
     TreeNode<K,V> parent;
@@ -216,7 +214,7 @@ static final class TreeNode<K,V> extends LinkedHashMap.Entry<K,V> {
 
 ### 构造方法
 
-``` java
+```java
 // 指定了具体容量大小和加载因子的构造函数
 public HashMap(int initialCapacity, float loadFactor) {
     if (initialCapacity < 0)
@@ -251,7 +249,7 @@ public HashMap(Map<? extends K, ? extends V> m) {
 
 #### tableSizeFor
 
-``` java
+```java
 /**
  * 返回一个大于输入参数，且最接近的，2的整数次幂的数
  * 只是一个初始化内容，创建哈希表时，会再重新赋值
@@ -269,7 +267,7 @@ static final int tableSizeFor(int cap) {
 
 #### putMapEntries
 
-``` java
+```java
 final void putMapEntries(Map<? extends K, ? extends V> m, boolean evict) {
     // 拿到给定 Map 的长度
     int s = m.size();
@@ -315,7 +313,7 @@ public V put(K key, V value) {
 
 #### putVal()
 
-``` java
+```java
 final V putVal(int hash, K key, V value, boolean onlyIfAbsent, boolean evict) {
     Node<K,V>[] tab;
     Node<K,V> p;
@@ -404,7 +402,7 @@ final V putVal(int hash, K key, V value, boolean onlyIfAbsent, boolean evict) {
 
 同样 get 方法中也用到了 hash 方法计算 key 的哈希值，同样跳转到 3.1 可看，也可以看完最后去看也可以。
 
-``` java
+```java
 public V get(Object key) {
     Node<K,V> e;
     return (e = getNode(hash(key), key)) == null ? null : e.value;
@@ -413,7 +411,7 @@ public V get(Object key) {
 
 #### getNode
 
-``` java
+```java
 final Node<K,V> getNode(int hash, Object key) {
     Node<K,V>[] tab;
     Node<K,V> first, e;
@@ -446,7 +444,7 @@ final Node<K,V> getNode(int hash, Object key) {
 
 同样 get 方法中也用到了 hash 方法计算 key 的哈希值，同样跳转到 3.1 可看，也可以看完最后去看也可以。
 
-``` java
+```java
 public V remove(Object key) {
     Node<K,V> e;
     return (e = removeNode(hash(key), key, null, false, true)) == null ? null : e.value;
@@ -455,7 +453,7 @@ public V remove(Object key) {
 
 #### removeNode()
 
-``` java
+```java
 final Node<K,V> removeNode(int hash, Object key, Object value, boolean matchValue, boolean movable) {
     Node<K,V>[] tab; Node<K,V> p; int n, index;
     // 桶不为空，映射的哈希值也存在
@@ -504,7 +502,7 @@ resize 在程序中是非常耗时的。要尽量避免用它。
 
 其过程中会重新分配 hash ，然后遍历hash表中所有的元素。
 
-``` java
+```java
 final Node<K,V>[] resize() {
     Node<K,V>[] oldTab = table;
     int oldCap = (oldTab == null) ? 0 : oldTab.length;
@@ -593,11 +591,11 @@ final Node<K,V>[] resize() {
 
 ## 重点分析
 
-### hash() 中的扰动函数如何解决Hash冲突 
+### hash() 中的扰动函数如何解决Hash冲突
 
 看HashMap的put方法源码：
 
-``` java
+```java
   //HashMap 源码节选-JDK8
   public V put(K key, V value) {
       return putVal(hash(key), key, value, false, true);
@@ -608,7 +606,7 @@ final Node<K,V>[] resize() {
 
 接着定位到hash方法的源码：
 
-``` java
+```java
 static final int hash(Object key) {
     int h;
     return (key == null) ? 0 : (h = key.hashCode()) ^ (h >>> 16);
@@ -626,8 +624,6 @@ JDK8中 HashMap——hash 方法中的这段代码叫做 “扰动函数”。
 我们来分析一下：
 
 hashCode 是 Object 类中的一个方法，在子类中一般都会重写，而根据我们之前自己给出的程序，暂以 Integer 类型为例，我们来看一下 Integer 中 hashCode 方法的源码：
-
- 
 
 ```java
   /**
@@ -661,8 +657,6 @@ Integer 中 hashCode 方法的返回值就是这个数本身。
 
 所以，下面的 A、B 两个式子就是等价的
 
- 
-
 ```java
   //注：key为 hash(Object key)参数
   A：(h = key.hashCode()) ^ (h >>> 16)
@@ -674,8 +668,6 @@ Integer 中 hashCode 方法的返回值就是这个数本身。
 HashSet因为底层使用**哈希表（链表结合数组）**实现，存储时key通过一些运算后得出自己在数组中所处的位置。
 
 我们在 hashCoe 方法中返回到了一个等同于本身值的散列值，但是考虑到 int 类型数据的范围：-2147483648 \~ 2147483647 ，着很显然，这些散列值不能直接使用，因为内存是没有办法放得下，一个 40 亿长度的数组的。所以它使用了对数组长度进行取模运算，得余后再作为其数组下标，`indexFor()` ——JDK7中，就这样出现了，在JDK8中 `indexFor()` 就消失了，而全部使用下面的语句代替，原理是一样的。
-
- 
 
 ```java
   //JDK8中
@@ -698,8 +690,6 @@ HashSet因为底层使用**哈希表（链表结合数组）**实现，存储时
 HashMap中初始长度为16，length - 1 = 15；其二进制表示为 00000000 00000000 00000000 00001111
 
 而与运算计算方式为：遇0则0，我们随便举一个key值
-
- 
 
 ```
           1111 1111 1010 0101 1111 0000 0011 1100

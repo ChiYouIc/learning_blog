@@ -8,6 +8,14 @@ tags:
  - 面试
 ---
 
+## SpringCloud 有那些组件？
+
+- 注册中心（Eureka、Nacos、Zookeeper）
+- 服务调用（Feign）
+- 负载均衡（Ribbon）
+- 服务容错与保护（hystrix）
+- 服务网关（Zuul、Gateway）
+- 配置中心（Nacos、Config）
 
 
 ## 熔断和限流怎么做？
