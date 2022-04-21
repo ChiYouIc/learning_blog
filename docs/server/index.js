@@ -24,9 +24,9 @@ exports.config = {
         //     'http/HttpProtocol',
         //     'CookieAndSession'
         // ],
-        // '/server/nginx/': [
-        //     ''
-        // ],
+        '/server/nginx/': [
+            ''
+        ],
         '/server/docker/': [
             '',
             'Use'
