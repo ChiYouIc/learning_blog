@@ -24,9 +24,9 @@ const plugins = {
             theme: '好吧，希望你能喜欢我的其他小伙伴。',
             close: '你知道我喜欢吃什么吗？痴痴地望着你。'
         },
-        messageStyle: { right: '68px', bottom: '190px' },
-        modelStyle: { right: '90px', bottom: '-20px', opacity: '0.9' },
-        btnStyle: { right: '90px', bottom: '40px' },
+        messageStyle: {right: '68px', bottom: '190px'},
+        modelStyle: {right: '90px', bottom: '-20px', opacity: '0.9'},
+        btnStyle: {right: '90px', bottom: '40px'},
         width: 200,
         height: 300
     },
@@ -44,7 +44,7 @@ const plugins = {
 }
 
 const nav = [
-    { text: '首页', link: '/', icon: 'reco-home' },
+    {text: '首页', link: '/', icon: 'reco-home'},
     java.config.nav,
     go.config.nav,
     spring.config.nav,
@@ -52,7 +52,7 @@ const nav = [
     database.config.nav,
     server.config.nav,
     architect.config.nav,
-    { text: '时间线', link: '/timeline/', icon: 'reco-date' }
+    {text: '时间线', link: '/timeline/', icon: 'reco-date'}
 ]
 
 
@@ -70,8 +70,9 @@ function handleSidebar() {
 
 module.exports = {
     head: [
-        ['link', { rel: 'icon', href: '/logo.png' }],
-        ['link', { rel: 'manifest', href: '/manifest.json' }],
+        ['link', {rel: 'icon', href: '/logo.png'}],
+        ['link', {rel: 'manifest', href: '/manifest.json'}],
+        ['link', {rel: "stylesheet", href: "https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css"}]
     ],
     plugins,
     title: '一兜小白菜',
@@ -111,10 +112,10 @@ module.exports = {
             },
             // 信息栏展示社交信息
             socialLinks: [
-                { icon: 'reco-github', link: 'https://github.com/ChiYouIc' },
-                { icon: 'reco-mayun', link: 'https://gitee.com/athenIc' },
-                { icon: 'reco-wechat', link: 'https://github.com/ChiYouIc' },
-                { icon: 'reco-qq', link: 'https://github.com/ChiYouIc' },
+                {icon: 'reco-github', link: 'https://github.com/ChiYouIc'},
+                {icon: 'reco-mayun', link: 'https://gitee.com/athenIc'},
+                {icon: 'reco-wechat', link: 'https://github.com/ChiYouIc'},
+                {icon: 'reco-qq', link: 'https://github.com/ChiYouIc'},
             ]
         },
         // 友情链接
@@ -135,12 +136,14 @@ module.exports = {
     // markdown 扩展
     markdown: {
         // markdown-it-anchor 的选项
-        anchor: { permalink: false },
+        anchor: {permalink: false},
         // markdown-it-toc 的选项
-        toc: { includeLevel: [1, 2] },
+        toc: {includeLevel: [1, 2]},
         extendMarkdown: md => {
+            md.set({html: true})
             // 使用更多的 markdown-it 插件!
             md.use(require('markdown-it-plantuml'))
+            md.use(require('markdown-it-mathjax3'))
         }
     }
 }
