@@ -18,7 +18,8 @@ exports.config = {
             'Engine',
             'Function',
             'Explain',
-            'IndexFail'
+            'IndexFail',
+            'InsertBatch',
         ],
         '/database/redis/': [
             '',
