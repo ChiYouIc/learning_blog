@@ -57,7 +57,8 @@ exports.config = {
             'TreeSet',
             'HashMap7',
             'HashMap8',
-            'Hashtable'
+            'Hashtable',
+            'DelayQueue'
         ],
         '/java/io/': [],
         '/java/nio/': [
