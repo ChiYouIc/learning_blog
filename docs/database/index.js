@@ -7,6 +7,7 @@ exports.config = {
             {text: 'MySQL', link: '/database/mysql/'},
             {text: 'Redis', link: '/database/redis/'},
             {text: 'MongoDB', link: '/database/mongodb/'},
+            {text: 'RabbitMQ', link: '/database/rabbit/'},
         ], icon: 'fas fa-database'
     },
     sidebar: {
@@ -34,6 +35,10 @@ exports.config = {
         ],
         '/database/mongodb/': [
             ''
+        ],
+        '/database/rabbit/': [
+            '',
+            'RabbitMQ'
         ]
     }
 }
