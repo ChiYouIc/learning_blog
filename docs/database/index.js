@@ -39,7 +39,8 @@ exports.config = {
         '/database/rabbit/': [
             '',
             'RabbitMQ',
-            'SimpleModel'
+            'SimpleModel',
+            'WorkQueuesModel'
         ]
     }
 }
