@@ -40,7 +40,9 @@ exports.config = {
             '',
             'RabbitMQ',
             'SimpleModel',
-            'WorkQueuesModel'
+            'WorkQueuesModel',
+            'MessageACK',
+            'MessagePersistence'
         ]
     }
 }
