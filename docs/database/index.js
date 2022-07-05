@@ -42,7 +42,8 @@ exports.config = {
             'SimpleModel',
             'WorkQueuesModel',
             'MessageACK',
-            'MessagePersistence'
+            'MessagePersistence',
+            'PublishConfirm'
         ]
     }
 }
