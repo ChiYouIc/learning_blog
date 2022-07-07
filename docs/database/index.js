@@ -43,7 +43,11 @@ exports.config = {
             'WorkQueuesModel',
             'MessageACK',
             'MessagePersistence',
-            'PublishConfirm'
+            'PublishConfirm',
+            'Exchange',
+            'Direct',
+            'Topic',
+            'Fanout'
         ]
     }
 }
