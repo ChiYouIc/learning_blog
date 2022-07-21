@@ -47,7 +47,8 @@ exports.config = {
             'Exchange',
             'Direct',
             'Topic',
-            'Fanout'
+            'Fanout',
+            'DeadQueue'
         ]
     }
 }
