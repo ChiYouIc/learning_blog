@@ -48,7 +48,8 @@ exports.config = {
             'Direct',
             'Topic',
             'Fanout',
-            'DeadQueue'
+            'DeadQueue',
+            'DelayedQueue'
         ]
     }
 }
