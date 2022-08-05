@@ -75,7 +75,7 @@ RabbitMQ 是一个消息中间件：它接受并转发消息。你可以把它�
 
 **应用场景**：需要等待接口返回数据，如订单支付。
 
-#### Publisher Confirms
+### Publisher Confirms
 与发布者进行可靠的发布确认，Publisher Confirms 是 RabbitMQ 扩展，可以实现可靠的发布。在通道上启用 Publisher Confirms，RabbitMQ 将异步确认发送者发布的消息，这意味着它们已在服务器端处理。
 
 **应用场景：** 对于消息可靠性要求较高，比如钱包扣款。
