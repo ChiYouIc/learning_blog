@@ -49,7 +49,9 @@ exports.config = {
             'Topic',
             'Fanout',
             'DeadQueue',
-            'DelayedQueue'
+            'DelayedQueue',
+            'PublishConfirmAdvanced',
+            'Other',
         ]
     }
 }
